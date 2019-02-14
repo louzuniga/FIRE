@@ -4,17 +4,20 @@
   "description": "FIRE app",
   "main": "server.js",
   "dependencies": {
+    "ajax": "0.0.4",
     "express": "^4.16.4",
-    "mocha": "^5.2.0"
+    "mongoose": "^5.4.11",
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "chai-http": "^4.2.1"
+    "chai-http": "^4.2.1",
+    "mocha": "^5.2.0"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Lou Zuniga",
+  "license": "MIT"
 }

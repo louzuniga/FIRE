@@ -34,6 +34,8 @@
 *	User wants results emailed to her
 
 ## Wireframe
+![Login Page](/Images/Wireframe-login.png)  |  ![Login Page](/Images/Wireframe-questions.png) 
+![Login Page](/Images/Wireframe-logger.png)  |  ![Login Page](/Images/Wireframe-results.png) 
 
 ## Functionality 
 *	As a user, I should be able identify my habits and lifestyle based off of the quiz

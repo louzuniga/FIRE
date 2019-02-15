@@ -1,10 +1,15 @@
 # Lead Your Life to FIRE!
-FIRE stands for "Financial Independence, early retirement". This app is designed to display a broad picture of what financial independence means to you and how long it will take you to get there based on your current income, expenses and savings. 
+> FIRE stands for "Financial Independence, early retirement". This app is designed to display a broad picture of what financial independence means to you and how long it will take you to get there based on your current income, expenses and savings. 
 
-The app was created using HTML, CSS, JavaScript, Node, Mongodb, Heroku and mLab.
+> The app was created using HTML, CSS, JavaScript, Node, MongoDB, Heroku and mLab.
 
 ## Live App 
 [](https://)
+
+## Technology 
+> #### **Front-End:** HTML, CSS, JavaScript, jQuery
+> #### **Back-End:**  Node, Express, Mocha, Chai, RESTful API, MongoDB, Mongoose
+> #### **Host:**  mLab, Heroku
 
 ## Screenshots
 
@@ -39,19 +44,14 @@ The app was created using HTML, CSS, JavaScript, Node, Mongodb, Heroku and mLab.
 
 ## Business Objects (Database Structure) 
 
-## Technology 
-    #### Front-End: ##### HTML, CSS, JavaScript, jQuery
-    #### Back-End: ##### Node, Express, Mocha, Chai, RESTful API, MongoDB, Mongoose
-    #### Host: ##### mLab, Heroku
-
 
 ## Development Roadmap 
-Functionality to-do task list
-- [] login and sign-up 
-- [] mini quiz and logger layout
-- [] CRUD operations for logging
-- [] api/develop tool to output results
-- [] fix design(CSS)
-- [] fucntionality to email/print results
-- [] make sure integration testing is implemented during developemtn cycle
+> Functionality to-do task list
+- [ ] login and sign-up page
+- [ ] mini quiz and logger layout
+- [ ] CRUD operations for logging
+- [ ] api/develop tool to output results
+- [ ] implement (CSS)
+- [ ] functionality to email/print results
+- [ ] make sure integration testing is implemented during development cycle
 

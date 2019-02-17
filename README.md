@@ -1,4 +1,4 @@
-# Lead Your Life to FIRE!
+# Light Your Life on FIRE!
 > FIRE stands for "Financial Independence, early retirement". This app is designed to display a broad picture of what financial independence means to you and how long it will take you to get there based on your current income, expenses and savings. 
 
 > The app was created using HTML, CSS, JavaScript, Node, MongoDB, Heroku and mLab.
@@ -48,7 +48,21 @@ Logging  | Results
 *	As a user, I should be able see the results and when I am potentially financially independent
 
 ## Business Objects (Database Structure) 
-
+*   Username
+    *   username
+    *   password
+    *   Email
+*   Questionnaire 
+    *   Questions - general questions
+    *   Response - user responses
+*   Logging
+    *   Income
+    *   Expense
+    *   Savings/Investments
+*   Results
+    *   Input for income
+    *   Input for expenses
+    *   Input for savings
 
 ## Development Roadmap 
 > Functionality to-do task list

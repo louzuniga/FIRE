@@ -2,13 +2,53 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const User = require('./models/user');
 
 const app = express();
 
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    res.send('Testing root directory');
+//user sign-in
+app.post('/users/login', (req, res) => {
+    
+    //username and password from ajax api call
+    const username = req.body.username;
+    const password = req.body.password;
+
+    //connect to the databas and validate username and password
+    User.findOne ({
+        username: username 
+    }, (err, items) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Can't connect to eh Datebase"
+            });
+        }
+        //username not found
+        if (!items) {
+            return res.status(401).json ({
+                message: "Usename not found"
+            });
+        }
+        //username found
+        else {
+            items.validatePassword(password, (err, isValiid) => {
+                if (err) {
+                    return res.status(500).json({
+                        message: "Cannot connect to DB to validate password"
+                    });
+                }
+                if (!isVaslid) {
+                    return res.status(401).json({
+                        message: "Password invalid"
+                    });
+                }
+                else {
+                    return res.json(items);
+                }
+            });
+        };
+    });
 });
 
 //DB config

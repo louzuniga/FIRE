@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "ajax": "0.0.4",
+    "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
     "mongoose": "^5.4.11",
     "nodemon": "^1.18.10"

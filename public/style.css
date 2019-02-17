@@ -1,0 +1,129 @@
+
+
+
+ body {
+    font-family: 'Lato', sans-serif;
+    color: #FFF;
+    background: #656b71;
+    -webkit-font-smoothing: antialiased;
+}
+ul {
+    margin: 0;
+    padding:0;
+    list-style: none;
+}
+h1 {
+    text-align: center;
+}
+
+/* Login */
+.login-container {;
+  
+}
+fieldset {
+    border: none;
+}
+
+/* Navigation Bar */
+#nav {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.nav-list
+{
+    float: right;
+}
+.nav-list a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    /* border-right: 1px solid #bbb; */
+}
+.nav-list a:hover {
+    background-color: rgb(51, 53, 55);
+    border-radius: 5px; 
+}
+.home {
+    background-color: rgb(53, 70, 80);
+    border-radius: 5px;
+}
+
+
+/* Footer */
+footer {
+    position: fixed;
+    left: 0px;
+    height: 30px;
+    font-size: 12px;
+    padding: 5px;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+.social-icon {
+    color: #fff;
+}
+.social-icons li {
+    vertical-align: top;
+    display: inline;
+}
+.social-icons a {
+    color: #fff;
+    text-decoration: none;
+}
+.fa-twitter {
+    padding:10px 12px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+}
+.fa-twitter:hover {
+    background-color: #00aced;
+    border-radius: 5px;
+}
+.fa-envelope-open {
+    padding:10px 14px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+}
+.fa-envelope-open:hover {
+    background-color: #e64a41;
+    border-radius: 5px;
+}
+.fa-linkedin {
+    padding:10px 14px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+}
+.fa-linkedin:hover {
+    background-color: #0073a4;
+    border-radius: 5px;
+}
+.fa-github-alt {
+    padding:10px 9px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+}
+.fa-github-alt:hover {
+    background-color: #383635;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    #nav {float: none;}
+}

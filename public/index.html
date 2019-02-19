@@ -7,42 +7,78 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <link rel="stylesheet" href="style.css">
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
+    <!-- Navigation Bar -->
     <header>
         <nav class="nav-bar">
-            <ul class="nav">
+            <ul id="nav">
+                <li class="nav-list"><a href="">Home</a></li>
                 <li class="nav-list"><a href="">Questionaire</a></li>
                 <li class="nav-list"><a href="">Log</a></li>
                 <li class="nav-list"><a href="">Results</a></li>
-                <li style="float: left;" class="home nav-list"><a href="">Home</a></li>
+                <li style="float: left;" class="nav-list" id="google-translate"> Translate this page:</li>
             </ul>
         </nav>
     </header>
-    <h1>Light your life on FIRE!</h1>
-    <div class="login-container">
-        <form class="login">
-            <legend>Login</legend>
-            <fieldset>
-                <label for="loginUsername">Username</label>
-                <input type="text" id="loginUsername" placeholder="Groot" value="Groot">
-                <label for="loginPassword">Password</label>
-                <input type="password" id="loginPassword" placeholder="iAMgroot" value="secretpass">
-            </fieldset>
-            <button type="submit" class="login-sbumit" id="logi-button">Sign In</button>
+    
+    <!-- Login Form -->
+    <form id="login" action="">
+        <div class="image-container">
+            <img src="https://www.colesclassroom.com/wp-content/uploads/2017/08/Sunset-pexels-photo-132037_BLOG.jpg" alt="Pier on the river with sunset" class="login-image">
+        </div>
+        <div class="form-container">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" class="loginUsername" name="username" >
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" class="loginPassword" name="password" >
+
+            <button type="submit" class="login-button">Login</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember">Remember Me
+            </label>
+
             <br>
-            <span>Need to <button id="change-form-signup">Sign up</button>?</span>
-        </form>
-    </div>
+            <label for="signup"> <a class="signup" href="">Sign Up</a></label>
+        </div>
+    </form>
 
-    <!-- form for sign-up -->
+    <!-- Sign-up Form -->
+    <form id="signup-form" class="hidden">
+        <div class="form-container">
+            <h2>Sign Up</h2>
+            <p>Please fill in the information requested to create an account.</p>
+            <hr>
 
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Email" name="email">
+
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Choose a username" name="username" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Choose a password" name="password" required>
+
+            <label for="pass-repeat"><b>Repeat Password</b></label>
+            <input type="password" placeholder="Repeat Password" name="pass-repeat" required>
+
+            <label>
+                <input type="checkbox" checked="checked" name="remember">Remember me
+            </label>
+
+            <p>By creating an account you agree that this is currently a test application. </p>
+
+            <div class="clearfix">
+                <button type="button" class="cancelbtn">Cancel</button>
+                <button type="button" class="signupbtn">Sign Up</button>
+            </div>
+        </div>
+    </form>
 
     <!-- questions -->
-        <div id="questions">
-            
-
-        </div>
+        <div id="questionnaire" class="hidden"></div>
 
 
     <!-- logging template with input fields for income, expense, savings/investments-->

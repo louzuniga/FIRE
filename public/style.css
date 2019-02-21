@@ -5,7 +5,6 @@
 
  body {
     font-family: 'Lato', sans-serif;
-    color: #FFF;
     background: #a9c3dd;
     -webkit-font-smoothing: antialiased;
 }
@@ -17,6 +16,11 @@ ul {
 .hidden {
     display: none;
 }
+.questions-form {
+    display: block;
+    margin: 0 0 3px 0;
+}
+
 /* Login Form */
 input {
     padding: 12px 20px;
@@ -49,13 +53,18 @@ input {
     margin: 30px 0 0;
 }
 .form-container {
-    padding: 0 0 0 160px;
+    padding: 0 0 0 140px;
     margin: 0 auto;
     width: 300px;
     height:300px;
 }
 h2 {
     margin: 60px 0 0;
+}
+
+/* Questionnaire Form */
+#questionnaire{
+    margin: 140px 40px 0 40px;
 }
 
 
@@ -88,9 +97,60 @@ h2 {
 }
 
 
+/* Style the form */
+#questions-form {
+    background-color: #ffffff;
+    margin: 100px auto;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
+  }
+  
+  /* Style the input fields */
+  input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+  }
+  
+  /* Mark input boxes that gets an error on validation: */
+  input.invalid {
+    background-color: #ffdddd;
+  }
+  
+  /* Hide all steps by default: */
+  .tab {
+    display: none;
+  }
+  
+  /* Make circles that indicate the steps of the form: */
+  .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none; 
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  /* Mark the active step: */
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #4CAF50;
+  }  
+
+
 /* Footer */
 footer {
-    position: fixed; 
+    /* position: fixed;  */
     left: 0px;
     height: 30px;
     font-size: 12px;

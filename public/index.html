@@ -7,28 +7,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <link rel="stylesheet" href="style.css">
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
 </head>
 <body>
     <!-- Navigation Bar -->
     <header>
         <nav class="nav-bar">
             <ul id="nav">
-                <li class="nav-list home"><a href="">Home</a></li>
-                <li id="questionnaireBtn" class="nav-list"><a href="">Questionaire</a></li>
-                <li class="nav-list log"><a href="">Log</a></li>
-                <li id="results" class="nav-list"><a href="">Results</a></li>
+                <li class="nav-list home">
+                    <a href="/">Home</a>
+                </li>
+                <li id="questionnaireBtn" class="nav-list">
+                    <a>Questionaire</a>
+                </li>
+                <li class="nav-list log">
+                    <a>Log</a>
+                </li>
+                <li id="results" class="nav-list">
+                    <a>Results</a>
+                </li>
                 <li style="float: left;" class="nav-list" id="google-translate"> Translate this page:</li>
             </ul>
         </nav>
     </header>
     
     <!-- Login Form -->
-    <form id="login" action="">
-        <div class="image-container">
+    <form id="login" class="hideme">
+         <div class="image-container">
             <img src="https://www.colesclassroom.com/wp-content/uploads/2017/08/Sunset-pexels-photo-132037_BLOG.jpg" alt="Pier on the river with sunset" class="login-image">
         </div>
         <div class="form-container">
@@ -39,18 +43,18 @@
             <input type="password" placeholder="Enter Password" class="loginPassword" name="password" >
 
             <button type="submit" class="login-button">Login</button>
-            <label>
+            <label> 
                 <input type="checkbox" checked="checked" name="remember">Remember Me
             </label>
 
             <br>
-            <label for="signup"> <a class="signup" href="">Sign Up</a></label>
-        </div>
+            <label for="signup"> <a class="signup-nav" href="">Sign Up</a></label>
+         </div>
     </form>
 
     <!-- Sign-up Form -->
-    <form id="signup-form" class="hidden">
-        <div class="form-container">
+    <div class="form-container">
+        <form id="signup-form" class="hideme">
             <h2>Sign Up</h2>
             <p>Please fill in the information requested to create an account.</p>
             <hr>
@@ -77,8 +81,8 @@
                 <button type="button" class="cancelbtn">Cancel</button>
                 <button type="button" class="signupbtn">Sign Up</button>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 
     <!-- questions js-container-->
         <!-- <div id="questionnaire" class="hidden">
@@ -87,7 +91,7 @@
         </div> -->
 
     <!-- Another form of questions -->
-    <div id="questions-form" class="hidden">
+    <div id="questions-form" class="hideme">
         <h2>How do you really feel?</h2>
         <p>Let's start off with a short quiz to gauge your mindset toward FIRE.</p>
         </br>
@@ -181,7 +185,7 @@
 
 
     <!-- logging template with input fields for income, expense, savings/investments-->
-    <div id="logging" class="hidden">
+    <div id="logging" class="hideme">
         <table class="log-table">
             <caption>Monthly Income</caption>
             <tr>
@@ -239,7 +243,8 @@
 
 
     <!-- high chart https://www.highcharts.com/demo -->
-    <div id="container" class="hidden" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+    <div id="container" class="hideme"></div>
+
 
     <!-- results -->
 
@@ -256,9 +261,17 @@
             </ul>
         </div>
     </footer>
-    
+    <!-- <script type="text/javascript"  src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script 
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script>
+    //Google translate ***************
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google-translate');
+        }</script> -->
     <script src="client.js"></script>
     <script src="questions.js"></script>
 </body>

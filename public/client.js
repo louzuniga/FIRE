@@ -53,9 +53,9 @@ const loginForm = () => {
     $('.login-button').click((event) => {
         event.preventDefault();
     
-        $('#login').hide();
-        $('#questionnaire').show();
-        $('#questionnaire').html(generateQuestions());
+        // $('.hideme').hide();
+        // $('#questionnaire').show();
+        // $('#questionnaire').html(generateQuestions());
     
         const username = $('.loginUsername').val();
         const password = $('.loginPassword').val();
@@ -95,11 +95,12 @@ const loginForm = () => {
 
 
 // Sign Up Form **************
-
-$('.signup').click((event) => {
-    event.preventDefault();
-
-    $('#login').hide();
+const signupForm = (event) => {
+    event.preventDefault()
+    
+$('.signup-nav').click(() => {
+   
+    $('.hideme').hide();
     $('#signup-form').show();
 
 //cancel button clicked return to landing page
@@ -109,39 +110,44 @@ $('.signup').click((event) => {
 
 // when sign up button clicked create a new user and store it in the db 
 //then go to questionnaire 
-    $('.signupbtn').click(() => {
+    // $('.signupbtn').click(() => {
         
+    // });
     });
-});
+};  
 
 // Generate questions **************
 //when questionnaireBtn clicked show questions and hide signup form
 
     $('#questionnaireBtn').click( (event) => {
         event.preventDefault();
+        $('.hideme').hide();
         $('#questions-form').show();
-        $('#login').hide();
-        console.log('question btn clicked')
     });
 
 
 //show next button and then next and prev button 
 
 
-//Chart function ***************
-//when results is clicked show results page
-const chart = () => {
-    $('#results').click(() => {
-        $('#login').hide();
-        $('#container').removeClass('hidden');
+// Log ******************
+const logging = () => {
+    $('.log').click( () => {
+       
+        $('.hideme').hide();
+        $('#logging').show();
     });
 };
 
 
-//Google translate ***************
-function googleTranslateElementInit() {
-    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google-translate');
-}
+//Chart function ***************
+//when results is clicked show results page
+const chart = () => {
+    $('#results').click(() => {
+
+        $('.hideme').hide();
+        $('#container').show();
+    });
+};
 
 // Footer and copyright ************
 const copyright = () => {
@@ -151,10 +157,14 @@ const copyright = () => {
 
 
 const watchForm = () => {
-    googleTranslateElementInit();
+    $('.hideme').hide();
+    $('#login').show();
+    // googleTranslateElementInit();
     loginForm();
     copyright();
     chart();
+    logging();
+    signupForm();
 };
 
 

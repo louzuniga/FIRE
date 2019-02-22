@@ -48,27 +48,31 @@ input {
 }
 .login-image {
     width: 50%;
-    height: 40%;
     border-radius: 5px;
-    margin: 30px 0 0;
+    margin: 40px 0 0;
 }
 .form-container {
-    padding: 0 0 0 140px;
     margin: 0 auto;
     width: 300px;
-    height:300px;
 }
 h2 {
     margin: 60px 0 0;
 }
 
-/* Questionnaire Form */
+/* Questionnaire Form *********/
 #questionnaire{
     margin: 140px 40px 0 40px;
 }
 
+/* Chart ********* */
+#container {
+    min-width: 310px; 
+    height: 400px; 
+    max-width: 600px; 
+    margin: 100px auto;
+}
 
-/* Log */
+/* Log ********/
 .log-table {
     padding: 8px;
     margin: 100px auto;
@@ -172,14 +176,11 @@ caption {
 
 /* Footer */
 footer {
-    /* position: fixed;  */
-    left: 0px;
-    height: 30px;
     font-size: 12px;
     padding: 5px;
-    bottom: 10px;
     width: 100%;
     text-align: center;
+    display: block;
 }
 .social-icon {
     color: #fff;

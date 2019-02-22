@@ -25,6 +25,7 @@
         showInLegend: true
       }
     },
+    //the results will be extracted from the logger
     series: [{
       name: 'Brands',
       colorByPoint: true,
@@ -41,7 +42,7 @@
         y: 10.85
       }, {
         name: 'Savings',
-        y: 4.67
+        y: 4.67  
       }]
     }]
   });
@@ -101,12 +102,13 @@ $('.signup').click((event) => {
     $('#login').hide();
     $('#signup-form').show();
 
-//cancel button clicked
+//cancel button clicked return to landing page
     $('.cancelbtn').click(() => {
         location.reload();
     });
 
-//sign up button clicked
+// when sign up button clicked create a new user and store it in the db 
+//then go to questionnaire 
     $('.signupbtn').click(() => {
         
     });
@@ -127,12 +129,13 @@ $('.signup').click((event) => {
 
 
 //Chart function ***************
-// const chart = () => {
-//     $('#results').click(() => {
-//         $('#login').hide();
-//         $('#container').removeClass('hidden');
-//     });
-// };
+//when results is clicked show results page
+const chart = () => {
+    $('#results').click(() => {
+        $('#login').hide();
+        $('#container').removeClass('hidden');
+    });
+};
 
 
 //Google translate ***************

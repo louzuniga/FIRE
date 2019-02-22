@@ -68,6 +68,28 @@ h2 {
 }
 
 
+/* Log */
+.log-table {
+    padding: 8px;
+    margin: 100px auto;
+    width: 50%;
+    min-width: 300px;
+}
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(75, 109, 138);
+    color: white;
+}
+tr {
+    padding: 30px;
+}
+caption {
+    font-size: 30px;
+    font-weight:  bolder;
+    color: darkslategrey
+}
 /* Navigation Bar */
 #nav {
     overflow: hidden;

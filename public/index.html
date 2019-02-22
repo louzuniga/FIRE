@@ -181,10 +181,65 @@
 
 
     <!-- logging template with input fields for income, expense, savings/investments-->
+    <div id="logging" class="hidden">
+        <table class="log-table">
+            <caption>Monthly Income</caption>
+            <tr>
+                <th>Source of Income 
+                    <input type="text" placeholder="salary">
+                    <input type="text">
+                    <input type="text">
+                    <button class="income-add">Add row</button>
+                </th>
+                <th>Amount
+                    <input type="text" placeholder="4000">
+                    <input type="text">
+                    <input type="text">
+                    <button class="income-add">Add row</button>
+                </th>
+            </tr>
+        </table>
+        
+        <table class="log-table">
+            <caption>Monthly Expenses</caption>
+            <tr>
+                <th>Expense Type
+                    <input type="text" placeholder="mortgage">
+                    <input type="text">
+                    <input type="text">
+                    <button class="income-add">Add row</button>
+                </th>
+                <th>Amount
+                    <input type="text" placeholder="1000">
+                    <input type="text">
+                    <input type="text">
+                    <button class="income-add">Add row</button>
+                </th>
+            </tr>
+        </table>
+
+        <table class="log-table">
+            <caption>Monthly Savings</caption>
+            <tr>
+                <th>Source of Savings 
+                    <input type="text" placeholder="401K">
+                    <input type="text">
+                    <input type="text">
+                    <button class="income-add">Add row</button>
+                </th>
+                <th>Amount 
+                    <input type="text" placeholder="530">
+                    <input type="text">
+                    <input type="text">
+                    <button class="income-add">Add row</button>
+                </th>
+            </tr>
+        </table>
+    </div>
 
 
     <!-- high chart https://www.highcharts.com/demo -->
-    <div id="container" class="" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+    <div id="container" class="hidden" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 
     <!-- results -->
 

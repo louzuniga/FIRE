@@ -55,7 +55,7 @@ const loginForm = () => {
     
         // $('.hideme').hide();
         // $('#questionnaire').show();
-        // $('#questionnaire').html(generateQuestions());
+        // 
     
         const username = $('.loginUsername').val();
         const password = $('.loginPassword').val();
@@ -123,6 +123,7 @@ $('.signup-nav').click(() => {
         event.preventDefault();
         $('.hideme').hide();
         $('#questions-form').show();
+        $('#questions-form').html(generateQuestions());
     });
 
 
@@ -165,6 +166,8 @@ const watchForm = () => {
     chart();
     logging();
     signupForm();
+    generateQuestions();
+    nextQuestion();
 };
 
 

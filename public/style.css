@@ -63,6 +63,16 @@ h2 {
 #questionnaire{
     margin: 140px 40px 0 40px;
 }
+.next-prev {
+    overflow:auto;
+}
+.next-prev-float {
+    float:right;
+}
+.step-circles {
+    text-align:center;
+    margin-top:40px;
+}
 
 /* Chart ********* */
 #container {
@@ -94,6 +104,7 @@ caption {
     font-weight:  bolder;
     color: darkslategrey
 }
+
 /* Navigation Bar */
 #nav {
     overflow: hidden;
@@ -120,6 +131,10 @@ caption {
 .home {
     background-color: rgb(53, 70, 80);
     border-radius: 5px;
+}
+/* Floating nav element */
+.floating-nav {
+    float: left;
 }
 
 

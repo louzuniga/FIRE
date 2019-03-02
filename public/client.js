@@ -53,10 +53,6 @@ const loginForm = () => {
     $('.login-button').click((event) => {
         event.preventDefault();
     
-        // $('.hideme').hide();
-        // $('#questionnaire').show();
-        // 
-    
         const username = $('.loginUsername').val();
         const password = $('.loginPassword').val();
     
@@ -95,11 +91,9 @@ const loginForm = () => {
 
 
 // Sign Up Form **************
-const signupForm = (event) => {
-    event.preventDefault()
-    
-$('.signup-nav').click(() => {
-   
+const signupForm = () => {
+$('.signup-nav').click((event) => {
+    event.preventDefault();
     $('.hideme').hide();
     $('#signup-form').show();
 
@@ -108,26 +102,30 @@ $('.signup-nav').click(() => {
         location.reload();
     });
 
-// when sign up button clicked create a new user and store it in the db 
-//then go to questionnaire 
-    // $('.signupbtn').click(() => {
-        
-    // });
     });
 };  
 
 // Generate questions **************
 //when questionnaireBtn clicked show questions and hide signup form
-
+const questionnaireBtnClicked = () => {
     $('#questionnaireBtn').click( (event) => {
         event.preventDefault();
         $('.hideme').hide();
         $('#questions-form').show();
         $('#questions-form').html(generateQuestions());
+        $('#question-btns').show();
+        
+        // if(numberOfQuestions === 4) {
+        //     $('#next-question').hide();
+        //     $('#submit-btn').show();
+        // }else {
+        //     $('#submit-btn').hide();
+        // }
+        controlSubmitBtn();
+        controlPrevBtn();
     });
+};
 
-
-//show next button and then next and prev button 
 
 
 // Log ******************
@@ -166,8 +164,11 @@ const watchForm = () => {
     chart();
     logging();
     signupForm();
+    questionnaireBtnClicked();
     generateQuestions();
     nextQuestion();
+    prevQuestion();
+
 };
 
 

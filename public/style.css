@@ -4,9 +4,10 @@
 }
 
  body {
-    font-family: 'Lato', sans-serif;
-    background: #a9c3dd;
+    font-family: 'Special Elite', cursive;
+    background: #566f88;
     -webkit-font-smoothing: antialiased;
+    color: rgb(243, 234, 234);
 }
 ul {
     margin: 0;
@@ -21,7 +22,7 @@ ul {
     margin: 0 0 3px 0;
 }
 
-/* Login Form */
+/* Login Form ******************/
 input {
     padding: 12px 20px;
     margin: 8px 0;
@@ -47,7 +48,7 @@ input {
     margin: 24px 0 12px 0;
 }
 .login-image {
-    width: 50%;
+    width: 35%;
     border-radius: 5px;
     margin: 40px 0 0;
 }
@@ -61,7 +62,7 @@ h2 {
 
 /* Questionnaire Form *********/
 #questionnaire{
-    margin: 140px 40px 0 40px;
+    margin: 40px 40px 0 40px;
 }
 .next-prev {
     overflow:auto;
@@ -74,7 +75,7 @@ h2 {
     margin-top:40px;
 }
 
-/* Chart ********* */
+/* High Chart ********* */
 #container {
     min-width: 310px; 
     height: 400px; 
@@ -105,12 +106,13 @@ caption {
     color: darkslategrey
 }
 
-/* Navigation Bar */
+/* Navigation Bar *********/
 #nav {
     overflow: hidden;
     position: fixed;
     top: 0;
     width: 100%;
+   
 }
 .nav-list
 {
@@ -137,11 +139,9 @@ caption {
     float: left;
 }
 
-
-/* Style the form */
+/* Style the form *************/
 #questions-form {
-    background-color: #ffffff;
-    margin: 100px auto;
+    margin: 70px auto;
     padding: 40px;
     width: 70%;
     min-width: 300px;
@@ -189,7 +189,7 @@ caption {
   }  
 
 
-/* Footer */
+/* Footer ***************/
 footer {
     font-size: 12px;
     padding: 5px;

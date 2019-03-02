@@ -1,7 +1,5 @@
 'use strict'
 
-
-
 const questions = [
     {
         question: 'What would you personally consider as Financially Independent?',
@@ -41,6 +39,7 @@ const questions = [
         choices: [
             'a.	Yes, I can identify ways to minimize my spending to my values',
             'b.	No, I can’t identify anything else I can cut back on',
+            'c. Already in progress'
         ],
         responses: [
             
@@ -51,7 +50,7 @@ const questions = [
         choices: [
             'a.	Having a big house, nice car, designer clothes and shoes and lot of money ',
             'b.	Having great friendships and a close relationship with my family',
-            'c.	Option b and being able to live freely, travel, and enjoy what I love most in life with cognizant considerations',
+            'c.	Option b in addition to being able to live freely, travel, and enjoy what I love most in life within cognizant considerations',
         ],
         responses: [
             
@@ -60,11 +59,11 @@ const questions = [
 ];
 
 
-const numberOfQuestions = 0;
-const questionsAnswered = 0;
+let numberOfQuestions = 0;
+let questionsAnswered = 0;
 
 const generateQuestions = () => {
-    if(questionsAnswered < questions.length) {
+    (numberOfQuestions < questions.length) 
         return `<div id="questionnaire">
         <h2>How do you really feel?</h2>
         <p>Let's start off with a short quiz to gauge your mindset toward FIRE.</p>
@@ -86,17 +85,64 @@ const generateQuestions = () => {
             <label class="answerChoices">${questions[numberOfQuestions].choices[2]}</label>
             </div>
             </br>
-            <button class="next-question">Next</button>
+            <button id="prev-question" class="">Previous</button>
+            <button id="next-question" class="">Next</button>
+            <button type="submit" id="submit-btn" class="">Submit</button>
+
+    
+            <div class="step-circles">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
         </form>
         </div>`
-    };
+   
 };
 
 //Question Next Button
 const nextQuestion = () => {
-    $('.next-question').click(() => {
-        questionsAnswered ++;
-        $(".numberOfQuestions").text(numberOfQuestions+1);
-    });
+    $('#questions-form').on('click', '#next-question', () => {
+        numberOfQuestions++;
 
+    if(numberOfQuestions < questions.length) {
+        $('#questions-form').html(generateQuestions());
+    }else {
+        $('.hideme').hide();
+        $('#logging').show();
+        }      
+    });
 };
+
+//when prev button clicked go back to previous question
+const controlPrevBtn = () => {
+    if(numberOfQuestions === 0) {
+        $('#prev-question').hide();
+    }else {
+        $('#prev-question').show();
+    }
+};
+
+const controlSubmitBtn = () => {
+    
+    if(numberOfQuestions === 4) {
+        $('#next-question').hide();
+        $('#submit-btn').show();
+    }else {
+        $('#submit-btn').hide();
+    }
+};
+
+const prevQuestion = () => {
+    $('#questions-form').on('click', '#prev-question', () => {
+        numberOfQuestions--;
+
+        (numberOfQuestions < questions.length) 
+        $('#questions-form').html(generateQuestions());
+
+        controlPrevBtn();
+    });
+};
+

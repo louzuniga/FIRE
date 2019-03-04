@@ -55,10 +55,10 @@ app.post('/users/login', (req, res) => {
 const db = require('./config/keys').mongoURI
 
 //connect to mongo
-mongoose
-    .connect(db)
-    .then(() => console.log('Mongodb connected'))
-    .catch(err => console.log(err));
+// mongoose
+//     .connect(db)
+//     .then(() => console.log('Mongodb connected'))
+//     .catch(err => console.log(err));
 
 
 const port = process.env.PORT || 3000

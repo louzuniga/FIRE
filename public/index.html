@@ -84,7 +84,7 @@
             </div>
         </form>
     </div>
-    
+
 
     <!-- questions container-->
     <div id="questions-form" class="hideme"></div>
@@ -94,65 +94,80 @@
     <div id="logging" class="hideme">
         <table class="log-table">
             <caption>Monthly Income</caption>
+        <!-- Income -->
             <tr>
-                <th>Source of Income 
+                <th class="income-source">Source of Income
+                    <br>
+                    <button class="income-add-btn">Add row</button>
+                    <button class="delete-row-income">Delete</button> 
                     <input type="text" placeholder="salary">
-                    <input type="text">
-                    <input type="text">
-                    <button class="income-add">Add row</button>
+                    <input type="text" id="add-source" class="add">
                 </th>
-                <th>Amount
+                
+                <th class="income-amount">Amount
                     <input type="text" placeholder="4000">
-                    <input type="text">
-                    <input type="text">
-                    <button class="income-add">Add row</button>
+                    <input type="text" id="add-amount" class="add">
                 </th>
             </tr>
         </table>
-        
+        <!-- Expenses -->
         <table class="log-table">
             <caption>Monthly Expenses</caption>
             <tr>
-                <th>Expense Type
+                <th class="expense-source">Expense Type
+                    <br>
+                    <button class="expense-add-btn">Add row</button>
+                    <button class="expense-delete-btn">Delete</button> 
                     <input type="text" placeholder="mortgage">
                     <input type="text">
                     <input type="text">
-                    <button class="income-add">Add row</button>
+                    <input type="text">
                 </th>
-                <th>Amount
+                <th class="expense-amnt">Amount
                     <input type="text" placeholder="1000">
                     <input type="text">
                     <input type="text">
-                    <button class="income-add">Add row</button>
+                    <input type="text">
                 </th>
             </tr>
         </table>
-
+        <!-- Savings -->
         <table class="log-table">
             <caption>Monthly Savings</caption>
             <tr>
-                <th>Source of Savings 
+                <th class="savings-source">Source of Savings 
+                    <br>
+                    <button class="savings-add-btn">Add row</button>
+                    <button class="delete-row-savings">Delete</button> 
                     <input type="text" placeholder="401K">
                     <input type="text">
                     <input type="text">
-                    <button class="income-add">Add row</button>
                 </th>
-                <th>Amount 
+                <th class="savings-amount">Amount 
                     <input type="text" placeholder="530">
                     <input type="text">
                     <input type="text">
-                    <button class="income-add">Add row</button>
                 </th>
             </tr>
         </table>
+        <button type="submit" class="see-results">See Results</button>
     </div>
 
 
     <!-- high chart https://www.highcharts.com/demo -->
-    <div id="container" class="hideme"></div>
-
-
     <!-- results -->
+    <div id="results-text" class="hideme">
+        <h2>Here are your results!</h2>
+        <p>
+            Let's Take a look at your computation results based off of your inputted income, expense and savings/investments.
+        </p>
+
+        <div id="container" class=""></div>
+
+        <input type="text" placeholder="Email to me please">
+        <button type="submit" class="submit-results">Send</button>
+    </div>
+       
 
     
     <!-- copyright and social icons -->

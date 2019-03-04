@@ -131,20 +131,71 @@ const questionnaireBtnClicked = () => {
 // Log ******************
 const logging = () => {
     $('.log').click( () => {
-       
         $('.hideme').hide();
         $('#logging').show();
+    });
+    addRow();
+    deleteRow();
+};
+
+//add-row in log
+const addRow = () => {
+    $('.income-add-btn').click( () =>{
+        $('.income-source').append(`<input type="text" id="add-source">`)
+        $('.income-amount').append(`<input type="text" id="add-amount">`)
+    });
+
+    $('.expense-add-btn').click(() => {
+        $('.expense-source').append(`<input type="text" id="add-expense-source">`)
+        $('.expense-amnt').append(`<input type="text" id="add-expense-amount">`)
+    });
+
+    $('.savings-add-btn').click(() => {
+        $('.savings-amount').append(`<input type="text" id="add-savings-source">`)
+        $('.savings-source').append(`<input type="text" id="add-savings-amnt">`)
+    });
+};
+
+
+//delete-row in log
+const deleteRow = () => {
+    $('.delete-row-income').click(() => {
+        $('#add-source').addClass('delete-income');
+        $('#add-amount').addClass('delete-income');
+        $('.delete-income').remove();
+    });
+
+    $('.expense-delete-btn').click(() => {
+        $('#add-expense-amount').addClass('delete-income');
+        $('#add-expense-source').addClass('delete-income');
+        $('.delete-income').remove();
+    });
+
+    $('.delete-row-savings').click(() => {
+        $('#add-savings-source').addClass('delete-income');
+        $('#add-savings-amnt').addClass('delete-income');
+        $('.delete-income').remove();
     });
 };
 
 
 //Chart function ***************
 //when results is clicked show results page
+const seeResults = () => {
+    $('.hideme').hide();
+        $('#results-text').show();
+        $('#container').show();
+};
+
+const submitResults = () => {
+    $('.see-results').click( () => {
+        seeResults();
+    });
+};
+
 const chart = () => {
     $('#results').click(() => {
-
-        $('.hideme').hide();
-        $('#container').show();
+        seeResults();
     });
 };
 
@@ -165,10 +216,9 @@ const watchForm = () => {
     logging();
     signupForm();
     questionnaireBtnClicked();
-    generateQuestions();
     nextQuestion();
     prevQuestion();
-
+    submitResults();
 };
 
 

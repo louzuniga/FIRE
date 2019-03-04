@@ -60,7 +60,6 @@ const questions = [
 
 
 let numberOfQuestions = 0;
-let questionsAnswered = 0;
 
 const generateQuestions = () => {
     (numberOfQuestions < questions.length) 
@@ -126,7 +125,6 @@ const controlPrevBtn = () => {
 };
 
 const controlSubmitBtn = () => {
-    
     if(numberOfQuestions === 4) {
         $('#next-question').hide();
         $('#submit-btn').show();

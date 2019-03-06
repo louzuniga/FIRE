@@ -48,6 +48,22 @@
   });
 
 
+//Nav bar ****************
+const navBar = () => {
+   
+    $('.icon').click(() => {
+        //$('#nav').addClass('responsive')
+        
+        let nav = document.getElementById('nav');
+        if (nav.className === 'nav-list') {
+            nav.className += ' responsive';
+        } else {
+            nav.className = 'nav-list';
+        }
+    });
+};
+
+
 // login form ******************
 const loginForm = () => {
     $('.login-button').click((event) => {
@@ -101,7 +117,6 @@ $('.signup-nav').click((event) => {
     $('.cancelbtn').click(() => {
         location.reload();
     });
-
     });
 };  
 
@@ -115,17 +130,16 @@ const questionnaireBtnClicked = () => {
         $('#questions-form').html(generateQuestions());
         $('#question-btns').show();
         
-        // if(numberOfQuestions === 4) {
-        //     $('#next-question').hide();
-        //     $('#submit-btn').show();
-        // }else {
-        //     $('#submit-btn').hide();
-        // }
-        controlSubmitBtn();
+        if(numberOfQuestions < 4) {
+            $('#submit-btn').hide();
+        }else {
+            $('#next-question').hide();
+            $('#submit-btn').show();
+        }
+        //controlSubmitBtn();
         controlPrevBtn();
     });
 };
-
 
 
 // Log ******************
@@ -183,7 +197,7 @@ const deleteRow = () => {
 //when results is clicked show results page
 const seeResults = () => {
     $('.hideme').hide();
-        $('#results-text').show();
+        $('#results-container').show();
         $('#container').show();
 };
 
@@ -219,6 +233,7 @@ const watchForm = () => {
     nextQuestion();
     prevQuestion();
     submitResults();
+    navBar();
 };
 
 

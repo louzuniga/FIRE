@@ -1,10 +1,14 @@
 
 * {
     border-radius: 5px;
+    font-family: 'Special Elite', cursive;
+}
+
+button {
+    cursor: pointer;
 }
 
  body {
-    font-family: 'Special Elite', cursive;
     background: #566f88;
     -webkit-font-smoothing: antialiased;
     color: rgb(243, 234, 234);
@@ -14,31 +18,32 @@ ul {
     padding:0;
     list-style: none;
 }
-.hidden {
-    display: none;
-}
-.questions-form {
-    display: block;
-    margin: 0 0 3px 0;
-}
-
-/* Login Form ******************/
-input {
-    padding: 12px 20px;
+ /* Style the input fields */
+ input {
+    padding: 10px;
+    font-size: 17px;
     margin: 8px 0;
-    display: block;
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+/* style for the buttons */
+.btn {
+    display: flex;
+    margin: 10 auto;
+    font-size: 15;
+    padding: 0 16 0;
+    height: 28;
+}
+
+/* Login Form ******************/
 .login-button {
-    background-color: rgb(29, 34, 29);
+    background-color: rgb(51, 53, 55);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     display: block;
-    cursor: pointer;
-    
+    font-size: 15px;
 }
 .login-button:hover {
     opacity: .8;
@@ -48,21 +53,20 @@ input {
     margin: 24px 0 12px 0;
 }
 .login-image {
-    width: 35%;
-    border-radius: 5px;
+    width: 45%;
     margin: 40px 0 0;
 }
 .form-container {
     margin: 0 auto;
     width: 300px;
-}
-h2 {
-    margin: 60px 0 0;
+    display: block;
 }
 
+
 /* Questionnaire Form *********/
-#questionnaire{
-    margin: 40px 40px 0 40px;
+.questions-form {
+    display: block;
+    margin: 0 0 3px 0;
 }
 .next-prev {
     overflow:auto;
@@ -74,27 +78,57 @@ h2 {
     text-align:center;
     margin-top:40px;
 }
+.question-btn {
+    display: inline-flex;
+    margin: 10 auto;
+    font-size: 15px;
+    padding: 0 16 0;
+    height: 28;
+}
+.answerChoices {
+    padding: 12px;
+}
+.question {
+    background-color: #59617a;
+    margin: 0;
+    padding: 20px;
+}
+.question-p {
+    margin: 0;
+    font-size: 20px;
+}
+
 
 /* High Chart ********* */
 #container {
     min-width: 310px; 
     height: 400px; 
     max-width: 600px; 
-    margin: 100px auto;
+    margin: 40px auto;
+}
+#results-text {
+    text-align: center;
+    margin: 60px 0 0;
+}
+.results-input {
+    margin: 0 auto;
+    display: block;
+    width: 45%;
+}
+.results-p {
+    font-size: 18px;
 }
 
 /* Log ********/
 .log-table {
-    padding: 8px;
-    margin: 100px auto;
+    margin: 0px auto;
     width: 50%;
     min-width: 300px;
 }
 th {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding: 12px;
     text-align: left;
-    background-color: rgb(75, 109, 138);
+    background-color: rgb(49, 71, 90);
     color: white;
 }
 tr {
@@ -103,118 +137,107 @@ tr {
 caption {
     font-size: 30px;
     font-weight:  bolder;
-    color: darkslategrey
+    color: rgb(237, 244, 244);
+    margin: 60px 0 10px 0;
 }
 
 /* Navigation Bar *********/
-#nav {
+.nav-list {
     overflow: hidden;
     position: fixed;
     top: 0;
     width: 100%;
-   
-}
-.nav-list
-{
-    float: right;
+    background: #59617a;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    display: flex;
 }
 .nav-list a {
-    display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    /* border-right: 1px solid #bbb; */
 }
 .nav-list a:hover {
-    background-color: rgb(51, 53, 55);
-    border-radius: 5px; 
+    background-color: rgb(51, 53, 55); 
 }
 .home {
     background-color: rgb(53, 70, 80);
-    border-radius: 5px;
 }
-/* Floating nav element */
-.floating-nav {
-    float: left;
-}
+.nav-list .icon {
+    display: none;
+  }
+
 
 /* Style the form *************/
 #questions-form {
-    margin: 70px auto;
+    margin: 40px auto;
     padding: 40px;
     width: 70%;
-    min-width: 300px;
-  }
-  
-  /* Style the input fields */
-  input {
-    padding: 10px;
-    width: 100%;
-    font-size: 17px;
-    font-family: Raleway;
-    border: 1px solid #aaaaaa;
-  }
-  
-  /* Mark input boxes that gets an error on validation: */
-  input.invalid {
-    background-color: #ffdddd;
-  }
-  
-  /* Hide all steps by default: */
-  .tab {
-    display: none;
-  }
-  
-  /* Make circles that indicate the steps of the form: */
-  .step {
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbbbbb;
-    border: none; 
-    border-radius: 50%;
-    display: inline-block;
-    opacity: 0.5;
-  }
-  
-  /* Mark the active step: */
-  .step.active {
-    opacity: 1;
-  }
-  
-  /* Mark the steps that are finished and valid: */
-  .step.finish {
-    background-color: #4CAF50;
-  }  
+min-width: 300px;
+}
+
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+height: 15px;
+width: 15px;
+margin: 0 2px;
+background-color: #bbbbbb;
+border: none; 
+border-radius: 50%;
+display: inline-block;
+opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+background-color: #4CAF50;
+}  
 
 
 /* Footer ***************/
 footer {
-    font-size: 12px;
-    padding: 5px;
-    width: 100%;
-    text-align: center;
-    display: block;
+font-size: 12px;
+padding: 5px;
+width: 100%;
+text-align: center;
+display: block;
 }
 .social-icon {
-    color: #fff;
+color: #fff;
 }
 .social-icons li {
-    vertical-align: top;
-    display: inline;
+vertical-align: top;
+display: inline;
 }
 .social-icons a {
-    color: #fff;
-    text-decoration: none;
+color: #fff;
+text-decoration: none;
 }
 .fa-twitter {
-    padding:10px 12px;
-    -o-transition:.5s;
-    -ms-transition:.5s;
-    -moz-transition:.5s;
-    -webkit-transition:.5s;
-    transition: .5s;
+padding:10px 12px;
+-o-transition:.5s;
+-ms-transition:.5s;
+-moz-transition:.5s;
+-webkit-transition:.5s;
+transition: .5s;
 }
 .fa-twitter:hover {
     background-color: #00aced;
@@ -257,13 +280,60 @@ footer {
     border-radius: 5px;
 }
 
+
 @media screen and (max-width: 600px) {
-    #nav {
-        float: none;
+    /* footer */
+    footer {
+        font-size: 10px;
+        padding: 2px;
     }
-    
-}
+    /* buttons */
+    .btn .login-button .question-btn  {
+        height: 20px;
+        font-size: 12px;
+        padding: 5px;
+    }
+    /* Navigation bar    */
+    .nav-list a:not(:first-child) {
+        display: none;
+    }
+    .nav-list a.icon {
+      float: right;
+      display: block;
+    }
+    .nav-list.responsive {
+        position: relative;
+        display: block;
+    }
+    .nav-list.responsive a.icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .nav-list.responsive a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+    /* questions-form */
+    #questions-form {
+        font-size: 14px;
+        padding: 0;
+        width: 0;
+    }
+    #questionnaire {
+        margin: 60px 0 0;
 
-@media screen and (max-width: 300px) {
-
+    }
+    h3.questions {
+        margin: 0;
+    }
+    /* resulst input */
+    .results-input {
+        width: 90%;
+    }
+    /* high chart */
+    #container {
+        min-width: 300px
+    }
 }

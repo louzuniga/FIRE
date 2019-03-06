@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>FIRE!(Financial Independence, Retire Early)</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
@@ -13,7 +13,7 @@
     <!-- Navigation Bar -->
     <header>
         <nav class="nav-bar">
-            <ul id="nav">
+            <!-- <ul id="nav">
                 <li class="nav-list home">
                     <a href="/">Home</a>
                 </li>
@@ -26,9 +26,24 @@
                 <li id="results" class="nav-list">
                     <a>Results</a>
                 </li>
-                <!-- <li id="google_translate_element" class="nav-list floating-nav"> Translate this page:</li> -->
-            </ul>
+                <a href="javascript:void(0);" class="icon">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <li id="google_translate_element" class="nav-list floating-nav"> Translate this page:</li>
+            </ul>           -->
+
+            <div class="nav-list" id="nav">
+                    <a href="/" class="home">Home</a>
+                    <a id="questionnaireBtn">Questionaire</a>
+                    <a class="log">Log</a>
+                    <a id="results">Results</a>
+                    <a class="icon">
+                      <i class="fa fa-bars"></i>
+                    </a>
+                  </div>
         </nav>
+
+
     </header>
     
     <!-- Login Form -->
@@ -38,16 +53,15 @@
         </div>
         <div class="form-container">
             <label for="username"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" class="loginUsername" name="username" >
+            <input onfocus="this.placeholder=''" type="text" placeholder="Enter Username" class="loginUsername" name="username" >
 
             <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" class="loginPassword" name="password" >
+            <input onfocus="this.placeholder=''" type="password" placeholder="Enter Password" class="loginPassword" name="password" >
 
             <button type="submit" class="login-button">Login</button>
             <label> 
                 <input type="checkbox" checked="checked" name="remember">Remember Me
             </label>
-
             <br>
             <label for="signup"> <a class="signup-nav" href="">Sign Up</a></label>
          </div>
@@ -60,27 +74,26 @@
             <p>Please fill in the information requested to create an account.</p>
             <hr>
 
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Email" name="email">
+            <label for="email"><b>Email Address</b></label>
+            <input onfocus="this.placeholder=''" type="text" placeholder="Email" name="email">
 
             <label for="username"><b>Username</b></label>
-            <input type="text" placeholder="Choose a username" name="username" required>
+            <input onfocus="this.placeholder=''" type="text" placeholder="Choose a username" name="username" required>
 
             <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Choose a password" name="password" required>
+            <input onfocus="this.placeholder=''" type="password" placeholder="Choose a password" name="password" required>
 
             <label for="pass-repeat"><b>Repeat Password</b></label>
-            <input type="password" placeholder="Repeat Password" name="pass-repeat" required>
+            <input onfocus="this.placeholder=''" type="password" placeholder="Repeat Password" name="pass-repeat" required>
 
-            <label>
-                <input type="checkbox" checked="checked" name="remember">Remember me
-            </label>
+            <label>Remember me</label>
+            <input onfocus="this.placeholder=''" type="checkbox" checked="checked" name="remember">
 
             <p>By creating an account you agree that this is currently a test application. </p>
 
-            <div class="clearfix">
-                <button type="button" class="cancelbtn">Cancel</button>
-                <button type="button" class="signupbtn">Sign Up</button>
+            <div>
+                <button type="button" class="signupbtn btn">Sign Up</button>
+                <button type="button" class="cancelbtn btn">Cancel</button>
             </div>
         </form>
     </div>
@@ -96,17 +109,20 @@
             <caption>Monthly Income</caption>
         <!-- Income -->
             <tr>
-                <th class="income-source">Source of Income
-                    <br>
-                    <button class="income-add-btn">Add row</button>
-                    <button class="delete-row-income">Delete</button> 
-                    <input type="text" placeholder="salary">
-                    <input type="text" id="add-source" class="add">
+                <th>Source of Income 
+                    <div class="income-source">
+                        <input onfocus="this.placeholder=''" type="text" placeholder="salary">
+                        <input onfocus="this.placeholder=''" type="text" id="add-source" class="add">
+                    </div>
+                    <button class="income-add-btn btn">Add row</button>
                 </th>
                 
-                <th class="income-amount">Amount
-                    <input type="text" placeholder="4000">
-                    <input type="text" id="add-amount" class="add">
+                <th>Amount
+                    <div class="income-amount">
+                        <input onfocus="this.placeholder=''" type="number" placeholder="4000">
+                        <input onfocus="this.placeholder=''" type="number" id="add-amount" class="add">
+                    </div>
+                    <button class="delete-row-income btn">Delete</button>
                 </th>
             </tr>
         </table>
@@ -114,20 +130,21 @@
         <table class="log-table">
             <caption>Monthly Expenses</caption>
             <tr>
-                <th class="expense-source">Expense Type
-                    <br>
-                    <button class="expense-add-btn">Add row</button>
-                    <button class="expense-delete-btn">Delete</button> 
-                    <input type="text" placeholder="mortgage">
-                    <input type="text">
-                    <input type="text">
-                    <input type="text">
+                <th>Expense Type 
+                    <div class="expense-source">
+                        <input onfocus="this.placeholder=''" type="text" placeholder="mortgage">
+                        <input onfocus="this.placeholder=''" type="text">
+                        <input onfocus="this.placeholder=''" type="text" id="add-expense-source">
+                    </div>
+                    <button class="expense-add-btn btn">Add row</button>
                 </th>
-                <th class="expense-amnt">Amount
-                    <input type="text" placeholder="1000">
-                    <input type="text">
-                    <input type="text">
-                    <input type="text">
+                <th>Amount
+                    <div class="expense-amnt">
+                        <input onfocus="this.placeholder=''" type="number" placeholder="1000">
+                        <input onfocus="this.placeholder=''" type="number">
+                        <input onfocus="this.placeholder=''" type="number" id="add-expense-amount">
+                    </div>
+                    <button class="expense-delete-btn btn">Delete</button>
                 </th>
             </tr>
         </table>
@@ -135,40 +152,43 @@
         <table class="log-table">
             <caption>Monthly Savings</caption>
             <tr>
-                <th class="savings-source">Source of Savings 
-                    <br>
-                    <button class="savings-add-btn">Add row</button>
-                    <button class="delete-row-savings">Delete</button> 
-                    <input type="text" placeholder="401K">
-                    <input type="text">
-                    <input type="text">
+                <th>Source of Savings         
+                    <div class="savings-source">
+                        <input onfocus="this.placeholder=''" type="text" placeholder="401K">
+                        <input onfocus="this.placeholder=''" type="text">
+                        <input onfocus="this.placeholder=''" type="text" id="add-savings-source">
+                    </div>
+                    <button class="savings-add-btn btn">Add row</button>
                 </th>
-                <th class="savings-amount">Amount 
-                    <input type="text" placeholder="530">
-                    <input type="text">
-                    <input type="text">
-                </th>
-            </tr>
+                <th>Amount 
+                    <div class="savings-amount">
+                        <input onfocus="this.placeholder=''" type="number" placeholder="530">
+                        <input onfocus="this.placeholder=''" type="number">
+                        <input onfocus="this.placeholder=''" type="number" id="add-savings-amnt">
+                    </div>
+                    <button class="delete-row-savings btn">Delete</button>
+                </th>    
+            </tr>       
         </table>
-        <button type="submit" class="see-results">See Results</button>
+        <button type="submit" class="see-results btn">See Results</button>
     </div>
 
 
-    <!-- high chart https://www.highcharts.com/demo -->
     <!-- results -->
-    <div id="results-text" class="hideme">
-        <h2>Here are your results!</h2>
-        <p>
-            Let's Take a look at your computation results based off of your inputted income, expense and savings/investments.
-        </p>
-
+    <div id="results-container" class="hideme">
+        <div id="results-text">
+            <h2 class="results-h2">Here is an overview.</h2>
+            <p class="results-p">
+                Let's Take a look at your computation results based off of your income, expense and savings/investments.
+            </p>
+        </div>
+       <!-- high chart https://www.highcharts.com/demo -->
         <div id="container" class=""></div>
 
-        <input type="text" placeholder="Email to me please">
-        <button type="submit" class="submit-results">Send</button>
+        <input onfocus="this.placeholder=''" class="results-input onfocus="this.placeholder=''"" type="text" placeholder="Email this info to me please">
+        <button type="submit" class="submit-results btn">Send</button>
     </div>
        
-
     
     <!-- copyright and social icons -->
     <footer>

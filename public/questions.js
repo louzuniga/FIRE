@@ -64,29 +64,29 @@ let numberOfQuestions = 0;
 const generateQuestions = () => {
     (numberOfQuestions < questions.length) 
         return `<div id="questionnaire">
-        <h2>How do you really feel?</h2>
-        <p>Let's start off with a short quiz to gauge your mindset toward FIRE.</p>
+        <h2 class="question-h2">How do you really feel?</h2>
+        <p class="question-p">Let's start off with a short quiz to gauge your mindset toward FIRE.</p>
         </br>
         <h3 class="question">${questions[numberOfQuestions].question}</h3>
         <form class="questions-form">
-            <div>
+            <div class="answerChoices">
             <input type="radio" name="choice" required>
-            <label class="answerChoices">${questions[numberOfQuestions].choices[0]}</label>
+            <label>${questions[numberOfQuestions].choices[0]}</label>
             </div>
 
-            <div>
+            <div class="answerChoices">
             <input type="radio" name="choice" required>
-            <label class="answerChoices">${questions[numberOfQuestions].choices[1]}</label>
+            <label>${questions[numberOfQuestions].choices[1]}</label>
             </div>
 
-            <div>
+            <div class="answerChoices">
             <input type="radio" name="choice" required>
-            <label class="answerChoices">${questions[numberOfQuestions].choices[2]}</label>
+            <label>${questions[numberOfQuestions].choices[2]}</label>
             </div>
             </br>
-            <button id="prev-question" class="">Previous</button>
-            <button id="next-question" class="">Next</button>
-            <button type="submit" id="submit-btn" class="">Submit</button>
+            <button id="prev-question " class="question-btn">Previous</button>
+            <button id="next-question" class="question-btn">Next</button>
+            <button type="submit" id="submit-btn" class="question-btn">Submit</button>
 
     
             <div class="step-circles">
@@ -111,7 +111,9 @@ const nextQuestion = () => {
     }else {
         $('.hideme').hide();
         $('#logging').show();
-        }      
+        } 
+        
+   
     });
 };
 
@@ -123,16 +125,6 @@ const controlPrevBtn = () => {
         $('#prev-question').show();
     }
 };
-
-const controlSubmitBtn = () => {
-    if(numberOfQuestions === 4) {
-        $('#next-question').hide();
-        $('#submit-btn').show();
-    }else {
-        $('#submit-btn').hide();
-    }
-};
-
 const prevQuestion = () => {
     $('#questions-form').on('click', '#prev-question', () => {
         numberOfQuestions--;
@@ -143,4 +135,10 @@ const prevQuestion = () => {
         controlPrevBtn();
     });
 };
+
+// const controlSubmitBtn = () => {
+    
+// };
+
+
 

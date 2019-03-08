@@ -13,37 +13,16 @@
     <!-- Navigation Bar -->
     <header>
         <nav class="nav-bar">
-            <!-- <ul id="nav">
-                <li class="nav-list home">
-                    <a href="/">Home</a>
-                </li>
-                <li id="questionnaireBtn" class="nav-list">
-                    <a>Questionaire</a>
-                </li>
-                <li class="nav-list log">
-                    <a>Log</a>
-                </li>
-                <li id="results" class="nav-list">
-                    <a>Results</a>
-                </li>
-                <a href="javascript:void(0);" class="icon">
+            <div class="nav-list" id="nav">
+                <a href="/" class="home">Home</a>
+                <a id="questionnaireBtn">Questionaire</a>
+                <a class="log">Log</a>
+                <a id="results">Overview</a>
+                <a class="icon">
                     <i class="fa fa-bars"></i>
                 </a>
-                <li id="google_translate_element" class="nav-list floating-nav"> Translate this page:</li>
-            </ul>           -->
-
-            <div class="nav-list" id="nav">
-                    <a href="/" class="home">Home</a>
-                    <a id="questionnaireBtn">Questionaire</a>
-                    <a class="log">Log</a>
-                    <a id="results">Results</a>
-                    <a class="icon">
-                      <i class="fa fa-bars"></i>
-                    </a>
-                  </div>
+            </div>
         </nav>
-
-
     </header>
     
     <!-- Login Form -->
@@ -75,13 +54,13 @@
             <hr>
 
             <label for="email"><b>Email Address</b></label>
-            <input onfocus="this.placeholder=''" type="text" placeholder="Email" name="email">
+            <input id="singup-email" onfocus="this.placeholder=''" type="text" placeholder="Email" name="email">
 
             <label for="username"><b>Username</b></label>
-            <input onfocus="this.placeholder=''" type="text" placeholder="Choose a username" name="username" required>
+            <input id="signup-username" onfocus="this.placeholder=''" type="text" placeholder="Choose a username" name="username" required>
 
             <label for="password"><b>Password</b></label>
-            <input onfocus="this.placeholder=''" type="password" placeholder="Choose a password" name="password" required>
+            <input id="signup-password" onfocus="this.placeholder=''" type="password" placeholder="Choose a password" name="password" required>
 
             <label for="pass-repeat"><b>Repeat Password</b></label>
             <input onfocus="this.placeholder=''" type="password" placeholder="Repeat Password" name="pass-repeat" required>
@@ -119,10 +98,12 @@
                 
                 <th>Amount
                     <div class="income-amount">
-                        <input onfocus="this.placeholder=''" type="number" placeholder="4000">
-                        <input onfocus="this.placeholder=''" type="number" id="add-amount" class="add">
+                        <input class="in-mnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
+                        <input onfocus="this.placeholder=''" type="number" id="add-amount" class="add in-mnt">
+                        
                     </div>
                     <button class="delete-row-income btn">Delete</button>
+                    <input type="number" class="total">
                 </th>
             </tr>
         </table>

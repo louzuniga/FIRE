@@ -21,7 +21,7 @@ app.post('/users/login', (req, res) => {
     }, (err, items) => {
         if (err) {
             return res.status(500).json({
-                message: "Can't connect to eh Datebase"
+                message: "Can't connect to the Database"
             });
         }
         //username not found

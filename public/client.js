@@ -2,6 +2,8 @@
 
 //High Chart ************
 //Build the Chart 
+let loggingChart = () => {
+
     Highcharts.chart('container', {
     chart: {
       plotBackgroundColor: null,
@@ -27,7 +29,7 @@
     },
     //the results will be extracted from the logger
     series: [{
-      name: 'Brands',
+      name: 'Overview',
       colorByPoint: true,
       data: [{
         name: 'Expense',
@@ -36,7 +38,7 @@
         selected: true 
       }, {
         name: 'Income',
-        y: 11.84
+        y: 0
       }, {
         name: 'Investment',
         y: 10.85
@@ -46,7 +48,7 @@
       }]
     }]
   });
-
+}
 
 //Nav bar ****************
 const navBar = () => {
@@ -100,7 +102,6 @@ const loginForm = () => {
             console.log(err);
             console.log(errThrown);
         });
-    
     };
     });
 };
@@ -117,8 +118,61 @@ $('.signup-nav').click((event) => {
     $('.cancelbtn').click(() => {
         location.reload();
     });
-    });
+});
+
+$('.signupbtn').click(() => {
+ //take the input from the user
+ const email = $("#singup-email").val();//my own id's
+ const username = $("#signup-username").val();//my own id's
+ const password = $("#signup-password").val();
+
+ //validate the input
+ if (email == "") {
+     alert('Please add a name');
+ } else if (username == "") {
+     alert('Please add an user name');
+ } else if (password == "") {
+     alert('Please add a password');
+ }
+ //if the input is valid
+ else {
+     //create the payload object (what data we send to the api call)
+     const newUserObject = {
+         name: email,
+         username: username,
+         password: password,
+     };
+     //console.log(newUserObject);
+
+     //make the api call using the payload above
+     $.ajax({
+             type: 'POST',
+             url: '/users/create',
+             dataType: 'json',
+             data: JSON.stringify(newUserObject),
+             contentType: 'application/json'
+         })
+         //if call is succefull
+         .done(function (result) {
+             console.log(result);
+             $('#loggedInName').text(result.name);
+             $('#loggedInUserName').val(result.username);
+             $('section').hide();
+             $('.navbar').show();
+             $('#user-dashboard').show();
+             populateUserDashboardDate(result.username);
+         })
+         //if the call is failing
+         .fail(function (jqXHR, error, errorThrown) {
+             console.log(jqXHR);
+             console.log(error);
+             console.log(errorThrown);
+         });
+    };
+});
+   
 };  
+
 
 // Generate questions **************
 //when questionnaireBtn clicked show questions and hide signup form
@@ -150,26 +204,26 @@ const logging = () => {
     });
     addRow();
     deleteRow();
+    logSum();
 };
 
 //add-row in log
 const addRow = () => {
     $('.income-add-btn').click( () =>{
         $('.income-source').append(`<input type="text" id="add-source">`)
-        $('.income-amount').append(`<input type="text" id="add-amount">`)
+        $('.income-amount').append(`<input class="in-mnt" type="number" id="add-amount">`)
     });
 
     $('.expense-add-btn').click(() => {
         $('.expense-source').append(`<input type="text" id="add-expense-source">`)
-        $('.expense-amnt').append(`<input type="text" id="add-expense-amount">`)
+        $('.expense-amnt').append(`<input type="number" id="add-expense-amount">`)
     });
 
     $('.savings-add-btn').click(() => {
         $('.savings-amount').append(`<input type="text" id="add-savings-source">`)
-        $('.savings-source').append(`<input type="text" id="add-savings-amnt">`)
+        $('.savings-source').append(`<input type="number" id="add-savings-amnt">`)
     });
 };
-
 
 //delete-row in log
 const deleteRow = () => {
@@ -192,6 +246,16 @@ const deleteRow = () => {
     });
 };
 
+// log Sum
+const logSum = () => {
+    $('.in-mnt').change(() => {
+        let sum = 0;
+        $('.in-mnt').each( function() {
+            sum += +$(this).val();
+        });
+        $('.total').val(sum);
+    });
+};
 
 //Chart function ***************
 //when results is clicked show results page
@@ -234,6 +298,7 @@ const watchForm = () => {
     prevQuestion();
     submitResults();
     navBar();
+    loggingChart();
 };
 
 

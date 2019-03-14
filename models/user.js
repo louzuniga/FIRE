@@ -1,4 +1,7 @@
+'use stirct';
+
 const mongoose = require('mongoose');
+//const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema ({
@@ -24,6 +27,14 @@ userSchema.methods.validatePassword = (password, callback) => {
         } callback(null, isValid);
     });
 };
+
+userSchema.pre('save', async function (next) {
+    const user = this;
+
+    
+
+    next();
+});
 
 const User = mongoose.model('User', userSchema);
 

@@ -108,27 +108,29 @@ const loginForm = () => {
 
 
 // Sign Up Form **************
-const signupForm = () => {
 $('.signup-nav').click((event) => {
     event.preventDefault();
     $('.hideme').hide();
     $('#signup-form').show();
+});
 
 //cancel button clicked return to landing page
     $('.cancelbtn').click(() => {
         location.reload();
     });
-});
 
-$('.signupbtn').click(() => {
+$('#signup-form').submit( function (event) {
+    event.preventDefault();
+    alert('hey');
  //take the input from the user
- const email = $("#singup-email").val();//my own id's
- const username = $("#signup-username").val();//my own id's
+ const email = $("#singup-email").val();
+ const username = $("#signup-username").val();
  const password = $("#signup-password").val();
+ console.log(email, username, password);   
 
  //validate the input
  if (email == "") {
-     alert('Please add a name');
+     alert('Please add an Email Adress');
  } else if (username == "") {
      alert('Please add an user name');
  } else if (password == "") {
@@ -142,7 +144,7 @@ $('.signupbtn').click(() => {
          username: username,
          password: password,
      };
-     //console.log(newUserObject);
+     console.log(newUserObject);
 
      //make the api call using the payload above
      $.ajax({
@@ -155,12 +157,12 @@ $('.signupbtn').click(() => {
          //if call is succefull
          .done(function (result) {
              console.log(result);
-             $('#loggedInName').text(result.name);
-             $('#loggedInUserName').val(result.username);
-             $('section').hide();
-             $('.navbar').show();
-             $('#user-dashboard').show();
-             populateUserDashboardDate(result.username);
+             //$('#loggedInName').text(result.name);
+            //  $('#loggedInUserName').val(result.username);
+            //  $('section').hide();
+            //  $('.navbar').show();
+            //  $('#user-dashboard').show();
+            //  populateUserDashboardDate(result.username);
          })
          //if the call is failing
          .fail(function (jqXHR, error, errorThrown) {
@@ -171,7 +173,6 @@ $('.signupbtn').click(() => {
     };
 });
    
-};  
 
 
 // Generate questions **************
@@ -292,7 +293,6 @@ const watchForm = () => {
     copyright();
     chart();
     logging();
-    signupForm();
     questionnaireBtnClicked();
     nextQuestion();
     prevQuestion();

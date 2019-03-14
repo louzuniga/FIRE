@@ -68,9 +68,9 @@ const navBar = () => {
 
 // login form ******************
 const loginForm = () => {
-    $('.login-button').click((event) => {
+    $('#login').submit((event) => {
         event.preventDefault();
-    
+        
         const username = $('.loginUsername').val();
         const password = $('.loginPassword').val();
     
@@ -97,12 +97,26 @@ const loginForm = () => {
         })
         .done((result) => {
             console.log(result);
+            event.preventDefault();
+            $('.hideme').hide();
+            $('#questions-form').show();
+            $('#questions-form').html(generateQuestions());
+            $('#question-btns').show();
+            
+            if(numberOfQuestions < 4) {
+                $('#submit-btn').hide();
+            }else {
+                $('#next-question').hide();
+                $('#submit-btn').show();
+            }
+            //controlSubmitBtn();
+            controlPrevBtn();
         })
         .fail((err, errThrown) => {
             console.log(err);
             console.log(errThrown);
         });
-    };
+    }; 
     });
 };
 
@@ -121,7 +135,7 @@ $('.signup-nav').click((event) => {
 
 $('#signup-form').submit( function (event) {
     event.preventDefault();
-    alert('hey');
+   
  //take the input from the user
  const email = $("#singup-email").val();
  const username = $("#signup-username").val();

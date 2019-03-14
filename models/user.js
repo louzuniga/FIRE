@@ -1,7 +1,6 @@
 'use stirct';
 
 const mongoose = require('mongoose');
-//const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema ({
@@ -19,7 +18,7 @@ const userSchema = new mongoose.Schema ({
     },
 });
 
-userSchema.methods.validatePassword = (password, callback) => {
+userSchema.methods.validatePassword = function (password, callback) {
     bcrypt.compare(password, this.password, (err, isValid) => {
         if (err) {
             callback(err);

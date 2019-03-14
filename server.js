@@ -15,8 +15,10 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('public'));
 
+mongoose.Promise = global.Promise;
+
 //user sign-in
-app.post('/users/login', (req, res) => {
+app.post('/users/login', function (req, res) {
     
     //username and password from ajax api call
     const username = req.body.username;
@@ -39,16 +41,17 @@ app.post('/users/login', (req, res) => {
         }
         //username found
         else {
-            items.validatePassword(password, (err, isValiid) => {
+            items.validatePassword(password, function (err, isValid) {
                 if (err) {
                     return res.status(500).json({
                         message: "Cannot connect to DB to validate password"
                     });
                 }
-                if (!isVaslid) {
-                    return res.status(401).json({
-                        message: "Password invalid"
-                    });
+                if (!isValid) {
+                    // return res.status(401).json({
+                    //     message: "Password invalid"
+                    //});
+                    return console.log(err);
                 }
                 else {
                     return res.json(items);
@@ -58,7 +61,8 @@ app.post('/users/login', (req, res) => {
     });
 });
 
-//sign-up
+
+//sign-up - creating a new user
 app.post('/users/create', (req, res) => {
 
     //take the name, username and the password from the ajax api call

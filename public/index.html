@@ -75,84 +75,93 @@
     </div>
 
 
-    <!-- questions container-->
+    <!-- Questions container-->
     <div id="questions-form" class="hideme"></div>
 
 
     <!-- logging template with input fields for income, expense, savings/investments-->
-    <div id="logging" class="hideme">
+    <div id="log-form" class="hideme">
+        <form class="income-log" >
         <table class="log-table">
             <caption>Monthly Income</caption>
+
         <!-- Income -->
             <tr>
                 <th>Source of Income 
                     <div class="income-source">
-                        <input onfocus="this.placeholder=''" type="text" placeholder="salary">
-                        <input onfocus="this.placeholder=''" type="text" id="add-source" class="add">
-                    </div>
-                    <button class="income-add-btn btn">Add row</button>
-                </th>
-                
-                <th>Amount
-                    <div class="income-amount">
-                        <input class="in-mnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
-                        <input onfocus="this.placeholder=''" type="number" id="add-amount" class="add in-mnt">
+                        <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary">
+                        <p class="add-income-src"></p>
                         
+                        <button class="income-add-btn ">Add</button>
+                        
+                        <button class="delete-row-income ">Delete</button>
                     </div>
-                    <button class="delete-row-income btn">Delete</button>
-                    <input type="number" class="total">
+                    <div id="income-list"></div>
+                </th>  
+                <th>Amount
+                    <div>
+                        <input class="income-amnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
+                        <p class="add-income-amnt"></p>
+                    </div>
+                    
+                    <!-- <input type="number" class="total"> -->
                 </th>
             </tr>
         </table>
+        </form>
+
         <!-- Expenses -->
+        <form class="expenses-log">
         <table class="log-table">
             <caption>Monthly Expenses</caption>
             <tr>
                 <th>Expense Type 
                     <div class="expense-source">
-                        <input onfocus="this.placeholder=''" type="text" placeholder="mortgage">
-                        <input onfocus="this.placeholder=''" type="text">
-                        <input onfocus="this.placeholder=''" type="text" id="add-expense-source">
+                        <input class="expense-src" onfocus="this.placeholder=''" type="text" placeholder="mortgage">
+                        <p class="add-expense-src"></p>
                     </div>
-                    <button class="expense-add-btn btn">Add row</button>
+                    <button class="expense-add-btn ">Add</button>
+                    <button class="edit-epense ">Edit</button>
+                    <button class="delete-expense ">Delete</button>
                 </th>
                 <th>Amount
-                    <div class="expense-amnt">
-                        <input onfocus="this.placeholder=''" type="number" placeholder="1000">
-                        <input onfocus="this.placeholder=''" type="number">
-                        <input onfocus="this.placeholder=''" type="number" id="add-expense-amount">
+                    <div>
+                        <input class="expense-amnt" onfocus="this.placeholder=''" type="number" placeholder="1000">
+                        <p class="add-expense-amnt"></p>
                     </div>
-                    <button class="expense-delete-btn btn">Delete</button>
                 </th>
             </tr>
         </table>
+        </form>
+
         <!-- Savings -->
+        <form class="savings-log" >
         <table class="log-table">
             <caption>Monthly Savings</caption>
             <tr>
                 <th>Source of Savings         
                     <div class="savings-source">
-                        <input onfocus="this.placeholder=''" type="text" placeholder="401K">
-                        <input onfocus="this.placeholder=''" type="text">
-                        <input onfocus="this.placeholder=''" type="text" id="add-savings-source">
+                        <input class="savings-src" onfocus="this.placeholder=''" type="text" placeholder="401K">
+                        <p class="add-savings-src"></p>
                     </div>
-                    <button class="savings-add-btn btn">Add row</button>
+                    <button class="savings-add-btn ">Add</button>
+                    <button class="edit-savings ">Edit</button>
+                    <button class="delete-savings ">Delete</button>
                 </th>
                 <th>Amount 
                     <div class="savings-amount">
-                        <input onfocus="this.placeholder=''" type="number" placeholder="530">
-                        <input onfocus="this.placeholder=''" type="number">
-                        <input onfocus="this.placeholder=''" type="number" id="add-savings-amnt">
+                        <input class="savings-amnt" onfocus="this.placeholder=''" type="number" placeholder="530">
+                        <p class="add-savings-amnt"></p>
                     </div>
-                    <button class="delete-row-savings btn">Delete</button>
                 </th>    
             </tr>       
         </table>
+        </form>
         <button type="submit" class="see-results btn">See Results</button>
     </div>
 
 
-    <!-- results -->
+    <!-- Results and Chart Container -->
     <div id="results-container" class="hideme">
         <div id="results-text">
             <h2 class="results-h2">Here is an overview.</h2>
@@ -163,7 +172,7 @@
        <!-- high chart https://www.highcharts.com/demo -->
         <div id="container" class=""></div>
 
-        <input onfocus="this.placeholder=''" class="results-input onfocus="this.placeholder=''"" type="text" placeholder="Email this info to me please">
+        <input onfocus="this.placeholder=''" class="results-input" onfocus="this.placeholder=''" type="text" placeholder="Email this info to me please">
         <button type="submit" class="submit-results btn">Send</button>
     </div>
        

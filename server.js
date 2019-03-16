@@ -3,6 +3,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('./models/user');
+const Income = require('./models/income');
+const Expense = require('./models/expense');
+const Savings = require('./models/savings');
 const bodyParser = require('body-parser');
 const moment = require('moment');
 const cors = require('cors');
@@ -18,7 +21,7 @@ app.use(express.static('public'));
 mongoose.Promise = global.Promise;
 
 //user sign-in
-app.post('/users/login', function (req, res) {
+app.post('/users/login', (req, res) => {
     
     //username and password from ajax api call
     const username = req.body.username;
@@ -79,7 +82,6 @@ app.post('/users/create', (req, res) => {
 
         //if creating the key returns an error...
         if (err) {
-
             //display it
             return res.status(500).json({
                 message: 'Internal server error'
@@ -123,6 +125,65 @@ app.post('/users/create', (req, res) => {
         });
     });
 });
+
+// Entry Endpoints********
+//creating a new Entry with POST
+app.post('/income/create', (req, res) => {
+    let srcOfIncome = req.body.srcOfIncome;
+    let amntOfIncome = req.body.amntOfIncome;
+
+    Income.create({
+        srcOfIncome, amntOfIncome,
+    }, (err, item) => {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        if (item) {
+            return res.json(item);
+        }
+    });
+});
+
+//expense
+app.post('/expense/create', (req, res) => {
+    let amntOfExpenses = req.body.amntOfExpenses;
+    let srcOfExpenses = req.body.srcOfExpenses;
+
+    Expense.create({
+        amntOfExpenses, srcOfExpenses,
+    }, (err, item) => {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        if (item) {
+            return res.json(item);
+        }
+    });
+});
+
+//savings
+app.post('/savings/create', (req, res) => {
+    let amntOfSavings = req.body.amntOfSavings;
+    let srcOfSavings = req.body.srcOfSavings;
+
+    Savings.create({
+        amntOfSavings, srcOfSavings,
+    }, (err, item) => {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        if (item) {
+            return res.json(item);
+        }
+    });
+});
+
 
 //DB config
 const db = require('./config/keys').mongoURI

@@ -84,7 +84,6 @@ const generateQuestions = () => {
             <label>${questions[numberOfQuestions].choices[2]}</label>
             </div>
             </br>
-            <button id="prev-question " class="question-btn">Previous</button>
             <button id="next-question" class="question-btn">Next</button>
             <button type="submit" id="submit-btn" class="question-btn">Submit</button>
 
@@ -112,33 +111,19 @@ const nextQuestion = () => {
         $('.hideme').hide();
         $('#logging').show();
         } 
-        
-   
     });
 };
 
-//when prev button clicked go back to previous question
-const controlPrevBtn = () => {
-    if(numberOfQuestions === 0) {
-        $('#prev-question').hide();
+//submit button on last question
+const controlSubmitBtn = () => {
+    if(numberOfQuestions.length === 4) {
+        $('#next-question').hide();
+        $('#submit-btn').show();
+        console.log(numberOfQuestions);
     }else {
-        $('#prev-question').show();
+        $('#next-question').show();
     }
 };
-const prevQuestion = () => {
-    $('#questions-form').on('click', '#prev-question', () => {
-        numberOfQuestions--;
-
-        (numberOfQuestions < questions.length) 
-        $('#questions-form').html(generateQuestions());
-
-        controlPrevBtn();
-    });
-};
-
-// const controlSubmitBtn = () => {
-    
-// };
 
 
 

@@ -50,6 +50,50 @@ let loggingChart = () => {
   });
 }
 
+
+// //Get request
+// function getTheData (username) {
+//     if ((username == "") || (username == undefined) || (username == null)) {
+//         username = $('#loggedInUserName').val();
+//     }
+
+// //create the payload object (what data we send to the api call)
+//     const UserObject = {
+//         user: username
+//     };
+//     console.log(UserObject);
+
+//     $.ajax({
+//         type: 'GET',
+//         url: `/income-read`,
+//         dataType: 'json',
+//         data: JSON.stringify(UserObject),
+//         contentType: 'application/json'
+//     })
+//     //if call is succefull
+//     .done(function (result) {
+
+//         console.log(result);
+//         // if (result.entriesOutput.length === 0) {
+//         //     $('#no-entry').show();
+//         // } else {
+//         //     $('#no-entry').hide();
+//         // }
+
+//         //empty the user-list container before populating it dynamically
+//         $('#income-list').html("");
+//         //htmlUserDashboard(result);
+
+//     })
+//     //if the call is failing
+//     .fail(function (jqXHR, error, errorThrown) {
+//         console.log(jqXHR);
+//         console.log(error);
+//         console.log(errorThrown);
+//     });
+// };
+
+
 //Nav bar ****************
 const navBar = () => {
    
@@ -98,10 +142,8 @@ const loginForm = () => {
         .done((result) => {
             console.log(result);
             event.preventDefault();
-            $('.hideme').hide();
-            $('#questions-form').show();
-            $('#questions-form').html(generateQuestions());
-            $('#question-btns').show();
+            //getTheData(result.username);
+            questionnairePopulated();
             
             if(numberOfQuestions < 4) {
                 $('#submit-btn').hide();
@@ -110,7 +152,6 @@ const loginForm = () => {
                 $('#submit-btn').show();
             }
             //controlSubmitBtn();
-            controlPrevBtn();
         })
         .fail((err, errThrown) => {
             console.log(err);
@@ -171,12 +212,8 @@ $('#signup-form').submit( function (event) {
          //if call is succefull
          .done(function (result) {
              console.log(result);
-             //$('#loggedInName').text(result.name);
-            //  $('#loggedInUserName').val(result.username);
-            //  $('section').hide();
-            //  $('.navbar').show();
-            //  $('#user-dashboard').show();
-            //  populateUserDashboardDate(result.username);
+            questionnairePopulated();
+            //getTheData(result.username);
          })
          //if the call is failing
          .fail(function (jqXHR, error, errorThrown) {
@@ -194,83 +231,232 @@ $('#signup-form').submit( function (event) {
 const questionnaireBtnClicked = () => {
     $('#questionnaireBtn').click( (event) => {
         event.preventDefault();
-        $('.hideme').hide();
-        $('#questions-form').show();
-        $('#questions-form').html(generateQuestions());
-        $('#question-btns').show();
-        
-        if(numberOfQuestions < 4) {
-            $('#submit-btn').hide();
-        }else {
-            $('#next-question').hide();
-            $('#submit-btn').show();
-        }
-        //controlSubmitBtn();
-        controlPrevBtn();
+
+        questionnairePopulated();
     });
 };
 
+const questionnairePopulated = () => {
+    $('.hideme').hide();
+    $('#questions-form').show();
+    $('#questions-form').html(generateQuestions());
+    $('#question-btns').show();
+};
 
-// Log ******************
-const logging = () => {
+
+// Log *****************************************
+//const logResults = () => {
     $('.log').click( () => {
         $('.hideme').hide();
-        $('#logging').show();
-    });
-    addRow();
-    deleteRow();
-    logSum();
-};
-
-//add-row in log
-const addRow = () => {
-    $('.income-add-btn').click( () =>{
-        $('.income-source').append(`<input type="text" id="add-source">`)
-        $('.income-amount').append(`<input class="in-mnt" type="number" id="add-amount">`)
+        $('#log-form').show();
     });
 
-    $('.expense-add-btn').click(() => {
-        $('.expense-source').append(`<input type="text" id="add-expense-source">`)
-        $('.expense-amnt').append(`<input type="number" id="add-expense-amount">`)
+//Add Income in DB****
+    $('.income-log').submit( (event) => {
+        event.preventDefault();
+
+    //input from user
+        const srcOfIncome = $('.income-src').val();
+        const amntOfIncome = $('.income-amnt').val();
+    
+    //validate the input
+    if (srcOfIncome == "") {
+        alert('Please input source of income type');
+    } else if (amntOfIncome == "") {
+        alert('Please input amount of income');
+    } 
+
+    //if the input is valid
+    else {
+        //create the payload object (what data we send to the api call)
+        const entryObject = {
+            srcOfIncome: srcOfIncome,
+            amntOfIncome: amntOfIncome,
+        };
+        console.log(entryObject);
+
+
+        //make the api call using the payload above
+        $.ajax({
+                type: 'POST',
+                url: `/income/create`,
+                dataType: 'json',
+                data: JSON.stringify(entryObject),
+                contentType: 'application/json'
+            })
+            //if call is succefull
+            .done( (result) => {
+                $('.add-income-src').prepend(`<p>${srcOfIncome}</p> <button class="edit ">Edit</button>`)
+                $('.add-income-amnt').prepend(`<p>${amntOfIncome}</p>`)
+            })
+            //if the call is failing
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
+        };
     });
 
-    $('.savings-add-btn').click(() => {
-        $('.savings-amount').append(`<input type="text" id="add-savings-source">`)
-        $('.savings-source').append(`<input type="number" id="add-savings-amnt">`)
-    });
-};
 
-//delete-row in log
-const deleteRow = () => {
-    $('.delete-row-income').click(() => {
-        $('#add-source').addClass('delete-income');
-        $('#add-amount').addClass('delete-income');
-        $('.delete-income').remove();
+//Add expenses in DB *****
+    $('.expenses-log').submit((event) => {
+        event.preventDefault();
+
+        const srcOfExpenses = $('.expense-src').val();
+        const amntOfExpenses = $('.expense-amnt').val();
+
+        if (srcOfExpenses == "") {
+            alert('Please input an expense or input none');
+        } else if (amntOfExpenses == "") {
+            alert('Please input expense amount or 0');
+        } 
+    
+        //if the input is valid
+        else {
+            //create the payload object (what data we send to the api call)
+            const entryObject = {
+                srcOfExpenses: srcOfExpenses,
+                amntOfExpenses: amntOfExpenses,
+            };
+            console.log(entryObject);
+    
+            //make the api call using the payload above
+            $.ajax({
+                type: 'POST',
+                url: `/expense/create`,
+                dataType: 'json',
+                data: JSON.stringify(entryObject),
+                contentType: 'application/json'
+            })
+             //if the call is failing
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            })
+            //if call is succefull
+            .done( () => {
+                $('.add-expense-src').prepend(`<p">${srcOfExpenses}</p>`)
+                $('.add-expense-amnt').prepend(`<p>${amntOfExpenses}</p>`)
+            });   
+        };
     });
 
-    $('.expense-delete-btn').click(() => {
-        $('#add-expense-amount').addClass('delete-income');
-        $('#add-expense-source').addClass('delete-income');
-        $('.delete-income').remove();
-    });
+// Add Savings in DB******
+    $('.savings-log').submit( (event) => {
+        event.preventDefault();
 
-    $('.delete-row-savings').click(() => {
-        $('#add-savings-source').addClass('delete-income');
-        $('#add-savings-amnt').addClass('delete-income');
-        $('.delete-income').remove();
-    });
-};
+    //input from user
+        const srcOfSavings = $('.savings-src').val();
+        const amntOfSavings = $('.savings-amnt').val();
+    
+    //validate the input
+    if (srcOfSavings == "") {
+        alert('Please input source of income type');
+    } else if (amntOfSavings == "") {
+        alert('Please input amount of income');
+    } 
 
-// log Sum
-const logSum = () => {
-    $('.in-mnt').change(() => {
-        let sum = 0;
-        $('.in-mnt').each( function() {
-            sum += +$(this).val();
-        });
-        $('.total').val(sum);
+    //if the input is valid
+    else {
+        //create the payload object (what data we send to the api call)
+        const entryObject = {
+            srcOfSavings: srcOfSavings,
+            amntOfSavings: amntOfSavings,
+        };
+        console.log(entryObject);
+
+        //make the api call using the payload above
+        $.ajax({
+                type: 'POST',
+                url: `/savings/create`,
+                dataType: 'json',
+                data: JSON.stringify(entryObject),
+                contentType: 'application/json'
+            })
+            //if call is succefull
+            .done( (result) => {
+                $('.add-savings-src').prepend(`<p">${srcOfSavings}</p>`)
+                $('.add-savings-amnt').prepend(`<p>${amntOfSavings}</p>`)
+            })
+            //if the call is failing
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
+        };
     });
-};
+//};
+
+
+
+
+//const addToLogTable = () => {
+    // $('.income-add-btn').click( () => {
+    //     const addSrc = $('.add-src').val();
+    
+    //     $('.add-to-log-src').append(`<p">${addSrc}</p>`)
+    //     console.log(addSrc);
+    // });
+//};
+// const logging = () => {
+    
+//     // addRow();
+//     //deleteRow();
+//     // logSum();
+// };
+
+
+// //add-row in log
+// const addRow = () => {
+//     $('.income-add-btn').click( () =>{
+       
+//     });
+
+//     $('.expense-add-btn').click(() => {
+//         $('.expense-source').append(`<input type="text" id="add-expense-source">`)
+//         $('.expense-amnt').append(`<input type="number" id="add-expense-amount">`)
+//     });
+
+//     $('.savings-add-btn').click(() => {
+//         $('.savings-amount').append(`<input type="text" id="add-savings-source">`)
+//         $('.savings-source').append(`<input type="number" id="add-savings-amnt">`)
+//     });
+// };
+
+// //delete-row in log
+// const deleteRow = () => {
+//     $('.delete-row-income').click(() => {
+//         $('#add-source').addClass('delete-income');
+//         $('#add-amount').addClass('delete-income');
+//         $('.delete-income').remove();
+//     });
+
+//     $('.expense-delete-btn').click(() => {
+//         $('#add-expense-amount').addClass('delete-income');
+//         $('#add-expense-source').addClass('delete-income');
+//         $('.delete-income').remove();
+//     });
+
+//     $('.delete-row-savings').click(() => {
+//         $('#add-savings-source').addClass('delete-income');
+//         $('#add-savings-amnt').addClass('delete-income');
+//         $('.delete-income').remove();
+//     });
+// };
+
+// // log Sum
+// const logSum = () => {
+//     $('.in-mnt').change(() => {
+//         let sum = 0;
+//         $('.in-mnt').each( function() {
+//             sum += +$(this).val();
+//         });
+//         $('.total').val(sum);
+//     });
+// };
 
 //Chart function ***************
 //when results is clicked show results page
@@ -306,13 +492,14 @@ const watchForm = () => {
     loginForm();
     copyright();
     chart();
-    logging();
+    //logging();
     questionnaireBtnClicked();
     nextQuestion();
-    prevQuestion();
+    controlSubmitBtn();
     submitResults();
     navBar();
     loggingChart();
+
 };
 
 

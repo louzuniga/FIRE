@@ -27,18 +27,20 @@ function displayAllIncome (username) {
         //if call is succefull
         .done( (result) => {
             console.log(result);
-            $('.add-income-src').prepend
+            $('.add-income-src').append
             
             (`<tr>
             <th> 
             <form class="update-form">
-            <input type="text" class="update-income-src" value="${result.srcOfIncome}">
-            
-            <input type="text" class="update-income-amnt" value="${result.amntOfIncome}">
-            
-            <input type="hidden" class="inputEntryID"  value="${result._id}">
-
             <button type="submit" class="update-income-btn">Update</button>
+            <br/>
+            Source of Income 
+            <input type="text" class="update-income-src" value="${result.srcOfIncome}">
+            <br/>
+            Amount
+            <input type="text" class="update-income-amnt" value="${result.amntOfIncome}">
+
+            <input type="hidden" class="inputEntryID"  value="${result._id}"
             </form> 
             </th>
             </tr>`)
@@ -55,22 +57,109 @@ function displayAllIncome (username) {
         });
 };
 
-        
-        
-        //Nav bar ****************
-        const navBar = () => {
-           
-            $('.icon').click(() => {
-                //$('#nav').addClass('responsive')
-                
-                let nav = document.getElementById('nav');
-                if (nav.className === 'nav-list') {
-                    nav.className += ' responsive';
-                } else {
-                    nav.className = 'nav-list';
-                }
+function displayAllExpense (username) {
+   
+    if ((username == "") || (username == undefined) || (username == null)) {
+        username = $('.activeUser').val();
+    }
+    //create the payload object (what data we send to the api call)
+    const UserObject = {
+        user: username
+    };
+    console.log(UserObject);
+
+    //make the api call using the payload above
+    //this will retrieve all the income
+    $.ajax({
+            type: 'GET',
+            url: `/income/${username}`,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+        //if call is succefull
+        .done( (result) => {
+            console.log(result);
+            $('.add-income-src').append
+            
+            (`<tr>
+            <th> 
+            <form class="update-form">
+            <button type="submit" class="update-income-btn">Update</button>
+            <br/>
+            Source of Income 
+            <input type="text" class="update-income-src" value="${result.srcOfExpenses}">
+            <br/>
+            Amount
+            <input type="text" class="update-income-amnt" value="${result.amntOfExpenses}">
+
+            <input type="hidden" class="inputEntryID"  value="${result._id}"
+            </form> 
+            </th>
+            </tr>`)
+
+            $( '.income-log' ).each(function(){
+                this.reset();
             });
-        };
+        })
+        //if the call is failing
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+};
+
+function displayAllISavings (username) {
+   
+    if ((username == "") || (username == undefined) || (username == null)) {
+        username = $('.activeUser').val();
+    }
+    //create the payload object (what data we send to the api call)
+    const UserObject = {
+        user: username
+    };
+    console.log(UserObject);
+
+    //make the api call using the payload above
+    //this will retrieve all the income
+    $.ajax({
+            type: 'GET',
+            url: `/income/${username}`,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+        //if call is succefull
+        .done( (result) => {
+            console.log(result);
+            $('.add-income-src').append
+            
+            (`<tr>
+            <th> 
+            <form class="update-form">
+            <button type="submit" class="update-income-btn">Update</button>
+            <br/>
+            Source of Income 
+            <input type="text" class="update-income-src" value="${result.srcOfSavings}">
+            <br/>
+            Amount
+            <input type="text" class="update-income-amnt" value="${result.amntOfSavings}">
+
+            <input type="hidden" class="inputEntryID"  value="${result._id}"
+            </form> 
+            </th>
+            </tr>`)
+
+            $( '.income-log' ).each(function(){
+                this.reset();
+            });
+        })
+        //if the call is failing
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+};
         
         
 
@@ -124,6 +213,18 @@ let loggingChart = () => {
   });
 }
 
+
+//Nav bar *****************************************
+$('.icon').click(() => {
+    //$('#nav').addClass('responsive')
+    
+    let nav = document.getElementById('nav');
+    if (nav.className === 'nav-list') {
+        nav.className += ' responsive';
+    } else {
+        nav.className = 'nav-list';
+    }
+});
 
 
 // login form ******************
@@ -255,7 +356,7 @@ const questionnairePopulated = () => {
 };
 
 
-// Log ******************************************************
+// Log ****************************************************
 //const logResults = () => {
     $('.log').click( () => {
         $('.hideme').hide();
@@ -425,32 +526,32 @@ const questionnairePopulated = () => {
 //Update logged entries******
 
 //Click to update Income Inputted***
-$('.income-log').on('click', 'li', function (event) {
-    event.preventDefault();
+// $('.income-log').on('click', 'li', function (event) {
+//     event.preventDefault();
 
-    let editIncome = $(this);
-    let editIncomeInput = $('<input/>').val( editIncome.text() );
-    editIncome.replaceWith( editIncomeInput );
+//     let editIncome = $(this);
+//     let editIncomeInput = $('<input/>').val( editIncome.text() );
+//     editIncome.replaceWith( editIncomeInput );
 
-    let save = function(){
-        let newIncomeInput = $('<li data-editable class="edit-income"><i class="edit-in fa fa-edit"></i></li>').text( editIncomeInput.val() );
-        editIncomeInput.replaceWith( newIncomeInput );
-        console.log(editIncomeInput);
-      };
+//     let save = function(){
+//         let newIncomeInput = $('<li data-editable class="edit-income"><i class="edit-in fa fa-edit"></i></li>').text( editIncomeInput.val() );
+//         editIncomeInput.replaceWith( newIncomeInput );
+//         console.log(editIncomeInput);
+//       };
       
-    editIncomeInput.one('blur', save).focus();
-    console.log(editIncomeInput);
-});
+//     editIncomeInput.one('blur', save).focus();
+//     console.log(editIncomeInput);
+// });
 
 //Update Income DB
 $('.income-log').on('click', '.edit-in', function (event) {
      event.preventDefault();
 
     //take the input from the user
-    const parentDiv = $(this).closest('.log-table');
-    const srcOfIncome = $(this).parent().find('.edit-income').val();
-    const amntOfIncome = $(this).parent().find(".edit").val();
-    const entryId = $(this).parent().find('.inputEntryID').val();
+    // const parentDiv = $(this).closest('.log-table');
+    // const srcOfIncome = $(this).parent().find('.edit-income').val();
+    // const amntOfIncome = $(this).parent().find(".edit").val();
+    // const entryId = $(this).parent().find('.inputEntryID').val();
     
     console.log(srcOfIncome);
 
@@ -483,15 +584,6 @@ $('.income-log').on('click', '.edit-in', function (event) {
             //if call is succefull
             .done(function (result) {
                 
-
-                // populateUserDashboardDate(loggedInUserName);
-                // $('.js-edit-entry').hide();
-
-                // console.log(parentDiv);
-                // $('html, body').animate({
-                //     scrollTop: parentDiv.offset().top
-                // }, 1000);
-
             })
             //if the call is failing
             .fail(function (jqXHR, error, errorThrown) {
@@ -535,92 +627,6 @@ $('.savings-log').on('click', 'li', function (event) {
     
     editIncomeInput.one('blur', save).focus();
 });
-    //  $(event.currentTarget).closest('.income-src').siblings('.add-income-amnt', '.add-income-src');
-
-    // $('.add-income-amnt').hide();
-    // $('.add-income-src').hide();
-    // currentEditForm.show();
-
-
-    // $('html, body').animate({
-    //     scrollTop: currentEditForm.offset().top
-    // }, 1000);
-
-//Update Entry Submit
-// $('#user-list').on('submit', '.edit-entry-form', function (event) {
-//     event.preventDefault();
-
-//     //take the input from the user
-//     const parentDiv = $(this).closest('.entries-container');
-//     const entryType = $(this).parent().find(".entry-type").val();
-//     const inputDate = $(this).parent().find(".inputDate").val();
-//     const inputPlay = $(this).parent().find(".inputPlay").val();
-//     const inputAuthor = $(this).parent().find(".inputAuthor").val();
-//     const inputRole = $(this).parent().find(".inputRole").val();
-//     const inputCo = $(this).parent().find(".inputCo").val();
-//     const inputLocation = $(this).parent().find(".inputLocation").val();
-//     const inputNotes = $(this).parent().find(".inputNotes").val();
-//     const loggedInUserName = $("#loggedInUserName").val();
-//     const entryId = $(this).parent().find('.inputEntryID').val();
-
-//     //validate the input
-//     if (entryType == "") {
-//         alert('Please input entry type');
-//     } else if (inputDate == "") {
-//         alert('Please input addInputDate');
-//     } else if (inputPlay == "") {
-//         alert('Please input addInputPlay');
-//     } else if (inputAuthor == "") {
-//         alert('Please input addInputAuthor');
-//     } else if (inputNotes == "") {
-//         alert('Please input addInputNotes');
-//     }
-//     //if the input is valid
-//     else {
-//         //create the payload object (what data we send to the api call)
-//         const entryObject = {
-//             entryType: entryType,
-//             inputDate: inputDate,
-//             inputPlay: inputPlay,
-//             inputAuthor: inputAuthor,
-//             inputRole: inputRole,
-//             inputCo: inputCo,
-//             inputLocation: inputLocation,
-//             inputNotes: inputNotes,
-//             loggedInUserName: loggedInUserName,
-//             entryId: entryId
-//         };
-//         console.log(entryObject);
-
-
-//         //make the api call using the payload above
-//         $.ajax({
-//                 type: 'PUT',
-//                 url: `/entry/${entryId}`,
-//                 dataType: 'json',
-//                 data: JSON.stringify(entryObject),
-//                 contentType: 'application/json'
-//             })
-//             //if call is succefull
-//             .done(function (result) {
-//                 populateUserDashboardDate(loggedInUserName);
-//                 $('.js-edit-entry').hide();
-
-//                 console.log(parentDiv);
-//                 $('html, body').animate({
-//                     scrollTop: parentDiv.offset().top
-//                 }, 1000);
-
-//             })
-//             //if the call is failing
-//             .fail(function (jqXHR, error, errorThrown) {
-//                 console.log(jqXHR);
-//                 console.log(error);
-//                 console.log(errorThrown);
-//             });
-//     };
-
-// });
 
 
 //const addToLogTable = () => {
@@ -688,6 +694,7 @@ $('.savings-log').on('click', 'li', function (event) {
 //     });
 // };
 
+
 //Chart function ***************
 //when results is clicked show results page
 const seeResults = () => {
@@ -725,7 +732,6 @@ const watchForm = () => {
     //questionnaireBtnClicked();
     nextQuestion();
     submitResults();
-    navBar();
     loggingChart();
 };
 

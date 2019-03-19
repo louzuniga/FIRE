@@ -84,72 +84,70 @@
     <div id="log-form" class="hideme">
 
         <!-- Income -->
-        
         <table class="log-table add-income-src">
             <caption>Monthly Income</caption>
             <tr>
                 <th>Source of Income 
                     <form class="income-log" >
-                    <button class="income-add-btn ">Add</button>
-                    <div class="income-source">
-                        <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary">      
-                    </div>
-                    Amount
-                    <div>
-                        <input class="income-amnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
-                    </div>
+                        <button class="income-add-btn ">Add</button>
+
+                        <div class="income-source">
+                            <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary" value="testInput">      
+                        </div>
+
+                        Amount
+                        <div>
+                            <input value="123" class="income-amnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
+                        </div>
                     </form>
-                    <!-- <input type="number" class="total"> -->
                 </th>
             </tr>
-        
         </table>
        
 
         <!-- Expenses -->
-        <form class="expenses-log">
         <table class="log-table">
-            <caption>Monthly Expenses</caption>
+            <caption>Monthly Expense</caption>
             <tr>
-                <th>Expense Type 
-                    <button class="expense-add-btn ">Add</button>
-                    <div class="expense-source">
-                        <input class="expense-src" onfocus="this.placeholder=''" type="text" placeholder="mortgage">
-                        
-                        <ul data-editable class="add-expense-src"></ul>
-                    </div>
-                </th>
-                <th>Amount
-                    <div>
-                        <input class="expense-amnt" onfocus="this.placeholder=''" type="number" placeholder="1000">
-                        <ul data-editable class="add-expense-amnt"></ul>
-                    </div>
+                <th>Expense Type
+                    <form class="expenses-log" >
+                        <button class="expense-add-btn ">Add</button>
+
+                        <div class="expense-source">
+                            <input onfocus="this.placeholder=''" type="text" class="expense-src" placeholder="mortgage" value="testInput">      
+                        </div>
+
+                        Amount
+                        <div>
+                            <input value="123" class="expense-amnt" onfocus="this.placeholder=''" type="number" placeholder="1000">
+                        </div>
+                    </form>
                 </th>
             </tr>
         </table>
-        </form>
 
+        
         <!-- Savings -->
-        <form class="savings-log" >
         <table class="log-table">
-            <caption>Monthly Savings</caption>
+            <caption>Monthly Saving/Investment</caption>
             <tr>
-                <th>Source of Savings  
-                    <button class="savings-add-btn ">Add</button>       
-                    <div class="savings-source">
-                        <input class="savings-src" onfocus="this.placeholder=''" type="text" placeholder="401K">
-                        <ul data-editable  class="add-savings-src"></ul>
-                    </div>
+                <th>Saving/Investment Type
+                    <form class="savings-log" >
+                        <button class="savings-add-btn ">Add</button>
+
+                        <div class="savings-source">
+                            <input onfocus="this.placeholder=''" type="text" class="savings-src" placeholder="401K" value="testInput">      
+                        </div>
+
+                        Amount
+                        <div class="savings-amount">
+                            <input value="123" class="savings-amnt" onfocus="this.placeholder=''" type="number" placeholder="530">
+                        </div>
+                    </form>
                 </th>
-                <th>Amount 
-                    <div class="savings-amount">
-                        <input class="savings-amnt" onfocus="this.placeholder=''" type="number" placeholder="530">
-                        <ul data-editable  class="add-savings-amnt"></ul>
-                    </div>
-                </th>    
-            </tr>       
+            </tr>
         </table>
-        </form>
+
         <button type="submit" class="see-results btn">See Results</button>
     </div>
 

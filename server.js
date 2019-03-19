@@ -185,6 +185,57 @@ app.post('/savings/create', (req, res) => {
 });
 
 
+//GET request to access data***********************
+app.get('/income/:user', function (req, res) {
+
+    Income
+        .find()
+        //.sort('inputDate')
+        .then(function (entries) {
+            let entriesOutput = [];
+            entries.map(function (income) {
+                if (income.activeUser == req.params.user) {
+                    entriesOutput.push(income);
+                }
+            });
+            res.json({
+                entriesOutput
+            });
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal server error'
+            });
+        });
+});
+// app.get('/entry-read/:user', function (req, res) {
+
+//     Entry
+//         .find({
+//             "entryType": "read"
+//         })
+//         .sort('inputDate')
+//         .then(function (entries) {
+//             let entriesOutput = [];
+//             entries.map(function (entry) {
+//                 if (entry.loggedInUserName == req.params.user) {
+//                     entriesOutput.push(entry);
+//                 }
+//             });
+//             res.json({
+//                 entriesOutput
+//             });
+//         })
+//         .catch(function (err) {
+//             console.error(err);
+//             res.status(500).json({
+//                 message: 'Internal server error'
+//             });
+//         });
+// });
+
+
 //DB config
 const db = require('./config/keys').mongoURI
 

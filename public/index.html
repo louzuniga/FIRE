@@ -10,9 +10,10 @@
     <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
 </head>
 <body>
+    <input type="hidden" class="activeUser" value="">
     <!-- Navigation Bar -->
     <header>
-        <nav class="nav-bar">
+        <nav id="nav-bar" class="">
             <div class="nav-list" id="nav">
                 <a href="/" class="home">Home</a>
                 <a id="questionnaireBtn">Questionaire</a>
@@ -81,34 +82,29 @@
 
     <!-- logging template with input fields for income, expense, savings/investments-->
     <div id="log-form" class="hideme">
-        <form class="income-log" >
-        <table class="log-table">
-            <caption>Monthly Income</caption>
 
         <!-- Income -->
+        
+        <table class="log-table add-income-src">
+            <caption>Monthly Income</caption>
             <tr>
                 <th>Source of Income 
+                    <form class="income-log" >
+                    <button class="income-add-btn ">Add</button>
                     <div class="income-source">
-                        <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary">
-                        <p class="add-income-src"></p>
-                        
-                        <button class="income-add-btn ">Add</button>
-                        
-                        <button class="delete-row-income ">Delete</button>
+                        <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary">      
                     </div>
-                    <div id="income-list"></div>
-                </th>  
-                <th>Amount
+                    Amount
                     <div>
                         <input class="income-amnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
-                        <p class="add-income-amnt"></p>
                     </div>
-                    
+                    </form>
                     <!-- <input type="number" class="total"> -->
                 </th>
             </tr>
+        
         </table>
-        </form>
+       
 
         <!-- Expenses -->
         <form class="expenses-log">
@@ -116,18 +112,17 @@
             <caption>Monthly Expenses</caption>
             <tr>
                 <th>Expense Type 
+                    <button class="expense-add-btn ">Add</button>
                     <div class="expense-source">
                         <input class="expense-src" onfocus="this.placeholder=''" type="text" placeholder="mortgage">
-                        <p class="add-expense-src"></p>
+                        
+                        <ul data-editable class="add-expense-src"></ul>
                     </div>
-                    <button class="expense-add-btn ">Add</button>
-                    <button class="edit-epense ">Edit</button>
-                    <button class="delete-expense ">Delete</button>
                 </th>
                 <th>Amount
                     <div>
                         <input class="expense-amnt" onfocus="this.placeholder=''" type="number" placeholder="1000">
-                        <p class="add-expense-amnt"></p>
+                        <ul data-editable class="add-expense-amnt"></ul>
                     </div>
                 </th>
             </tr>
@@ -139,19 +134,17 @@
         <table class="log-table">
             <caption>Monthly Savings</caption>
             <tr>
-                <th>Source of Savings         
+                <th>Source of Savings  
+                    <button class="savings-add-btn ">Add</button>       
                     <div class="savings-source">
                         <input class="savings-src" onfocus="this.placeholder=''" type="text" placeholder="401K">
-                        <p class="add-savings-src"></p>
+                        <ul data-editable  class="add-savings-src"></ul>
                     </div>
-                    <button class="savings-add-btn ">Add</button>
-                    <button class="edit-savings ">Edit</button>
-                    <button class="delete-savings ">Delete</button>
                 </th>
                 <th>Amount 
                     <div class="savings-amount">
                         <input class="savings-amnt" onfocus="this.placeholder=''" type="number" placeholder="530">
-                        <p class="add-savings-amnt"></p>
+                        <ul data-editable  class="add-savings-amnt"></ul>
                     </div>
                 </th>    
             </tr>       

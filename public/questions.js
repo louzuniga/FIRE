@@ -85,16 +85,8 @@ const generateQuestions = () => {
             </div>
             </br>
             <button id="next-question" class="question-btn">Next</button>
-            <button type="submit" id="submit-btn" class="question-btn">Submit</button>
+            <button type="submit" id="submit-btn" class="">Submit</button>
 
-    
-            <div class="step-circles">
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-            </div>
         </form>
         </div>`
    
@@ -107,23 +99,29 @@ const nextQuestion = () => {
 
     if(numberOfQuestions < questions.length) {
         $('#questions-form').html(generateQuestions());
+        $('#submit-btn').hide();
     }else {
-        $('.hideme').hide();
-        $('#logging').show();
-        } 
+        $('#submit-btn').show();
+        $('#next-question').hide();
+        $('#submit-btn').click(() => {
+            $('.hideme').hide();
+            $('#log-form').show();
+        });
+        }  
+        console.log(numberOfQuestions)
     });
 };
 
 //submit button on last question
-const controlSubmitBtn = () => {
-    if(numberOfQuestions.length === 4) {
-        $('#next-question').hide();
-        $('#submit-btn').show();
-        console.log(numberOfQuestions);
-    }else {
-        $('#next-question').show();
-    }
-};
+// const controlSubmitBtn = () => {
+//     if(numberOfQuestions.length === 4) {
+//         $('#next-question').hide();
+//         $('#submit-btn').show();
+//         console.log(numberOfQuestions);
+//     }else {
+//         $('#next-question').show();
+//     }
+// };
 
 
 

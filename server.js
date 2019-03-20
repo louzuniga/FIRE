@@ -131,9 +131,10 @@ app.post('/users/create', (req, res) => {
 app.post('/income/create', (req, res) => {
     let srcOfIncome = req.body.srcOfIncome;
     let amntOfIncome = req.body.amntOfIncome;
+    let username = req.body.username;
 
     Income.create({
-        srcOfIncome, amntOfIncome,
+        srcOfIncome, amntOfIncome, username,
     }, (err, item) => {
         if (err) {
             return res.status(500).json({
@@ -150,9 +151,10 @@ app.post('/income/create', (req, res) => {
 app.post('/expense/create', (req, res) => {
     let amntOfExpenses = req.body.amntOfExpenses;
     let srcOfExpenses = req.body.srcOfExpenses;
+    let username = req.body.username;
 
     Expense.create({
-        amntOfExpenses, srcOfExpenses,
+        amntOfExpenses, srcOfExpenses, username,
     }, (err, item) => {
         if (err) {
             return res.status(500).json({
@@ -169,9 +171,10 @@ app.post('/expense/create', (req, res) => {
 app.post('/savings/create', (req, res) => {
     let amntOfSavings = req.body.amntOfSavings;
     let srcOfSavings = req.body.srcOfSavings;
+    let username = req.body.username;
 
     Savings.create({
-        amntOfSavings, srcOfSavings,
+        amntOfSavings, srcOfSavings, username,
     }, (err, item) => {
         if (err) {
             return res.status(500).json({
@@ -189,17 +192,12 @@ app.post('/savings/create', (req, res) => {
 app.get('/income/:user', function (req, res) {
 
     Income
-        .find()
-        //.sort('inputDate')
+        .find({'username': req.params.user}) //find the user name
         .then(function (entries) {
-            let entriesOutput = [];
-            entries.map(function (income) {
-                if (income.activeUser == req.params.user) {
-                    entriesOutput.push(income);
-                }
-            });
+            console.log(entries);
+           
             res.json({
-                entriesOutput
+                entries
             });
         })
         .catch(function (err) {
@@ -209,31 +207,44 @@ app.get('/income/:user', function (req, res) {
             });
         });
 });
-// app.get('/entry-read/:user', function (req, res) {
 
-//     Entry
-//         .find({
-//             "entryType": "read"
-//         })
-//         .sort('inputDate')
-//         .then(function (entries) {
-//             let entriesOutput = [];
-//             entries.map(function (entry) {
-//                 if (entry.loggedInUserName == req.params.user) {
-//                     entriesOutput.push(entry);
-//                 }
-//             });
-//             res.json({
-//                 entriesOutput
-//             });
-//         })
-//         .catch(function (err) {
-//             console.error(err);
-//             res.status(500).json({
-//                 message: 'Internal server error'
-//             });
-//         });
-// });
+//GET expense
+app.get('/expense/:user', function (req, res) {
+
+    Expense
+        .find({'username': req.params.user})
+        .then(function (entries) {
+           console.log(entries)
+
+            res.json({
+                entries
+            });
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal server error'
+            });
+        });
+});
+
+//GET savings
+app.get('/savings/:user', function (req, res) {
+
+    Savings
+        .find({'username': req.params.user})
+        .then(function (entries) {
+            res.json({
+                entries
+            });
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal server error'
+            });
+        });
+});
 
 
 //DB config

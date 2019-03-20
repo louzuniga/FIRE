@@ -11,6 +11,7 @@
 </head>
 <body>
     <input type="hidden" class="activeUser" value="">
+
     <!-- Navigation Bar -->
     <header>
         <nav id="nav-bar" class="">
@@ -84,69 +85,78 @@
     <div id="log-form" class="hideme">
 
         <!-- Income -->
-        <table class="log-table add-income-src">
+        <table class="log-table add-income">
             <caption>Monthly Income</caption>
             <tr>
-                <th>Source of Income 
+                <td> 
                     <form class="income-log" >
                         <button class="income-add-btn ">Add</button>
 
                         <div class="income-source">
-                            <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary" value="testInput">      
+                            <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary" value="">   
+                            <label>Source of Income</label>
                         </div>
-
-                        Amount
+                        
                         <div>
-                            <input value="123" class="income-amnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
+                            <input value="" class="income-amnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
+                            <label>Amount</label>
                         </div>
                     </form>
-                </th>
+                </td>
             </tr>
         </table>
+
+        <table class="log-table add-income-results"></table>
        
 
         <!-- Expenses -->
-        <table class="log-table">
+        <table class="log-table add-expense">
             <caption>Monthly Expense</caption>
             <tr>
-                <th>Expense Type
+                <td>
                     <form class="expenses-log" >
                         <button class="expense-add-btn ">Add</button>
 
                         <div class="expense-source">
-                            <input onfocus="this.placeholder=''" type="text" class="expense-src" placeholder="mortgage" value="testInput">      
+                            <input onfocus="this.placeholder=''" type="text" class="expense-src" placeholder="mortgage" value="">  
+                            <label>Expense Type</label>
                         </div>
-
-                        Amount
+                        
                         <div>
-                            <input value="123" class="expense-amnt" onfocus="this.placeholder=''" type="number" placeholder="1000">
+                            <input value="" class="expense-amnt" onfocus="this.placeholder=''" type="number" placeholder="1000">
+                            <label>Amount</label>
                         </div>
                     </form>
-                </th>
+                </td>
             </tr>
         </table>
 
+        <table class="log-table add-expense-results"></table>
+
         
         <!-- Savings -->
-        <table class="log-table">
+        <table class="log-table add-savings">
             <caption>Monthly Saving/Investment</caption>
             <tr>
-                <th>Saving/Investment Type
+                <td>
                     <form class="savings-log" >
                         <button class="savings-add-btn ">Add</button>
 
                         <div class="savings-source">
-                            <input onfocus="this.placeholder=''" type="text" class="savings-src" placeholder="401K" value="testInput">      
+                            <input onfocus="this.placeholder=''" type="text" class="savings-src" placeholder="401K" value="">
+                            <label>Savings Type</label>   
                         </div>
-
-                        Amount
+                        
                         <div class="savings-amount">
-                            <input value="123" class="savings-amnt" onfocus="this.placeholder=''" type="number" placeholder="530">
+                            <input value="" class="savings-amnt" onfocus="this.placeholder=''" type="number" placeholder="530">
+                            <label>Amount</label>
                         </div>
                     </form>
-                </th>
+                </td>
             </tr>
         </table>
+
+        <table class="log-table add-savings-results"></table>
 
         <button type="submit" class="see-results btn">See Results</button>
     </div>
@@ -160,6 +170,7 @@
                 Let's Take a look at your computation results based off of your income, expense and savings/investments.
             </p>
         </div>
+
        <!-- high chart https://www.highcharts.com/demo -->
         <div id="container" class=""></div>
 

@@ -14,7 +14,6 @@ function displayAllIncome (username) {
     const UserObject = {
         user: username
     };
-    console.log(UserObject);
 
     //make the api call using the payload above
     //this will retrieve all the income
@@ -27,27 +26,34 @@ function displayAllIncome (username) {
         //if call is succefull
         .done( (result) => {
             console.log(result);
-            $('.add-income-src').append
-            
-            (`<tr>
-            <th> 
-            <form class="update-form">
-            <button type="submit" class="update-income-btn">Update</button>
-            <br/>
-            Source of Income 
-            <input type="text" class="update-income-src" value="${result.srcOfIncome}">
-            <br/>
-            Amount
-            <input type="text" class="update-income-amnt" value="${result.amntOfIncome}">
-
-            <input type="hidden" class="inputEntryID"  value="${result._id}"
-            </form> 
-            </th>
-            </tr>`)
-
             $( '.income-log' ).each(function(){
                 this.reset();
             });
+
+            $('.add-income-results').html(''); //reset income before adding a new one
+
+            for (let i = 0; i < result.entries.length; i++){
+                $('.add-income-results').prepend
+            
+                (`<tr>
+                <td> 
+    
+                <form class="update-form">
+                <button type="submit" class="update-income-btn">Update</button>
+                <br/>
+    
+                <input type="text" class="update-income-src" value="${result.entries[i].srcOfIncome}">
+                <label>Source of Income</label>
+                <br/>
+    
+                <input type="text" class="update-income-amnt" value="${result.entries[i].amntOfIncome}">
+                <input type="hidden" class="update-income-id" value="${result.entries[i]._id}">
+                <label>Amount</label>
+    
+                </form> 
+                </td>
+                </tr>`)
+            }
         })
         //if the call is failing
         .fail(function (jqXHR, error, errorThrown) {
@@ -66,41 +72,48 @@ function displayAllExpense (username) {
     const UserObject = {
         user: username
     };
-    console.log(UserObject);
 
     //make the api call using the payload above
     //this will retrieve all the income
     $.ajax({
             type: 'GET',
-            url: `/income/${username}`,
+            url: `/expense/${username}`,
             dataType: 'json',
             contentType: 'application/json'
         })
         //if call is succefull
         .done( (result) => {
             console.log(result);
-            $('.add-income-src').append
-            
-            (`<tr>
-            <th> 
-            <form class="update-form">
-            <button type="submit" class="update-income-btn">Update</button>
-            <br/>
-            Source of Income 
-            <input type="text" class="update-income-src" value="${result.srcOfExpenses}">
-            <br/>
-            Amount
-            <input type="text" class="update-income-amnt" value="${result.amntOfExpenses}">
-
-            <input type="hidden" class="inputEntryID"  value="${result._id}"
-            </form> 
-            </th>
-            </tr>`)
-
             $( '.income-log' ).each(function(){
                 this.reset();
             });
+
+            $('.add-expense-results').html('');
+
+            for (let i = 0; i < result.entries.length; i++) {
+                $('.add-expense-results').prepend
+                
+                (`<tr>
+                <td> 
+                <form class="update-expense-form">
+
+                <button type="submit" class="update-expense-btn">Update</button>
+                <br/>
+
+                <input type="text" class="update-expense-src" value="${result.entries[i].srcOfExpenses}">
+                <label>Expense Type</label>
+                <br/>
+
+                <input type="text" class="update-expense-amnt" value="${result.entries[i].amntOfExpenses}">
+                <input type="hidden" class="update-income-id" value="${result.entries[i]._id}">
+                <label>Amount</label>
+
+                </form> 
+                </td>
+                </tr>`)
+            }
         })
+
         //if the call is failing
         .fail(function (jqXHR, error, errorThrown) {
             console.log(jqXHR);
@@ -109,7 +122,7 @@ function displayAllExpense (username) {
         });
 };
 
-function displayAllISavings (username) {
+function displayAllSavings (username) {
    
     if ((username == "") || (username == undefined) || (username == null)) {
         username = $('.activeUser').val();
@@ -118,41 +131,48 @@ function displayAllISavings (username) {
     const UserObject = {
         user: username
     };
-    console.log(UserObject);
 
     //make the api call using the payload above
     //this will retrieve all the income
     $.ajax({
             type: 'GET',
-            url: `/income/${username}`,
+            url: `/savings/${username}`,
             dataType: 'json',
             contentType: 'application/json'
         })
         //if call is succefull
         .done( (result) => {
             console.log(result);
-            $('.add-income-src').append
-            
-            (`<tr>
-            <th> 
-            <form class="update-form">
-            <button type="submit" class="update-income-btn">Update</button>
-            <br/>
-            Source of Income 
-            <input type="text" class="update-income-src" value="${result.srcOfSavings}">
-            <br/>
-            Amount
-            <input type="text" class="update-income-amnt" value="${result.amntOfSavings}">
-
-            <input type="hidden" class="inputEntryID"  value="${result._id}"
-            </form> 
-            </th>
-            </tr>`)
-
             $( '.income-log' ).each(function(){
                 this.reset();
             });
+
+            $('.add-savings-results').html('');
+
+            for (let i = 0; i < result.entries.length; i++) {
+                $('.add-savings-results').prepend
+                
+                (`<tr>
+                <td> 
+                <form class="update-savings-form">
+
+                <button type="submit" class="update-savings-btn">Update</button>
+                <br/>
+    
+                <input type="text" class="update-savings-src" value="${result.entries[i].srcOfSavings}">
+                <label>Savings Type</label>
+                <br/>
+
+                <input type="text" class="update-savings-amnt" value="${result.entries[i].amntOfSavings}">
+                <input type="hidden" class="update-income-id" value="${result.entries[i]._id}">
+                <label>Amount</label>
+
+                </form> 
+                </td>
+                </tr>`)
+            }
         })
+        
         //if the call is failing
         .fail(function (jqXHR, error, errorThrown) {
             console.log(jqXHR);
@@ -261,8 +281,10 @@ $('.icon').click(() => {
             //getTheData(result.username);
             questionnairePopulated();
             $('#nav-bar').show();
+            displayAllIncome(result._id);
+            displayAllExpense(result._id);
+            displayAllSavings(result._id);
             
-            //controlSubmitBtn();
         })
         .fail((err, errThrown) => {
             console.log(err);
@@ -285,6 +307,7 @@ $('.signup-nav').click((event) => {
         location.reload();
     });
 
+//user clicks sign-up button
 $('#signup-form').submit( function (event) {
     event.preventDefault();
    
@@ -339,7 +362,6 @@ $('#signup-form').submit( function (event) {
 
 
 // Generate questions **************
-//when questionnaireBtn clicked show questions and hide signup form
 //const questionnaireBtnClicked = () => {
     $('#questionnaireBtn').click( (event) => {
         event.preventDefault();
@@ -363,7 +385,7 @@ const questionnairePopulated = () => {
         $('#log-form').show();
     });
 
-//Add Income in DB****
+//Add Income in DB--------------
     $('.income-log').submit( (event) => {
         event.preventDefault();
 
@@ -401,7 +423,7 @@ const questionnairePopulated = () => {
             //if call is succefull
             .done( (result) => {
                 console.log(result);
-                displayAllIncome (username, result) //after the income is added display the username
+                displayAllIncome (username) //after the income is added display the username
             })
             //if the call is failing
             .fail(function (jqXHR, error, errorThrown) {
@@ -413,12 +435,13 @@ const questionnairePopulated = () => {
     });
 
 
-//Add expenses in DB *****
+//Add expenses in DB ----------------
     $('.expenses-log').submit((event) => {
         event.preventDefault();
 
         const srcOfExpenses = $('.expense-src').val();
         const amntOfExpenses = $('.expense-amnt').val();
+        let username = $('.activeUser').val();
 
         if (srcOfExpenses == "") {
             alert('Please input an expense or input none');
@@ -432,6 +455,7 @@ const questionnairePopulated = () => {
             const entryObject = {
                 srcOfExpenses: srcOfExpenses,
                 amntOfExpenses: amntOfExpenses,
+                username: username,
             };
             console.log(entryObject);
     
@@ -450,15 +474,9 @@ const questionnairePopulated = () => {
                 console.log(errorThrown);
             })
             //if call is succefull
-            .done( () => {
-                $('.add-expense-src').prepend
-                (`<li data-editable class="edit">
-                <i class="fa fa-edit"></i>  ${srcOfExpenses}
-                </li>`)
-
-                $('.add-expense-amnt').prepend
-                (`<li data-editable class="edit">
-                <i class="fa fa-edit"></i>  ${amntOfExpenses}</li>`)
+            .done( (result) => {
+                console.log(result);
+                displayAllExpense(username);
 
                 $( '.expenses-log' ).each(function(){
                     this.reset();
@@ -474,6 +492,7 @@ const questionnairePopulated = () => {
     //input from user
         const srcOfSavings = $('.savings-src').val();
         const amntOfSavings = $('.savings-amnt').val();
+        let username = $('.activeUser').val();
     
     //validate the input
     if (srcOfSavings == "") {
@@ -488,6 +507,7 @@ const questionnairePopulated = () => {
         const entryObject = {
             srcOfSavings: srcOfSavings,
             amntOfSavings: amntOfSavings,
+            username: username
         };
         console.log(entryObject);
 
@@ -501,12 +521,8 @@ const questionnairePopulated = () => {
             })
             //if call is succefull
             .done( (result) => {
-                $('.add-savings-src').prepend
-                (`<li data-editable class="edit">
-                <i class="fa fa-edit"></i>  ${srcOfSavings}</li>`)
-
-                $('.add-savings-amnt').prepend
-                (`<li data-editable class="edit"><i class="fa fa-edit"></i>  ${amntOfSavings}</li>`)
+                console.log(result);
+                displayAllSavings();
                 
                 $( '.savings-log' ).each(function(){
                     this.reset();
@@ -544,14 +560,14 @@ const questionnairePopulated = () => {
 // });
 
 //Update Income DB
-$('.income-log').on('click', '.edit-in', function (event) {
+$('.income-log').on('click', '.update-income-btn', function (event) {
      event.preventDefault();
 
     //take the input from the user
     // const parentDiv = $(this).closest('.log-table');
-    // const srcOfIncome = $(this).parent().find('.edit-income').val();
-    // const amntOfIncome = $(this).parent().find(".edit").val();
-    // const entryId = $(this).parent().find('.inputEntryID').val();
+    const srcOfIncome = $(this).parent().find('.edit-income').val();
+    const amntOfIncome = $(this).parent().find(".edit").val();
+    const username = $(this).parent().find('.activeUser').val();
     
     console.log(srcOfIncome);
 
@@ -568,7 +584,7 @@ $('.income-log').on('click', '.edit-in', function (event) {
         const entryObject = {
             srcOfIncome: srcOfIncome,
             amntOfIncome: amntOfIncome,
-            entryId: entryId
+            username: username
         };
         console.log(entryObject);
 
@@ -576,14 +592,14 @@ $('.income-log').on('click', '.edit-in', function (event) {
         //make the api call using the payload above
         $.ajax({
                 type: 'PUT',
-                url: `/income/${entryId}`,
+                url: `/income/${username}`,
                 dataType: 'json',
                 data: JSON.stringify(entryObject),
                 contentType: 'application/json'
             })
             //if call is succefull
             .done(function (result) {
-                
+                console.log(result);
             })
             //if the call is failing
             .fail(function (jqXHR, error, errorThrown) {

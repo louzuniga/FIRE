@@ -12,6 +12,10 @@ const savingsSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    username: {
+        type: String,
+        required: false,
+    },
 });
 
 

@@ -191,21 +191,20 @@ app.post('/savings/create', (req, res) => {
 
 
 //PUT *******************************
+//Income-----
 app.put('/income/:id', function (req, res) {
     let toUpdate = {};
-    //let updateableFields = ['achieveWhat', 'achieveHow', 'achieveWhen', 'achieveWhy']; //<--Marius? 'entryType
     let updateableFields = ['srcOfIncome', 'amntOfIncome', 'username', ];
     updateableFields.forEach(function (field) {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
         }
     });
-    console.log(toUpdate);
     
     Income
         .findByIdAndUpdate(req.params.id, {
             $set: toUpdate
-        }).exec().then(function (achievement) {
+        }).exec().then(function () {
             return res.status(204).end();
         }).catch(function (err) {
             return res.status(500).json({
@@ -213,6 +212,51 @@ app.put('/income/:id', function (req, res) {
             });
         });
 });
+
+//Expense - update with PUT
+app.put('/expense/:id', function (req, res) {
+    let toUpdate = {};
+    let updateableFields = ['srcOfExpenses', 'amntOfExpenses', 'username', ];
+    updateableFields.forEach(function (field) {
+        if (field in req.body) {
+            toUpdate[field] = req.body[field];
+        }
+    });
+    
+    Expense
+        .findByIdAndUpdate(req.params.id, {
+            $set: toUpdate
+        }).exec().then(function () {
+            return res.status(204).end();
+        }).catch(function (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        });
+});
+
+//Savings - update with PUT
+app.put('/savings/:id', function (req, res) {
+    let toUpdate = {};
+    let updateableFields = ['srcOfSavings', 'amntOfSavings', 'username', ];
+    updateableFields.forEach(function (field) {
+        if (field in req.body) {
+            toUpdate[field] = req.body[field];
+        }
+    });
+    
+    Savings
+        .findByIdAndUpdate(req.params.id, {
+            $set: toUpdate
+        }).exec().then(function () {
+            return res.status(204).end();
+        }).catch(function (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        });
+});
+
 
 
 //GET request to access data ***********************
@@ -273,6 +317,7 @@ app.get('/savings/:user', function (req, res) {
         });
 });
 
+//GET by id
 app.get('/income/:id', function (req, res) {
     Income
         .findById(req.params.id).exec().then(function (income) {
@@ -291,6 +336,28 @@ app.get('/income/:id', function (req, res) {
 // deleting an achievement by id
 app.delete('/income/:id', function (req, res) {
     Income.findByIdAndRemove(req.params.id).exec().then(function (income) {
+        return res.status(204).end();
+    }).catch(function (err) {
+        return res.status(500).json({
+            message: 'Internal Server Error'
+        });
+    });
+});
+
+//Expense--------
+app.delete('/expense/:id', function (req, res) {
+    Expense.findByIdAndRemove(req.params.id).exec().then(function (expense) {
+        return res.status(204).end();
+    }).catch(function (err) {
+        return res.status(500).json({
+            message: 'Internal Server Error'
+        });
+    });
+});
+
+//Savings------
+app.delete('/savings/:id', function (req, res) {
+    Savings.findByIdAndRemove(req.params.id).exec().then(function (savings) {
         return res.status(204).end();
     }).catch(function (err) {
         return res.status(500).json({

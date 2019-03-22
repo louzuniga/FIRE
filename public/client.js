@@ -38,8 +38,9 @@ function displayAllIncome (username) {
                 (`<tr>
                 <td> 
     
-                <form class="update-form">
-                <button type="submit" class="update-income-btn">Update</button>
+                <form class="update-income-form">
+                <button type="button" class="update-income-btn">Update</button>
+                <button type="button" class="delete-income-btn">Delete</button>
                 <br/>
     
                 <input type="text" class="update-income-src" value="${result.entries[i].srcOfIncome}">
@@ -98,6 +99,7 @@ function displayAllExpense (username) {
                 <form class="update-expense-form">
 
                 <button type="submit" class="update-expense-btn">Update</button>
+                <button type="button" class="delete-expense-btn">Update</button>
                 <br/>
 
                 <input type="text" class="update-expense-src" value="${result.entries[i].srcOfExpenses}">
@@ -157,6 +159,7 @@ function displayAllSavings (username) {
                 <form class="update-savings-form">
 
                 <button type="submit" class="update-savings-btn">Update</button>
+                <button type="button" class="delete-savings-btn">Update</button>
                 <br/>
     
                 <input type="text" class="update-savings-src" value="${result.entries[i].srcOfSavings}">
@@ -235,7 +238,8 @@ let loggingChart = () => {
 
 
 //Nav bar *****************************************
-$('.icon').click(() => {
+$('.icon').click((event) => {
+    event.preventDefault();
     //$('#nav').addClass('responsive')
     
     let nav = document.getElementById('nav');
@@ -348,7 +352,10 @@ $('#signup-form').submit( function (event) {
              console.log(result);
             $('.activeUser').val(result._id);
             questionnairePopulated();
-            //getTheData(result.username);
+            displayAllIncome(result._id);
+            displayAllExpense(result._id);
+            displayAllSavings(result._id);
+
          })
          //if the call is failing
          .fail(function (jqXHR, error, errorThrown) {
@@ -383,6 +390,10 @@ const questionnairePopulated = () => {
     $('.log').click( () => {
         $('.hideme').hide();
         $('#log-form').show();
+        let username = $('.activeUser').val();
+        displayAllIncome(username);
+        displayAllExpense(username);
+        displayAllSavings(username);
     });
 
 //Add Income in DB--------------
@@ -559,15 +570,17 @@ const questionnairePopulated = () => {
 //     console.log(editIncomeInput);
 // });
 
-//Update Income DB
-$('.income-log').on('click', '.update-income-btn', function (event) {
-     event.preventDefault();
+
+//Update Income DB***************************
+$('.add-income-results').on('click', '.update-income-btn', function (event) {
+    event.preventDefault();
 
     //take the input from the user
-    // const parentDiv = $(this).closest('.log-table');
-    const srcOfIncome = $(this).parent().find('.edit-income').val();
-    const amntOfIncome = $(this).parent().find(".edit").val();
-    const username = $(this).parent().find('.activeUser').val();
+    const parentDiv = $(this).closest('.add-income-results');
+    const srcOfIncome = $(this).parent().find('.update-income-src').val();
+    const amntOfIncome = $(this).parent().find(".update-income-amnt").val();
+    const username = $(".activeUser").val();
+    const entryId = $(this).parent().find('.update-income-id').val();
     
     console.log(srcOfIncome);
 
@@ -584,7 +597,8 @@ $('.income-log').on('click', '.update-income-btn', function (event) {
         const entryObject = {
             srcOfIncome: srcOfIncome,
             amntOfIncome: amntOfIncome,
-            username: username
+            username: username,
+            entryId: entryId,
         };
         console.log(entryObject);
 
@@ -592,7 +606,7 @@ $('.income-log').on('click', '.update-income-btn', function (event) {
         //make the api call using the payload above
         $.ajax({
                 type: 'PUT',
-                url: `/income/${username}`,
+                url: `/income/${entryId}`,
                 dataType: 'json',
                 data: JSON.stringify(entryObject),
                 contentType: 'application/json'
@@ -600,6 +614,10 @@ $('.income-log').on('click', '.update-income-btn', function (event) {
             //if call is succefull
             .done(function (result) {
                 console.log(result);
+                displayAllIncome(username);
+                displayAllExpense(username);
+                displayAllSavings(username);
+
             })
             //if the call is failing
             .fail(function (jqXHR, error, errorThrown) {
@@ -607,97 +625,87 @@ $('.income-log').on('click', '.update-income-btn', function (event) {
                 console.log(error);
                 console.log(errorThrown);
             });
-    };
+        };
+});
 
+
+//Delete Entry********************
+// $('.add-income-results').on('click', '.delete-income-btn', function (event) {
+//     event.preventDefault();
+    
+//     $(event.currentTarget).closest('.entry-div').siblings
+
+// });
+
+$('.add-income-results').on('click', '.delete-income-btn', function (event) {
+    event.preventDefault();
+
+
+    //take the input from the user
+    const entryId = $(this).parent().find('.update-income-id').val();
+    const username = $(".activeUser").val();
+    //const parentDiv = $(this).closest('.entries-container');
+
+    //    console.log(currentForm, entryId);
+    //    console.log(entryType, inputDate, inputPlay, inputAuthor, inputRole, inputCo, inputLocation, inputNotes);
+
+    //make the api call using the payload above
+    $.ajax({
+            type: 'DELETE',
+            url: `/income/${entryId}`,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+        //if call is succefull
+        .done(function (result) {
+            console.log(result);
+            displayAllIncome(username);
+            displayAllExpense(username);
+            displayAllSavings(username);
+
+        })
+        //if the call is failing
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
 });
 
 
 //Click to update Expense inputted
-$('.expenses-log').on('click', 'li', function (event) {
-    event.preventDefault();
+// $('.expenses-log').on('click', 'li', function (event) {
+//     event.preventDefault();
 
-    let editIncome = $(this);
-    let editIncomeInput = $('<input/>').val( editIncome.text() );
-    editIncome.replaceWith( editIncomeInput );
+//     let editIncome = $(this);
+//     let editIncomeInput = $('<input/>').val( editIncome.text() );
+//     editIncome.replaceWith( editIncomeInput );
     
-    let save = function(){
-      let newIncomeInput = $('<li data-editable><i class="fa fa-edit"></i> </li>').text( editIncomeInput.val() );
-      editIncomeInput.replaceWith( newIncomeInput );
-    };
+//     let save = function(){
+//       let newIncomeInput = $('<li data-editable><i class="fa fa-edit"></i> </li>').text( editIncomeInput.val() );
+//       editIncomeInput.replaceWith( newIncomeInput );
+//     };
     
-    editIncomeInput.one('blur', save).focus();
-});
+//     editIncomeInput.one('blur', save).focus();
+// });
 
-//Click to update Savings inputted
-$('.savings-log').on('click', 'li', function (event) {
-    event.preventDefault();
+// //Click to update Savings inputted
+// $('.savings-log').on('click', 'li', function (event) {
+//     event.preventDefault();
 
-    let editIncome = $(this);
-    let editIncomeInput = $('<input/>').val( editIncome.text() );
-    editIncome.replaceWith( editIncomeInput );
+//     let editIncome = $(this);
+//     let editIncomeInput = $('<input/>').val( editIncome.text() );
+//     editIncome.replaceWith( editIncomeInput );
     
-    let save = function(){
-      let newIncomeInput = $('<li data-editable><i class="fa fa-edit"></i> </li>').text( editIncomeInput.val() );
-      editIncomeInput.replaceWith( newIncomeInput );
-    };
+//     let save = function(){
+//       let newIncomeInput = $('<li data-editable><i class="fa fa-edit"></i> </li>').text( editIncomeInput.val() );
+//       editIncomeInput.replaceWith( newIncomeInput );
+//     };
     
-    editIncomeInput.one('blur', save).focus();
-});
+//     editIncomeInput.one('blur', save).focus();
+// });
 
 
-//const addToLogTable = () => {
-    // $('.income-add-btn').click( () => {
-    //     const addSrc = $('.add-src').val();
-    
-    //     $('.add-to-log-src').append(`<p">${addSrc}</p>`)
-    //     console.log(addSrc);
-    // });
-//};
-// const logging = () => {
-    
-//     // addRow();
-//     //deleteRow();
-//     // logSum();
-// };
-
-
-// //add-row in log
-// const addRow = () => {
-//     $('.income-add-btn').click( () =>{
-       
-//     });
-
-//     $('.expense-add-btn').click(() => {
-//         $('.expense-source').append(`<input type="text" id="add-expense-source">`)
-//         $('.expense-amnt').append(`<input type="number" id="add-expense-amount">`)
-//     });
-
-//     $('.savings-add-btn').click(() => {
-//         $('.savings-amount').append(`<input type="text" id="add-savings-source">`)
-//         $('.savings-source').append(`<input type="number" id="add-savings-amnt">`)
-//     });
-// };
-
-// //delete-row in log
-// const deleteRow = () => {
-//     $('.delete-row-income').click(() => {
-//         $('#add-source').addClass('delete-income');
-//         $('#add-amount').addClass('delete-income');
-//         $('.delete-income').remove();
-//     });
-
-//     $('.expense-delete-btn').click(() => {
-//         $('#add-expense-amount').addClass('delete-income');
-//         $('#add-expense-source').addClass('delete-income');
-//         $('.delete-income').remove();
-//     });
-
-//     $('.delete-row-savings').click(() => {
-//         $('#add-savings-source').addClass('delete-income');
-//         $('#add-savings-amnt').addClass('delete-income');
-//         $('.delete-income').remove();
-//     });
-// };
 
 // // log Sum
 // const logSum = () => {
@@ -749,6 +757,7 @@ const watchForm = () => {
     nextQuestion();
     submitResults();
     loggingChart();
+   
 };
 
 

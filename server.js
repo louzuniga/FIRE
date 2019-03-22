@@ -126,6 +126,7 @@ app.post('/users/create', (req, res) => {
     });
 });
 
+
 // Entry Endpoints********
 //creating a new Entry with POST
 app.post('/income/create', (req, res) => {
@@ -188,7 +189,33 @@ app.post('/savings/create', (req, res) => {
 });
 
 
-//GET request to access data***********************
+
+//PUT *******************************
+app.put('/income/:id', function (req, res) {
+    let toUpdate = {};
+    //let updateableFields = ['achieveWhat', 'achieveHow', 'achieveWhen', 'achieveWhy']; //<--Marius? 'entryType
+    let updateableFields = ['srcOfIncome', 'amntOfIncome', 'username', ];
+    updateableFields.forEach(function (field) {
+        if (field in req.body) {
+            toUpdate[field] = req.body[field];
+        }
+    });
+    console.log(toUpdate);
+    
+    Income
+        .findByIdAndUpdate(req.params.id, {
+            $set: toUpdate
+        }).exec().then(function (achievement) {
+            return res.status(204).end();
+        }).catch(function (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        });
+});
+
+
+//GET request to access data ***********************
 app.get('/income/:user', function (req, res) {
 
     Income
@@ -245,6 +272,42 @@ app.get('/savings/:user', function (req, res) {
             });
         });
 });
+
+app.get('/income/:id', function (req, res) {
+    Income
+        .findById(req.params.id).exec().then(function (income) {
+            return res.json(income);
+        })
+        .catch(function (entries) {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        });
+});
+
+
+// DELETE ----------------------------------------
+// deleting an achievement by id
+app.delete('/income/:id', function (req, res) {
+    Income.findByIdAndRemove(req.params.id).exec().then(function (income) {
+        return res.status(204).end();
+    }).catch(function (err) {
+        return res.status(500).json({
+            message: 'Internal Server Error'
+        });
+    });
+});
+
+
+// MISC ------------------------------------------
+// catch-all endpoint if client makes request to non-existent endpoint
+app.use('*', (req, res) => {
+    res.status(404).json({
+        message: 'Not Found'
+    });
+});
+
 
 
 //DB config

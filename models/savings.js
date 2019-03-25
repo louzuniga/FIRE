@@ -2,7 +2,6 @@
 
 const mongoose = require('mongoose');
 
-
 const savingsSchema = new mongoose.Schema({
     amntOfSavings: {
         type: String,
@@ -17,7 +16,6 @@ const savingsSchema = new mongoose.Schema({
         required: false,
     },
 });
-
 
 
 const Savings = mongoose.model('Savings', savingsSchema);

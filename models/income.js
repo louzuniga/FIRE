@@ -2,7 +2,6 @@
 
 const mongoose = require('mongoose');
 
-
 const incomeSchema = new mongoose.Schema({
     srcOfIncome: {
         type: String,
@@ -17,7 +16,6 @@ const incomeSchema = new mongoose.Schema({
         required: false,
     }
 });
-
 
 
 const Income = mongoose.model('Income', incomeSchema);

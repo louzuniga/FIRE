@@ -29,7 +29,7 @@ ul {
 /* style for the buttons */
 .btn {
     display: flex;
-    margin: 10 auto;
+    margin: 20 auto;
     font-size: 15;
     padding: 0 16 0;
     height: 28;
@@ -93,7 +93,7 @@ ul {
     padding: 12px;
 }
 .question {
-    background-color: #59617a;
+    background-color: #3e3f43;
     margin: 0;
     padding: 20px;
 }
@@ -140,10 +140,10 @@ tr {
     padding: 30px;
 }
 caption {
-    font-size: 30px;
+    font-size: 40px;
     font-weight:  bolder;
     color: rgb(237, 244, 244);
-    margin: 60px 0 10px 0;
+    margin: 50px 0 10px 0;
 }
 
 /* Navigation Bar *********/
@@ -167,7 +167,7 @@ caption {
 .nav-list a:hover {
     background-color: rgb(51, 53, 55); 
 }
-.home {
+.logout {
     background-color: rgb(53, 70, 80);
 }
 .nav-list .icon {
@@ -297,6 +297,10 @@ transition: .5s;
         height: 20px;
         font-size: 12px;
         padding: 5px;
+    }
+    caption {
+        font-size: 20px;
+        margin: 50px 0 5px 0;
     }
     /* Navigation bar    */
     .nav-list a:not(:first-child) {

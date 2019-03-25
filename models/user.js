@@ -28,10 +28,7 @@ userSchema.methods.validatePassword = function (password, callback) {
 };
 
 userSchema.pre('save', async function (next) {
-    const user = this;
-
-    
-
+    const username = this;
     next();
 });
 

@@ -3,7 +3,6 @@
 $('.hideme').hide();
 $('#login').show();
 
-
 //GET AJAX request from user Income user entries
 function displayAllIncome (username) {
    
@@ -21,7 +20,6 @@ function displayAllIncome (username) {
         })
         //if call is succefull
         .done( (result) => {
-            console.log(result);
             $( '.income-log' ).each(function(){
                 this.reset();
             });
@@ -34,7 +32,7 @@ function displayAllIncome (username) {
                 (`<tr>
                 <td> 
     
-                <form class="update-income-form">
+                <form class="update-income-form hideme">
                 <button type="button" class="update-income-btn">Update</button>
                 <button type="button" class="delete-income-btn">Delete</button>
                 <br/>
@@ -60,8 +58,8 @@ function displayAllIncome (username) {
         });
 };
 
+
 function displayAllExpense (username) {
-   
     if ((username == "") || (username == undefined) || (username == null)) {
         username = $('.activeUser').val();
     }
@@ -76,7 +74,6 @@ function displayAllExpense (username) {
         })
         //if call is succefull
         .done( (result) => {
-            console.log(result);
             $( '.income-log' ).each(function(){
                 this.reset();
             });
@@ -88,7 +85,7 @@ function displayAllExpense (username) {
                 
                 (`<tr>
                 <td> 
-                <form class="update-expense-form">
+                <form class="update-expense-form hideme">
 
                 <button type="submit" class="update-expense-btn">Update</button>
                 <button type="button" class="delete-expense-btn">Delete</button>
@@ -132,7 +129,6 @@ function displayAllSavings (username) {
         })
         //if call is succefull
         .done( (result) => {
-            console.log(result);
             $( '.income-log' ).each(function(){
                 this.reset();
             });
@@ -144,7 +140,7 @@ function displayAllSavings (username) {
                 
                 (`<tr>
                 <td> 
-                <form class="update-savings-form">
+                <form class="update-savings-form hideme">
 
                 <button type="submit" class="update-savings-btn">Update</button>
                 <button type="button" class="delete-savings-btn">Delete</button>
@@ -171,13 +167,42 @@ function displayAllSavings (username) {
             console.log(errorThrown);
         });
 };
-        
-        
+
+
+//Show Nav Bar HTML**************
+const navBar = () => {
+    return `<div class="nav-list" id="nav">
+    <a href="/" class="Logout">Logout</a>
+    <a id="questionnaireBtn">Questionaire</a>
+    <a class="log">Log</a>
+    <a id="results">Overview</a>
+    <a class="icon">
+        <i class="fa fa-bars"></i>
+    </a>
+</div>`
+};
+
 
 //High Chart ************
 //Build the Chart 
-let loggingChart = () => {
+const seeResults = () => {
+    $('.hideme').hide();
+    $('#container').show();
+    $('#results-container').show();
+    loggingChart();
+};
 
+$('.see-results').click( (event) => {
+    event.preventDefault();
+    seeResults();
+});
+
+$('#nav-bar').on ('click', '#results', (event) => {
+    event.preventDefault();
+    seeResults();
+});
+
+let loggingChart = () => {
     Highcharts.chart('container', {
     chart: {
       plotBackgroundColor: null,
@@ -222,13 +247,12 @@ let loggingChart = () => {
       }]
     }]
   });
-}
+};
 
 
 //Nav bar *****************************************
 $('.icon').click((event) => {
     event.preventDefault();
-    //$('#nav').addClass('responsive')
     
     let nav = document.getElementById('nav');
     if (nav.className === 'nav-list') {
@@ -240,51 +264,48 @@ $('.icon').click((event) => {
 
 
 // login form ******************
-////const loginForm = () => {
-    $('#login').submit((event) => {
+$('#login').submit((event) => {
+    event.preventDefault();
+    
+    const username = $('.loginUsername').val();
+    const password = $('.loginPassword').val();
+
+    if (username === '') {
+        alert('Please input username');
+    } else if (password === '') {
+        alert('Please enter password');
+    } else {
+        const loginUser = {
+            username: username,
+            password: password,
+        };
+
+    //make api call using payload above
+    $.ajax({
+        type: 'POST',
+        url: 'users/login',
+        dataType: 'json',
+        data: JSON.stringify(loginUser),
+        contentType: 'application/json',
+    })
+    .done((result) => {
         event.preventDefault();
+        $('.activeUser').val(result._id);//gives the id of the user that just logged and will show in the hidden input
+        $('#nav-bar').html(navBar());
+        questionnairePopulated();
+        displayAllIncome(result._id);
+        displayAllExpense(result._id);
+        displayAllSavings(result._id);
         
-        const username = $('.loginUsername').val();
-        const password = $('.loginPassword').val();
-    
-        if (username === '') {
-            alert('Please input username');
-        } else if (password === '') {
-            alert('Please enter password');
-        } else {
-            const loginUser = {
-                username: username,
-                password: password,
-            };
-            console.log(loginUser);
-    
-        //make api call using payload above
-        $.ajax({
-            type: 'POST',
-            url: 'users/login',
-            dataType: 'json',
-            data: JSON.stringify(loginUser),
-            contentType: 'application/json',
-        })
-        .done((result) => {
-            console.log(result);
-            event.preventDefault();
-            $('.activeUser').val(result._id);//gives the id of the user that just logged and will show in the hidden input
-            //getTheData(result.username);
-            questionnairePopulated();
-            $('#nav-bar').show();
-            displayAllIncome(result._id);
-            displayAllExpense(result._id);
-            displayAllSavings(result._id);
-            
-        })
-        .fail((err, errThrown) => {
-            console.log(err);
-            console.log(errThrown);
-        });
-    }; 
+    })
+    .fail((err, errThrown, jqXHR) => {
+        console.log(err);
+        console.log(errThrown);
+        console.log(jqXHR)
+        alert('Uh oh, incorrect username or password.')
     });
-//};
+}; 
+});
 
 
 // Sign Up Form **************
@@ -295,7 +316,8 @@ $('.signup-nav').click((event) => {
 });
 
 //cancel button clicked return to landing page
-    $('.cancelbtn').click(() => {
+    $('.cancelbtn').click((event) => {
+        event.preventDefault();
         location.reload();
     });
 
@@ -303,7 +325,7 @@ $('.signup-nav').click((event) => {
 $('#signup-form').submit( function (event) {
     event.preventDefault();
    
- //take the input from the user
+ //take the input from the user 
  const email = $("#singup-email").val();
  const username = $("#signup-username").val();
  const password = $("#signup-password").val();
@@ -339,6 +361,7 @@ $('#signup-form').submit( function (event) {
          .done(function (result) {
              console.log(result);
             $('.activeUser').val(result._id);
+            $('#nav-bar').html(navBar());
             questionnairePopulated();
             displayAllIncome(result._id);
             displayAllExpense(result._id);
@@ -353,35 +376,43 @@ $('#signup-form').submit( function (event) {
          });
     };
 });
-   
+
+$('#logout').click(function (event) {
+    event.preventDefault();
+    location.reload();
+});
 
 
-// Generate questions **************
-//const questionnaireBtnClicked = () => {
-    $('#questionnaireBtn').click( (event) => {
-        event.preventDefault();
-
-        questionnairePopulated();
-    });
-//};
+// Generate questions ****************************
+$('#nav-bar').on('click', '#questionnaireBtn', (event) => {
+    event.preventDefault();
+    questionnairePopulated();
+    
+});
 
 const questionnairePopulated = () => {
     $('.hideme').hide();
     $('#questions-form').show();
     $('#questions-form').html(generateQuestions());
-    $('#question-btns').show();
+    $('#submit-btn').hide();
+    // $('#question-btns').show();
 };
 
 
-// Log ****************************************************
-const logResults = () => {
-    $('.log').click( () => {
-        $('.hideme').hide();
-        $('#log-form').show();
-        let username = $('.activeUser').val();
-        displayAllIncome(username);
-        displayAllExpense(username);
-        displayAllSavings(username);
+// Log ***********************************************
+//const logResults = () => {
+const showLog = () => {
+    $('.hideme').hide();
+    $('#log-form').show();
+    let username = $('.activeUser').val();
+    displayAllIncome(username);
+    displayAllExpense(username);
+    displayAllSavings(username);
+};
+
+    $('#nav-bar').on('click', '.log', (event) => {
+        event.preventDefault();
+        showLog();
     });
 
 //Add Income in DB--------------
@@ -409,7 +440,6 @@ const logResults = () => {
             username: username
         };
         console.log(entryObject);
-
 
         //make the api call using the payload above
         $.ajax({
@@ -535,8 +565,7 @@ const logResults = () => {
             });
         };
     });
-};
-
+//};
 
 
 //Update Income DB***************************
@@ -701,11 +730,9 @@ $('.add-savings-results').on('click', '.update-savings-btn', function (event) {
 
 
 //Delete Entry***************************
-
 //Income-------
 $('.add-income-results').on('click', '.delete-income-btn', function (event) {
     event.preventDefault();
-
 
     //take the input from the user
     const entryId = $(this).parent().find('.update-income-id').val();
@@ -737,7 +764,6 @@ $('.add-income-results').on('click', '.delete-income-btn', function (event) {
 //Expense-------
 $('.add-expense-results').on('click', '.delete-expense-btn', function (event) {
     event.preventDefault();
-
 
     //take the input from the user
     const entryId = $(this).parent().find('.update-expense-id').val();
@@ -797,45 +823,42 @@ $('.add-savings-results').on('click', '.delete-savings-btn', function (event) {
 });
 
 
-//Chart function ***************
-//when results is clicked show results page
-const seeResults = () => {
-    $('.hideme').hide();
-        $('#results-container').show();
-        $('#container').show();
-};
+//Email Overview Chart to user****************
+// const myform = $("form#send-email-form");
 
-const submitResults = () => {
-    $('.see-results').click( () => {
-        seeResults();
-    });
-};
+// $('#send-email-form').submit((event) => {
+//     event.preventDefault();
 
-const chart = () => {
-    $('#results').click(() => {
-        seeResults();
-    });
-};
+//     const service_id = "default_service";
+//     const template_id = "template_FAu9A88p";
+
+//     emailjs.sendForm(service_id,template_id,myform[0])
+//         .then(function(){ 
+//           alert("Sent!");
+//          //myform.find("button").text("Send");
+//       }, function(err) {
+//          alert("Send email failed!\r\n Response:\n " + JSON.stringify(err));
+//          //myform.find("button").text("Send");
+//       });
+//     return false;
+// });
+
+
 
 // Footer and copyright ************
-const copyright = () => {
     let d = new Date()
     $('#copyright').text(`Copyright \u00A9 ${d.getFullYear()}  Lou Zuniga`)
-};
 
 
 const watchForm = () => {
-    logResults();
+    //logResults();
     // googleTranslateElementInit();
-    //loginForm();
-    copyright();
-    chart();
-    //logging();
-    //questionnaireBtnClicked();
-    nextQuestion();
-    submitResults();
-    loggingChart();
-   
+    //copyright();
+    //chart();
+    //nextQuestion();
+    //submitResults();
+    //loggingChart();
+    
 };
 
 

@@ -2,7 +2,6 @@
 
 const mongoose = require('mongoose');
 
-
 const expenseSchema = new mongoose.Schema({
     amntOfExpenses: {
         type: String,
@@ -17,7 +16,6 @@ const expenseSchema = new mongoose.Schema({
         required: false,
     }
 });
-
 
 
 const Expense = mongoose.model('Expense', expenseSchema);

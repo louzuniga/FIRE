@@ -58,14 +58,13 @@ const questions = [
     },
 ];
 
-
 let numberOfQuestions = 0;
 
 const generateQuestions = () => {
     (numberOfQuestions < questions.length) 
         return `<div id="questionnaire">
         <h2 class="question-h2">How do you really feel?</h2>
-        <p class="question-p">Let's start off with a short quiz to gauge your mindset toward FIRE.</p>
+        <p class="question-p">Let's start off with a short questionnaire to gauge your mindset about Financial Independence (FI).</p>
         </br>
         <h3 class="question">${questions[numberOfQuestions].question}</h3>
         <form class="questions-form">
@@ -85,43 +84,37 @@ const generateQuestions = () => {
             </div>
             </br>
             <button id="next-question" class="question-btn">Next</button>
-            <button type="submit" id="submit-btn" class="">Submit</button>
+            <button type="submit" id="submit-btn" class="btn">Submit</button>
 
         </form>
         </div>`
-   
 };
 
-//Question Next Button
-const nextQuestion = () => {
-    $('#questions-form').on('click', '#next-question', () => {
-        numberOfQuestions++;
+
+//Next Button
+$('#questions-form').on('click', '#next-question', (event) => {
+    event.preventDefault();
+    numberOfQuestions++;
 
     if(numberOfQuestions < questions.length) {
-        $('#questions-form').html(generateQuestions());
-        $('#submit-btn').hide();
-    }else {
-        $('#submit-btn').show();
-        $('#next-question').hide();
-        $('#submit-btn').click(() => {
-            $('.hideme').hide();
-            $('#log-form').show();
-        });
-        }  
-        console.log(numberOfQuestions)
-    });
-};
+    $('#questions-form').html(generateQuestions());
+    } 
 
-//submit button on last question
-// const controlSubmitBtn = () => {
-//     if(numberOfQuestions.length === 4) {
-//         $('#next-question').hide();
-//         $('#submit-btn').show();
-//         console.log(numberOfQuestions);
-//     }else {
-//         $('#next-question').show();
-//     }
-// };
+    if (numberOfQuestions === 4) {
+        $('#next-question').hide();
+        $('#submit-btn').show();
+    } else {
+        $('#submit-btn').hide();
+    }
+});
+
+
+//Submit Button
+$('#questions-form').on('click', '#submit-btn', (event) => {
+    event.preventDefault();
+    showLog();
+});
+
 
 
 

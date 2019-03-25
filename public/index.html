@@ -8,23 +8,19 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+    <!-- <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+      emailjs.init("user_h2aXoSsvP2GrPGqkj0HAa");
+    })(); -->
+</script>
 </head>
 <body>
     <input type="hidden" class="activeUser" value="">
 
     <!-- Navigation Bar -->
     <header>
-        <nav id="nav-bar" class="">
-            <div class="nav-list" id="nav">
-                <a href="/" class="home">Home</a>
-                <a id="questionnaireBtn">Questionaire</a>
-                <a class="log">Log</a>
-                <a id="results">Overview</a>
-                <a class="icon">
-                    <i class="fa fa-bars"></i>
-                </a>
-            </div>
-        </nav>
+        <nav id="nav-bar"></nav>
     </header>
     
     <!-- Login Form -->
@@ -63,9 +59,6 @@
 
             <label for="password"><b>Password</b></label>
             <input id="signup-password" onfocus="this.placeholder=''" type="password" placeholder="Choose a password" name="password" required>
-
-            <label>Remember me</label>
-            <input onfocus="this.placeholder=''" type="checkbox" checked="checked" name="remember">
 
             <p>By creating an account you agree that this is currently a test application. </p>
 
@@ -158,7 +151,7 @@
 
         <table class="log-table add-savings-results"></table>
 
-        <button type="submit" class="see-results btn">See Results</button>
+        <button type="submit" class="see-results btn">Go to Overview</button>
     </div>
 
 
@@ -167,15 +160,20 @@
         <div id="results-text">
             <h2 class="results-h2">Here is an overview.</h2>
             <p class="results-p">
-                Let's Take a look at your computation results based off of your income, expense and savings/investments.
+                Let's Take a look at your computation results based off of your income, expense and savings.
             </p>
         </div>
 
        <!-- high chart https://www.highcharts.com/demo -->
         <div id="container" class=""></div>
 
-        <input onfocus="this.placeholder=''" class="results-input" onfocus="this.placeholder=''" type="text" placeholder="Email this info to me please">
-        <button type="submit" class="submit-results btn">Send</button>
+        <!-- Send email request input -->
+        <form id="send-email-form">
+            <input onfocus="this.placeholder=''" class="results-input" onfocus="this.placeholder=''" type="text" placeholder="Email this info to me please">
+
+            <button type="submit" class="submit-results btn">Send
+            </button>
+        </form>
     </div>
        
     

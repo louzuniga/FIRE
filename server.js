@@ -20,6 +20,7 @@ app.use(express.static('public'));
 
 mongoose.Promise = global.Promise;
 
+
 //user sign-in
 app.post('/users/login', (req, res) => {
     
@@ -189,7 +190,6 @@ app.post('/savings/create', (req, res) => {
 });
 
 
-
 //PUT *******************************
 //Income-----
 app.put('/income/:id', function (req, res) {
@@ -258,14 +258,14 @@ app.put('/savings/:id', function (req, res) {
 });
 
 
-
 //GET request to access data ***********************
+//GET income
 app.get('/income/:user', function (req, res) {
 
     Income
         .find({'username': req.params.user}) //find the user name
         .then(function (entries) {
-            console.log(entries);
+            //console.log(entries);
            
             res.json({
                 entries
@@ -285,7 +285,7 @@ app.get('/expense/:user', function (req, res) {
     Expense
         .find({'username': req.params.user})
         .then(function (entries) {
-           console.log(entries)
+           //console.log(entries)
 
             res.json({
                 entries
@@ -376,16 +376,16 @@ app.use('*', (req, res) => {
 });
 
 
+ //DB config
+ const db = require('./config/keys').mongoURI
 
-//DB config
-const db = require('./config/keys').mongoURI
+ //connect to mongo
+ mongoose
+     .connect(db)
+     .then(() => console.log('Mongodb connected'))
+     .catch(err => console.log(err));
+ 
+ const port = process.env.PORT || 3000
+ 
+ app.listen(port, () => console.log(`App listening on port ${port}`));
 
-//connect to mongo
-mongoose
-    .connect(db)
-    .then(() => console.log('Mongodb connected'))
-    .catch(err => console.log(err));
-
-const port = process.env.PORT || 3000
-
-app.listen(port, () => console.log(`App listening on port ${port}`));

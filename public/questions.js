@@ -58,6 +58,7 @@ const questions = [
     },
 ];
 
+
 let numberOfQuestions = 0;
 
 const generateQuestions = () => {
@@ -114,7 +115,5 @@ $('#questions-form').on('click', '#submit-btn', (event) => {
     event.preventDefault();
     showLog();
 });
-
-
 
 

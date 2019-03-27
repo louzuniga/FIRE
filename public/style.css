@@ -91,6 +91,7 @@ ul {
 }
 .answerChoices {
     padding: 12px;
+    font-size: 16;
 }
 .question {
     background-color: #3e3f43;
@@ -294,8 +295,8 @@ transition: .5s;
     }
     /* buttons */
     .btn .login-button .question-btn  {
-        height: 20px;
-        font-size: 12px;
+        height: 12px;
+        font-size: 8px;
         padding: 5px;
     }
     caption {

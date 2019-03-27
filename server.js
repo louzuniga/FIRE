@@ -23,14 +23,14 @@ mongoose.Promise = global.Promise;
 
 //user sign-in
 app.post('/users/login', (req, res) => {
-    
+
     //username and password from ajax api call
     const username = req.body.username;
     const password = req.body.password;
 
     //connect to the databas and validate username and password
-    User.findOne ({
-        username: username 
+    User.findOne({
+        username: username
     }, (err, items) => {
         if (err) {
             return res.status(500).json({
@@ -39,7 +39,7 @@ app.post('/users/login', (req, res) => {
         }
         //username not found
         if (!items) {
-            return res.status(401).json ({
+            return res.status(401).json({
                 message: "Usename not found"
             });
         }
@@ -194,13 +194,13 @@ app.post('/savings/create', (req, res) => {
 //Income-----
 app.put('/income/:id', function (req, res) {
     let toUpdate = {};
-    let updateableFields = ['srcOfIncome', 'amntOfIncome', 'username', ];
+    let updateableFields = ['srcOfIncome', 'amntOfIncome', 'username',];
     updateableFields.forEach(function (field) {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
         }
     });
-    
+
     Income
         .findByIdAndUpdate(req.params.id, {
             $set: toUpdate
@@ -216,13 +216,13 @@ app.put('/income/:id', function (req, res) {
 //Expense - update with PUT
 app.put('/expense/:id', function (req, res) {
     let toUpdate = {};
-    let updateableFields = ['srcOfExpenses', 'amntOfExpenses', 'username', ];
+    let updateableFields = ['srcOfExpenses', 'amntOfExpenses', 'username',];
     updateableFields.forEach(function (field) {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
         }
     });
-    
+
     Expense
         .findByIdAndUpdate(req.params.id, {
             $set: toUpdate
@@ -238,13 +238,13 @@ app.put('/expense/:id', function (req, res) {
 //Savings - update with PUT
 app.put('/savings/:id', function (req, res) {
     let toUpdate = {};
-    let updateableFields = ['srcOfSavings', 'amntOfSavings', 'username', ];
+    let updateableFields = ['srcOfSavings', 'amntOfSavings', 'username',];
     updateableFields.forEach(function (field) {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
         }
     });
-    
+
     Savings
         .findByIdAndUpdate(req.params.id, {
             $set: toUpdate
@@ -263,10 +263,10 @@ app.put('/savings/:id', function (req, res) {
 app.get('/income/:user', function (req, res) {
 
     Income
-        .find({'username': req.params.user}) //find the user name
+        .find({ 'username': req.params.user }) //find the user name
         .then(function (entries) {
             //console.log(entries);
-           
+
             res.json({
                 entries
             });
@@ -283,9 +283,9 @@ app.get('/income/:user', function (req, res) {
 app.get('/expense/:user', function (req, res) {
 
     Expense
-        .find({'username': req.params.user})
+        .find({ 'username': req.params.user })
         .then(function (entries) {
-           //console.log(entries)
+            //console.log(entries)
 
             res.json({
                 entries
@@ -303,7 +303,7 @@ app.get('/expense/:user', function (req, res) {
 app.get('/savings/:user', function (req, res) {
 
     Savings
-        .find({'username': req.params.user})
+        .find({ 'username': req.params.user })
         .then(function (entries) {
             res.json({
                 entries
@@ -315,6 +315,57 @@ app.get('/savings/:user', function (req, res) {
                 message: 'Internal server error'
             });
         });
+});
+
+
+//Populate Chart****************
+app.get('/populate-chart/:user', function (req, res) {
+    let allSavingsExpensesIncome = [];
+
+
+
+
+
+    Income
+        .find({ 'username': req.params.user }) //find the user name
+        .then(function (incomeEntries) {
+            allSavingsExpensesIncome.push(incomeEntries);
+            Expense
+                .find({ 'username': req.params.user })
+                .then(function (expenseEntries) {
+                    allSavingsExpensesIncome.push(expenseEntries);
+                    Savings
+                        .find({ 'username': req.params.user })
+                        .then(function (savingEntries) {
+                            allSavingsExpensesIncome.push(savingEntries);
+                            res.json({
+                                allSavingsExpensesIncome
+                            });
+                        })
+                        .catch(function (err) {
+                            console.error(err);
+                            res.status(500).json({
+                                message: 'Internal server error'
+                            });
+                        });
+                })
+                .catch(function (err) {
+                    console.error(err);
+                    res.status(500).json({
+                        message: 'Internal server error'
+                    });
+                });
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal server error'
+            });
+        });
+    //all entries
+    // res.json({
+    //     allSavingsExpensesIncome
+    // });
 });
 
 //GET by id
@@ -376,18 +427,18 @@ app.use('*', (req, res) => {
 });
 
 
- //DB config
- const db = require('./config/keys').mongoURI
+//DB config
+const db = require('./config/keys').mongoURI
 
- //connect to mongo
- mongoose
-     .connect(db)
-     .then(() => console.log('Mongodb connected'))
-     .catch(err => console.log(err));
- 
- const port = process.env.PORT || 3000
- 
- app.listen(port, () => console.log(`App listening on port ${port}`));
+//connect to mongo
+mongoose
+    .connect(db)
+    .then(() => console.log('Mongodb connected'))
+    .catch(err => console.log(err));
+
+const port = process.env.PORT || 3000
+
+app.listen(port, () => console.log(`App listening on port ${port}`));
 
 
- exports.app = app;
+exports.app = app;

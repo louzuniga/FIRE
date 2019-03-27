@@ -85,7 +85,7 @@ const generateQuestions = () => {
             </div>
             </br>
             <button id="next-question" class="question-btn">Next</button>
-            <button type="submit" id="submit-btn" class="btn">Submit</button>
+            <button type="submit" id="submit-btn" class="btn">Let's go log some stuff...</button>
 
         </form>
         </div>`
@@ -93,7 +93,7 @@ const generateQuestions = () => {
 
 
 //Next Button
-$('#questions-form').on('click', '#next-question', (event) => {
+$(document).on('click', '#next-question', (event) => {
     event.preventDefault();
     numberOfQuestions++;
 
@@ -114,6 +114,8 @@ $('#questions-form').on('click', '#next-question', (event) => {
 $('#questions-form').on('click', '#submit-btn', (event) => {
     event.preventDefault();
     showLog();
+
+    numberOfQuestions = 0;
 });
 
 

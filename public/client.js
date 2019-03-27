@@ -202,51 +202,79 @@ $('#nav-bar').on ('click', '#results', (event) => {
     seeResults();
 });
 
-let loggingChart = () => {
-    Highcharts.chart('container', {
-    chart: {
-      plotBackgroundColor: null,
-      plotBorderWidth: null,
-      plotShadow: false,
-      type: 'pie'
-    },
-    title: {
-      text: 'FIRE Overview'
-    },
-    tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: false
-        },
-        showInLegend: true
-      }
-    },
-    //the results will be extracted from the logger
-    series: [{
-      name: 'Overview',
-      colorByPoint: true,
-      data: [{
-        name: 'Expense',
-        y: 61.41,
-        sliced: true,
-        selected: true 
-      }, {
-        name: 'Income',
-        y: 0
-      }, {
-        name: 'Investment',
-        y: 10.85
-      }, {
-        name: 'Savings',
-        y: 4.67  
-      }]
-    }]
-  });
+
+function populateChart (userID) {
+    let jsonObject = '';
+
+    $.ajax({
+        type: 'GET',
+        url: `/populate-chart/${userID}`,
+        dataType: 'json',
+        contentType: 'application/json'
+    })
+    //if call is succefull
+    .done(function (result) {
+        console.log(result);
+        for (let i = 0; i < result.allSavingsExpensesIncome.length; i++) {
+            console.log(result.allSavingsExpensesIncome[i]);
+        };
+
+        jsonObject = Highcharts.chart('container', {
+            chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false,
+              type: 'pie'
+            },
+            title: {
+              text: 'FIRE Overview'
+            },
+            tooltip: {
+              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+              pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                  enabled: false
+                },
+                showInLegend: true
+              }
+            },
+            //the results will be extracted from the logger
+            series: [{
+              name: 'Overview',
+              colorByPoint: true,
+              data: [{
+                name: 'Expense',
+                y: 61.41,
+                sliced: true,
+                selected: true 
+              }, {
+                name: 'Income',
+                y: 0
+              }, {
+                name: 'Savings',
+                y: 4.67  
+              }]
+            }]
+          });
+          
+          loggingChart(jsonObject);
+    })
+    //if the call is failing
+    .fail(function (jqXHR, error, errorThrown) {
+        console.log(jqXHR);
+        console.log(error);
+        console.log(errorThrown);
+    });
+    
+   
+};
+
+let loggingChart = (jsonObject) => {
+    return jsonObject
 };
 
 
@@ -296,7 +324,7 @@ $('#login').submit((event) => {
         displayAllIncome(result._id);
         displayAllExpense(result._id);
         displayAllSavings(result._id);
-        
+        populateChart (result._id);
     })
     .fail((err, errThrown, jqXHR) => {
         console.log(err);
@@ -366,7 +394,7 @@ $('#signup-form').submit( function (event) {
             displayAllIncome(result._id);
             displayAllExpense(result._id);
             displayAllSavings(result._id);
-
+            populateChart (result._id);
          })
          //if the call is failing
          .fail(function (jqXHR, error, errorThrown) {
@@ -439,7 +467,6 @@ const showLog = () => {
             amntOfIncome: amntOfIncome,
             username: username
         };
-        console.log(entryObject);
 
         //make the api call using the payload above
         $.ajax({
@@ -451,7 +478,6 @@ const showLog = () => {
             })
             //if call is succefull
             .done( (result) => {
-                console.log(result);
                 displayAllIncome (username) //after the income is added display the username
             })
             //if the call is failing
@@ -486,7 +512,6 @@ const showLog = () => {
                 amntOfExpenses: amntOfExpenses,
                 username: username,
             };
-            console.log(entryObject);
     
             //make the api call using the payload above
             $.ajax({
@@ -504,7 +529,6 @@ const showLog = () => {
             })
             //if call is succefull
             .done( (result) => {
-                console.log(result);
                 displayAllExpense(username);
 
                 $( '.expenses-log' ).each(function(){
@@ -538,7 +562,6 @@ const showLog = () => {
             amntOfSavings: amntOfSavings,
             username: username
         };
-        console.log(entryObject);
 
         //make the api call using the payload above
         $.ajax({
@@ -550,7 +573,6 @@ const showLog = () => {
             })
             //if call is succefull
             .done( (result) => {
-                console.log(result);
                 displayAllSavings();
                 
                 $( '.savings-log' ).each(function(){
@@ -747,7 +769,6 @@ $('.add-income-results').on('click', '.delete-income-btn', function (event) {
         })
         //if call is succefull
         .done(function (result) {
-            console.log(result);
             displayAllIncome(username);
             displayAllExpense(username);
             displayAllSavings(username);

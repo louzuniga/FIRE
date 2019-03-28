@@ -214,11 +214,9 @@ function populateChart (userID) {
     })
     //if call is succefull
     .done(function (result) {
-        console.log(result);
-        for (let i = 0; i < result.allSavingsExpensesIncome.length; i++) {
-            console.log(result.allSavingsExpensesIncome[i]);
-        };
+        result.allSavingsExpensesIncome.forEach((result) => console.log(result));
 
+        console.log(result.allSavingsExpensesIncome[1]);
         jsonObject = Highcharts.chart('container', {
             chart: {
               plotBackgroundColor: null,
@@ -248,15 +246,15 @@ function populateChart (userID) {
               colorByPoint: true,
               data: [{
                 name: 'Expense',
-                y: 61.41,
+                y: result.allSavingsExpensesIncome[0],
                 sliced: true,
                 selected: true 
               }, {
                 name: 'Income',
-                y: 0
+                y: result.allSavingsExpensesIncome[1],
               }, {
                 name: 'Savings',
-                y: 4.67  
+                y: result.allSavingsExpensesIncome[2],  
               }]
             }]
           });

@@ -322,18 +322,16 @@ app.get('/savings/:user', function (req, res) {
 app.get('/populate-chart/:user', function (req, res) {
     let allSavingsExpensesIncome = [];
 
-
-
-
-
     Income
         .find({ 'username': req.params.user }) //find the user name
         .then(function (incomeEntries) {
             allSavingsExpensesIncome.push(incomeEntries);
+            
             Expense
                 .find({ 'username': req.params.user })
                 .then(function (expenseEntries) {
                     allSavingsExpensesIncome.push(expenseEntries);
+                   
                     Savings
                         .find({ 'username': req.params.user })
                         .then(function (savingEntries) {
@@ -342,6 +340,7 @@ app.get('/populate-chart/:user', function (req, res) {
                                 allSavingsExpensesIncome
                             });
                         })
+
                         .catch(function (err) {
                             console.error(err);
                             res.status(500).json({
@@ -349,24 +348,25 @@ app.get('/populate-chart/:user', function (req, res) {
                             });
                         });
                 })
-                .catch(function (err) {
-                    console.error(err);
-                    res.status(500).json({
-                        message: 'Internal server error'
-                    });
-                });
+            // .catch(function (err) {
+            //     console.error(err);
+            //     res.status(500).json({
+            //         message: 'Internal server error'
+            //     });
+            // });
         })
-        .catch(function (err) {
-            console.error(err);
-            res.status(500).json({
-                message: 'Internal server error'
-            });
-        });
+    // .catch(function (err) {
+    //     console.error(err);
+    //     res.status(500).json({
+    //         message: 'Internal server error'
+    //     });
+    // });
     //all entries
     // res.json({
     //     allSavingsExpensesIncome
     // });
 });
+
 
 //GET by id
 app.get('/income/:id', function (req, res) {

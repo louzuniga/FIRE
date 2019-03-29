@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reset.css">
     <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
     <!-- <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
     <script type="text/javascript">
     (function(){
       emailjs.init("user_h2aXoSsvP2GrPGqkj0HAa");
     })(); -->
-</script>
+    </script>
 </head>
+
 <body>
     <input type="hidden" class="activeUser" value="">
 
@@ -22,28 +25,30 @@
     <header>
         <nav id="nav-bar"></nav>
     </header>
-    
+
     <!-- Login Form -->
     <form id="login" class="hideme">
-         <div class="image-container">
-            <img src="https://www.colesclassroom.com/wp-content/uploads/2017/08/Sunset-pexels-photo-132037_BLOG.jpg" alt="Pier on the river with sunset" class="login-image">
-            <h2>Lead your life to FIRE!</h2>
-            <h3>The simple guide that allows you to gauge your mindset about Financial Independence, log simple fiancials and then view it in a colorful graph.</h3>
+        <div class="image-container">
+            <!-- <img src="https://www.colesclassroom.com/wp-content/uploads/2017/08/Sunset-pexels-photo-132037_BLOG.jpg" alt="Pier on the river with sunset" class="login-image"> -->
+            <h2 class="login-title">Lead your life to FIRE!</h2>
+            <h3 class="login-text">The simple guide that allows you to gauge your mindset about Financial Independence,
+                log simple fiancials and then view it as a visual pie chart.</h3>
         </div>
         <div class="form-container">
             <label for="username"><b>Username</b></label>
-            <input onfocus="this.placeholder=''" type="text" placeholder="Enter Username" class="loginUsername" value="demo" >
+            <input onfocus="this.placeholder=''" type="text" placeholder="Enter Username" class="loginUsername" value="demo">
 
             <label for="password"><b>Password</b></label>
-            <input onfocus="this.placeholder=''" type="password" placeholder="Enter Password" class="loginPassword" value="demo123" >
+            <input onfocus="this.placeholder=''" type="password" placeholder="Enter Password" class="loginPassword"
+                value="demo123">
 
             <button type="submit" class="login-button">Login</button>
-            <label> 
+            <label>
                 <input type="checkbox" checked="checked" name="remember">Remember Me
             </label>
             <br>
             <label for="signup"> <a class="signup-nav" href="">Sign Up</a></label>
-         </div>
+        </div>
     </form>
 
     <!-- Sign-up Form -->
@@ -57,10 +62,12 @@
             <input id="singup-email" onfocus="this.placeholder=''" type="text" placeholder="Email" name="email">
 
             <label for="username"><b>Username</b></label>
-            <input id="signup-username" onfocus="this.placeholder=''" type="text" placeholder="Choose a username" name="username" required>
+            <input id="signup-username" onfocus="this.placeholder=''" type="text" placeholder="Choose a username" name="username"
+                required>
 
             <label for="password"><b>Password</b></label>
-            <input id="signup-password" onfocus="this.placeholder=''" type="password" placeholder="Choose a password" name="password" required>
+            <input id="signup-password" onfocus="this.placeholder=''" type="password" placeholder="Choose a password"
+                name="password" required>
 
             <p>By creating an account you agree that this is currently a test application. </p>
 
@@ -83,15 +90,16 @@
         <table class="log-table add-income">
             <caption>Monthly Income</caption>
             <tr>
-                <td> 
-                    <form class="income-log" >
-                        <button class="income-add-btn ">Add</button>
+                <td>
+                    <form class="income-log">
+                        <button class="income-add-btn btn ">Add</button>
 
                         <div class="income-source">
-                            <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary" value="">   
+                            <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary"
+                                value="">
                             <label>Source of Income</label>
                         </div>
-                        
+
                         <div>
                             <input value="" class="income-amnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
                             <label>Amount</label>
@@ -102,23 +110,25 @@
         </table>
 
         <table class="log-table add-income-results"></table>
-       
+
 
         <!-- Expenses -->
         <table class="log-table add-expense">
             <caption>Monthly Expense</caption>
             <tr>
                 <td>
-                    <form class="expenses-log" >
-                        <button class="expense-add-btn ">Add</button>
+                    <form class="expenses-log">
+                        <button class="expense-add-btn btn ">Add</button>
 
                         <div class="expense-source">
-                            <input onfocus="this.placeholder=''" type="text" class="expense-src" placeholder="mortgage" value="">  
+                            <input onfocus="this.placeholder=''" type="text" class="expense-src" placeholder="mortgage"
+                                value="">
                             <label>Expense Type</label>
                         </div>
-                        
+
                         <div>
-                            <input value="" class="expense-amnt" onfocus="this.placeholder=''" type="number" placeholder="1000">
+                            <input value="" class="expense-amnt" onfocus="this.placeholder=''" type="number"
+                                placeholder="1000">
                             <label>Amount</label>
                         </div>
                     </form>
@@ -128,22 +138,24 @@
 
         <table class="log-table add-expense-results"></table>
 
-        
+
         <!-- Savings -->
         <table class="log-table add-savings">
             <caption>Monthly Savings</caption>
             <tr>
                 <td>
-                    <form class="savings-log" >
-                        <button class="savings-add-btn ">Add</button>
+                    <form class="savings-log">
+                        <button class="savings-add-btn btn ">Add</button>
 
                         <div class="savings-source">
-                            <input onfocus="this.placeholder=''" type="text" class="savings-src" placeholder="401K" value="">
-                            <label>Savings Type</label>   
+                            <input onfocus="this.placeholder=''" type="text" class="savings-src" placeholder="401K"
+                                value="">
+                            <label>Savings Type</label>
                         </div>
-                        
+
                         <div class="savings-amount">
-                            <input value="" class="savings-amnt" onfocus="this.placeholder=''" type="number" placeholder="530">
+                            <input value="" class="savings-amnt" onfocus="this.placeholder=''" type="number"
+                                placeholder="530">
                             <label>Amount</label>
                         </div>
                     </form>
@@ -166,38 +178,40 @@
             </p>
         </div>
 
-       <!-- high chart https://www.highcharts.com/demo -->
+        <!-- high chart https://www.highcharts.com/demo -->
         <div id="container" class=""></div>
 
         <!-- Send email request input -->
-        <form id="send-email-form">
-            <input onfocus="this.placeholder=''" class="results-input" onfocus="this.placeholder=''" type="text" placeholder="Email this info to me please">
+        <!-- <form id="send-email-form">
+            <input onfocus="this.placeholder=''" class="results-input" onfocus="this.placeholder=''" type="text"
+                placeholder="Email this info to me please">
 
             <button type="submit" class="submit-results btn">Send
             </button>
-        </form>
+        </form> -->
     </div>
-       
-    
+
+
     <!-- copyright and social icons -->
     <footer>
         <div class="footer-social-icons">
             <ul class="social-icons">
                 <li class="footer-list"><a id="copyright" class="social-icon"></a></li>
-                <li class="footer-list"><a href="mailto:louzuniga86@gmail.com?Subject=Light Your Life on FIRE" class="social-icon"> <i class="fas fa-envelope-open"></i></a></li>
-                <li class="footer-list"><a href="https://www.linkedin.com/in/lourexelzuniga/" class="social-icon"> <i class="fab fa-linkedin"></i></a></li>
+                <li class="footer-list"><a href="mailto:louzuniga86@gmail.com?Subject=Light Your Life on FIRE" class="social-icon">
+                        <i class="fas fa-envelope-open"></i></a></li>
+                <li class="footer-list"><a href="https://www.linkedin.com/in/lourexelzuniga/" class="social-icon"> <i
+                            class="fab fa-linkedin"></i></a></li>
                 <li class="footer-list"><a href="https://github.com/louzuniga" class="social-icon"> <i class="fab fa-github-alt"></i></a></li>
                 <li class="footer-list"><a href="https://twitter.com/louzuniga" class="social-icon"> <i class="fab fa-twitter"></i></a></li>
             </ul>
         </div>
     </footer>
     <!-- <script type="text/javascript"  src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
-        
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script 
-    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- <script>
     //Google translate ***************
         function googleTranslateElementInit() {
@@ -206,4 +220,5 @@
     <script src="client.js"></script>
     <script src="questions.js"></script>
 </body>
+
 </html>

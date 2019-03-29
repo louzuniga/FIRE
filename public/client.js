@@ -33,8 +33,8 @@ function displayAllIncome (username) {
                 <td> 
     
                 <form class="update-income-form hideme">
-                <button type="button" class="update-income-btn">Update</button>
-                <button type="button" class="delete-income-btn">Delete</button>
+                <button type="button" class="update-income-btn btn">Update</button>
+                <button type="button" class="delete-income-btn btn">Delete</button>
                 <br/>
     
                 <input type="text" class="update-income-src" value="${result.entries[i].srcOfIncome}">
@@ -87,8 +87,8 @@ function displayAllExpense (username) {
                 <td> 
                 <form class="update-expense-form hideme">
 
-                <button type="submit" class="update-expense-btn">Update</button>
-                <button type="button" class="delete-expense-btn">Delete</button>
+                <button type="submit" class="update-expense-btn btn">Update</button>
+                <button type="button" class="delete-expense-btn btn">Delete</button>
                 <br/>
 
                 <input type="text" class="update-expense-src" value="${result.entries[i].srcOfExpenses}">
@@ -142,8 +142,8 @@ function displayAllSavings (username) {
                 <td> 
                 <form class="update-savings-form hideme">
 
-                <button type="submit" class="update-savings-btn">Update</button>
-                <button type="button" class="delete-savings-btn">Delete</button>
+                <button type="submit" class="update-savings-btn btn">Update</button>
+                <button type="button" class="delete-savings-btn btn">Delete</button>
                 <br/>
     
                 <input type="text" class="update-savings-src" value="${result.entries[i].srcOfSavings}">
@@ -246,15 +246,15 @@ function populateChart (userID) {
               colorByPoint: true,
               data: [{
                 name: 'Expense',
-                y: result.allSavingsExpensesIncome[0],
+                y: 17,
                 sliced: true,
                 selected: true 
               }, {
                 name: 'Income',
-                y: result.allSavingsExpensesIncome[1],
+                y: 68,
               }, {
                 name: 'Savings',
-                y: result.allSavingsExpensesIncome[2],  
+                y: 42,  
               }]
             }]
           });

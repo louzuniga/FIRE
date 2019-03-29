@@ -3,15 +3,23 @@
     border-radius: 5px;
     font-family: 'Special Elite', cursive;
 }
-
 button {
     cursor: pointer;
 }
-
  body {
-    background: #566f88;
+    /* background: #566f88; */
     -webkit-font-smoothing: antialiased;
     color: rgb(243, 234, 234);
+    background: url(https://www.colesclassroom.com/wp-content/uploads/2017/08/Sunset-pexels-photo-132037_BLOG.jpg) 
+    no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    object-fit: cover;
+    border-radius: 0;
 }
 ul {
     margin: 0;
@@ -28,13 +36,16 @@ ul {
 }
 /* style for the buttons */
 .btn {
-    display: flex;
-    margin: 20 auto;
+    /* display: flex; */
+    /* margin: 20 auto; */
     font-size: 15;
     padding: 0 16 0;
     height: 28;
 }
-
+.see-results {
+    display: flex;
+    margin: 20 auto;
+}
 /* Login Form ******************/
 /* #login {
     background: url(https://www.colesclassroom.com/wp-content/uploads/2017/08/Sunset-pexels-photo-132037_BLOG.jpg) no-repeat center center fixed; 
@@ -56,26 +67,60 @@ ul {
 .login-button:hover {
     opacity: .8;
 }
-.image-container {
+/* #login {
+    background: url(https://www.colesclassroom.com/wp-content/uploads/2017/08/Sunset-pexels-photo-132037_BLOG.jpg) 
+    no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    object-fit: cover;
+    border-radius: 0;
+} */
+.login-title {
+    margin: 50px 200px 10px;
+    font-size: 35px; 
+    padding: 10px;
     text-align: center;
-    margin: 24px 0 12px 0;
+    background-color: rgba(17, 82, 134, 0.5);
+}
+.login-text {
+    margin: 10px 200px 25px;  
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(17, 82, 134, 0.5);
 }
 .login-image {
-    width: 25%;
+    width: 35%;
     margin: 40px 0 0;
 }
 .form-container {
     margin: 0 auto;
     width: 300px;
-    display: block; 
+    display: block;
+    padding: 0 0 10px; 
 }
 
 /* Sign-up form */
 #signup-form {
     margin-top: 70px;
 }
+.signup-nav {
+    color: #ccc;
+}
 
 /* Questionnaire Form *********/
+#questionnaire {
+    background-color: rgba(17, 82, 134, 0.5);
+    padding: 10px;
+}
+.question-h2, .results-h2 {
+    font-size: 35px;
+}
 .questions-form {
     display: block;
     margin: 0 0 3px 0;
@@ -102,9 +147,10 @@ ul {
     font-size: 16;
 }
 .question {
-    background-color: #3e3f43;
+    background-color: rgb(6, 49, 73);
     margin: 0;
     padding: 20px;
+    font-size: 20px;
 }
 .question-p {
     margin: 0;
@@ -114,14 +160,15 @@ ul {
 
 /* High Chart ********* */
 #container {
-    min-width: 310px; 
-    height: 400px; 
-    max-width: 600px; 
+    min-width: 510px; 
+    max-width: 800px; 
     margin: 40px auto;
 }
 #results-text {
     text-align: center;
-    margin: 60px 0 0;
+    margin: 60px 70px 0;
+    background-color: rgba(17, 82, 134, 0.5);
+    padding: 10px;
 }
 .results-input {
     margin: 0 auto;
@@ -129,7 +176,8 @@ ul {
     width: 45%;
 }
 .results-p {
-    font-size: 18px;
+    margin: 0px 80px;
+    font-size: 20px;
 }
 
 /* Log ********/
@@ -141,7 +189,7 @@ ul {
 td {
     padding: 12px;
     text-align: left;
-    background-color: rgb(49, 71, 90);
+    background-color: rgba(17, 82, 134, 0.5);
     color: white;
    
 }
@@ -161,7 +209,7 @@ caption {
     position: fixed;
     top: 0;
     width: 100%;
-    background: #59617a;
+    background-color: rgb(49, 71, 90);
     left: 0;
     right: 0;
     border-radius: 0;
@@ -177,7 +225,7 @@ caption {
     background-color: rgb(51, 53, 55); 
 }
 .logout {
-    background-color: rgb(53, 70, 80);
+    background-color: rgb(6, 49, 73);
 }
 .nav-list .icon {
     display: none;
@@ -233,6 +281,10 @@ padding: 5px;
 width: 100%;
 text-align: center;
 display: block;
+background-color: rgb(49, 71, 90);
+position: fixed;
+bottom: 0;
+border-radius: 0;
 }
 .social-icon {
 color: #fff;
@@ -295,7 +347,13 @@ transition: .5s;
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
+    /* login page */
+    h2, h3, .login-title, .login-text {
+        margin: 0 auto;
+        font-size: 20px;
+        padding: 20px;
+    }
     /* footer */
     footer {
         font-size: 10px;
@@ -307,6 +365,7 @@ transition: .5s;
         font-size: 8px;
         padding: 5px;
     }
+
     caption {
         font-size: 20px;
         margin: 50px 0 5px 0;

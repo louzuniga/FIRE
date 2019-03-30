@@ -70,17 +70,17 @@ const generateQuestions = () => {
         <h3 class="question">${questions[numberOfQuestions].question}</h3>
         <form class="questions-form">
             <div class="answerChoices">
-            <input type="radio" name="choice" required>
+            <input value="2" type="radio" name="choice" required>
             <label>${questions[numberOfQuestions].choices[0]}</label>
             </div>
 
             <div class="answerChoices">
-            <input type="radio" name="choice" required>
+            <input value="1" type="radio" name="choice" required>
             <label>${questions[numberOfQuestions].choices[1]}</label>
             </div>
 
             <div class="answerChoices">
-            <input type="radio" name="choice" required>
+            <input value="1" type="radio" name="choice" required>
             <label>${questions[numberOfQuestions].choices[2]}</label>
             </div>
             </br>
@@ -100,6 +100,10 @@ $(document).on('click', '#next-question', (event) => {
     if(numberOfQuestions < questions.length) {
     $('#questions-form').html(generateQuestions());
     } 
+    let userAnswer = $("input[name='choice']:checked").val();
+    if (userAnswer == '') {
+        alert('Please select and answer')
+    }
 
     if (numberOfQuestions === 4) {
         $('#next-question').hide();

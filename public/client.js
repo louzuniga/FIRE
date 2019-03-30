@@ -38,7 +38,7 @@ function displayAllIncome (username) {
                 <br/>
     
                 <input type="text" class="update-income-src" value="${result.entries[i].srcOfIncome}">
-                <label>Source of Income</label>
+                <label>Income</label>
                 <br/>
     
                 <input type="text" class="update-income-amnt" value="${result.entries[i].amntOfIncome}">
@@ -92,7 +92,7 @@ function displayAllExpense (username) {
                 <br/>
 
                 <input type="text" class="update-expense-src" value="${result.entries[i].srcOfExpenses}">
-                <label>Expense Type</label>
+                <label>Expense</label>
                 <br/>
 
                 <input type="text" class="update-expense-amnt" value="${result.entries[i].amntOfExpenses}">
@@ -147,7 +147,7 @@ function displayAllSavings (username) {
                 <br/>
     
                 <input type="text" class="update-savings-src" value="${result.entries[i].srcOfSavings}">
-                <label>Savings Type</label>
+                <label>Savings</label>
                 <br/>
 
                 <input type="text" class="update-savings-amnt" value="${result.entries[i].amntOfSavings}">
@@ -189,7 +189,8 @@ const seeResults = () => {
     $('.hideme').hide();
     $('#container').show();
     $('#results-container').show();
-    loggingChart();
+    let username = $('.activeUser').val();
+    populateChart(username);
 };
 
 $('.see-results').click( (event) => {
@@ -216,50 +217,77 @@ function populateChart (userID) {
     .done(function (result) {
         result.allSavingsExpensesIncome.forEach((result) => console.log(result));
 
-        console.log(result.allSavingsExpensesIncome[1]);
-        jsonObject = Highcharts.chart('container', {
-            chart: {
-              plotBackgroundColor: null,
-              plotBorderWidth: null,
-              plotShadow: false,
-              type: 'pie'
-            },
-            title: {
-              text: 'FIRE Overview'
-            },
-            tooltip: {
-              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-              pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                  enabled: false
+        let totalSavings = 0;
+        for(let i = 0; i < result.allSavingsExpensesIncome[2].length; i++){
+            totalSavings += parseInt(result.allSavingsExpensesIncome[2][i].amntOfSavings)
+        }
+        console.log(totalSavings, 'savings');
+
+        let totalIncome = 0;
+        for(let i = 0; i < result.allSavingsExpensesIncome[0].length; i++){
+            totalIncome += parseInt(result.allSavingsExpensesIncome[0][i].amntOfIncome)
+        }
+        console.log(totalIncome, 'income');
+
+        let totalExpense = 0;
+        for(let i = 0; i < result.allSavingsExpensesIncome[1].length; i++){
+            totalExpense += parseInt(result.allSavingsExpensesIncome[1][i].amntOfExpenses)
+        }
+        console.log(totalExpense, 'expense');
+
+        if (totalIncome == 0 && totalExpense == 0 && totalSavings == 0) {
+            $('#container').hide();
+            alert('No expenses, income or savings inputted.');
+            
+             
+        } else {
+            $('#container').show();
+
+            jsonObject = Highcharts.chart('container', {
+                chart: {
+                  plotBackgroundColor: null,
+                  plotBorderWidth: null,
+                  plotShadow: false,
+                  type: 'pie'
                 },
-                showInLegend: true
-              }
-            },
-            //the results will be extracted from the logger
-            series: [{
-              name: 'Overview',
-              colorByPoint: true,
-              data: [{
-                name: 'Expense',
-                y: 17,
-                sliced: true,
-                selected: true 
-              }, {
-                name: 'Income',
-                y: 68,
-              }, {
-                name: 'Savings',
-                y: 42,  
-              }]
-            }]
-          });
-          
-          loggingChart(jsonObject);
+                title: {
+                  text: 'FIRE Overview'
+                },
+                tooltip: {
+                  pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                  pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                      enabled: false
+                    },
+                    showInLegend: true
+                  }
+                },
+                //the results will be extracted from the logger
+                series: [{
+                  name: 'Overview',
+                  colorByPoint: true,
+                  data: [{
+                    name: 'Expense',
+                    y: totalExpense,
+                    sliced: true,
+                    selected: true 
+                  }, {
+                    name: 'Income',
+                    y: totalIncome,
+                  }, {
+                    name: 'Savings',
+                    y: totalSavings,  
+                  }]
+                }]
+              });
+              loggingChart(jsonObject); 
+        }
+
+        
     })
     //if the call is failing
     .fail(function (jqXHR, error, errorThrown) {
@@ -427,6 +455,22 @@ const questionnairePopulated = () => {
 
 // Log ***********************************************
 //const logResults = () => {
+//Collapse
+    // let coll = document.getElementsByClassName("collapsible");
+    // let i;
+    
+    // for (i = 0; i < coll.length; i++) {
+    //   coll[i].addEventListener("click", function() {
+    //     this.classList.toggle("active");
+    //     let content = this.nextElementSibling;
+    //     if (content.style.display === "block") {
+    //       content.style.display = "none";
+    //     } else {
+    //       content.style.display = "block";
+    //     }
+    //   });
+    // }
+
 const showLog = () => {
     $('.hideme').hide();
     $('#log-form').show();

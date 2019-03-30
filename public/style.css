@@ -1,7 +1,7 @@
 
 * {
     border-radius: 5px;
-    font-family: 'Special Elite', cursive;
+    font-family: 'Rubik', sans-serif;
 }
 button {
     cursor: pointer;
@@ -45,16 +45,9 @@ ul {
 .see-results {
     display: flex;
     margin: 20 auto;
+    margin-bottom: 80px;
 }
 /* Login Form ******************/
-/* #login {
-    background: url(https://www.colesclassroom.com/wp-content/uploads/2017/08/Sunset-pexels-photo-132037_BLOG.jpg) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-} */
-
 .login-button {
     background-color: rgb(51, 53, 55);
     color: white;
@@ -80,14 +73,14 @@ ul {
     border-radius: 0;
 } */
 .login-title {
-    margin: 50px 200px 10px;
+    margin: 50px 300px 10px;
     font-size: 35px; 
     padding: 10px;
     text-align: center;
     background-color: rgba(17, 82, 134, 0.5);
 }
 .login-text {
-    margin: 10px 200px 25px;  
+    margin: 10px 300px 25px;  
     font-size: 25px;
     font-weight: bold;
     text-align: center;
@@ -103,11 +96,14 @@ ul {
     width: 300px;
     display: block;
     padding: 0 0 10px; 
+    font-size: 20px;
 }
 
 /* Sign-up form */
 #signup-form {
     margin-top: 70px;
+    background-color: rgba(17, 82, 134, 0.5);
+    padding: 10px;
 }
 .signup-nav {
     color: #ccc;
@@ -144,7 +140,7 @@ ul {
 }
 .answerChoices {
     padding: 12px;
-    font-size: 16;
+    font-size: 20;
 }
 .question {
     background-color: rgb(6, 49, 73);
@@ -200,7 +196,7 @@ caption {
     font-size: 40px;
     font-weight:  bolder;
     color: rgb(237, 244, 244);
-    margin: 50px 0 10px 0;
+    margin: 50px 0 0 ;
 }
 
 /* Navigation Bar *********/
@@ -224,7 +220,7 @@ caption {
 .nav-list a:hover {
     background-color: rgb(51, 53, 55); 
 }
-.logout {
+.logout, caption {
     background-color: rgb(6, 49, 73);
 }
 .nav-list .icon {
@@ -364,11 +360,6 @@ transition: .5s;
         height: 12px;
         font-size: 8px;
         padding: 5px;
-    }
-
-    caption {
-        font-size: 20px;
-        margin: 50px 0 5px 0;
     }
     /* Navigation bar    */
     .nav-list a:not(:first-child) {

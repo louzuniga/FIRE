@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="reset.css">
-    <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
     <!-- <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
     <script type="text/javascript">
     (function(){
@@ -31,8 +31,8 @@
         <div class="image-container">
             <!-- <img src="https://www.colesclassroom.com/wp-content/uploads/2017/08/Sunset-pexels-photo-132037_BLOG.jpg" alt="Pier on the river with sunset" class="login-image"> -->
             <h2 class="login-title">Lead your life to FIRE!</h2>
-            <h3 class="login-text">The simple guide that allows you to gauge your mindset about Financial Independence,
-                log simple fiancials and then view it as a visual pie chart.</h3>
+            <h3 class="login-text">The simple site that allows you to gauge your mindset about Financial Independence,
+                log simple fiancials and then visualize it.</h3>
         </div>
         <div class="form-container">
             <label for="username"><b>Username</b></label>
@@ -87,8 +87,9 @@
     <div id="log-form" class="hideme">
 
         <!-- Income -->
-        <table class="log-table add-income">
+        <table class="log-table add-income collapsible">
             <caption>Monthly Income</caption>
+            <div class="content">
             <tr>
                 <td>
                     <form class="income-log">
@@ -97,7 +98,7 @@
                         <div class="income-source">
                             <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary"
                                 value="">
-                            <label>Source of Income</label>
+                            <label>Income</label>
                         </div>
 
                         <div>
@@ -107,13 +108,14 @@
                     </form>
                 </td>
             </tr>
+        </div>
         </table>
 
         <table class="log-table add-income-results"></table>
 
 
         <!-- Expenses -->
-        <table class="log-table add-expense">
+        <table class="log-table add-expense collapsible">
             <caption>Monthly Expense</caption>
             <tr>
                 <td>
@@ -123,7 +125,7 @@
                         <div class="expense-source">
                             <input onfocus="this.placeholder=''" type="text" class="expense-src" placeholder="mortgage"
                                 value="">
-                            <label>Expense Type</label>
+                            <label>Expense</label>
                         </div>
 
                         <div>
@@ -140,7 +142,7 @@
 
 
         <!-- Savings -->
-        <table class="log-table add-savings">
+        <table class="log-table add-savings collapsible">
             <caption>Monthly Savings</caption>
             <tr>
                 <td>
@@ -150,7 +152,7 @@
                         <div class="savings-source">
                             <input onfocus="this.placeholder=''" type="text" class="savings-src" placeholder="401K"
                                 value="">
-                            <label>Savings Type</label>
+                            <label>Savings</label>
                         </div>
 
                         <div class="savings-amount">

@@ -26,6 +26,9 @@ ul {
     padding:0;
     list-style: none;
 }
+p {
+    padding: 10px;
+}
  /* Style the input fields */
  input {
     padding: 10px;
@@ -72,20 +75,21 @@ ul {
     object-fit: cover;
     border-radius: 0;
 } */
+#login {
+    background-color: rgba(17, 82, 134, 0.5);
+    max-width: 380px;
+    margin: 80px auto 5px;
+}
 .login-title {
-    margin: 50px 300px 10px;
+    background-color: rgb(6, 49, 73);
     font-size: 35px; 
     padding: 10px;
     text-align: center;
-    background-color: rgba(17, 82, 134, 0.5);
 }
 .login-text {
-    margin: 10px 300px 25px;  
     font-size: 25px;
     font-weight: bold;
-    text-align: center;
     padding: 10px;
-    background-color: rgba(17, 82, 134, 0.5);
 }
 .login-image {
     width: 35%;
@@ -110,12 +114,18 @@ ul {
 }
 
 /* Questionnaire Form *********/
-#questionnaire {
+#questions-form {
     background-color: rgba(17, 82, 134, 0.5);
     padding: 10px;
+    max-width: 580px;
+    margin: 80px auto 5px;
+
 }
 .question-h2, .results-h2 {
+    background-color: rgb(6, 49, 73);
     font-size: 35px;
+    text-align: center;
+    width: 100%;
 }
 .questions-form {
     display: block;
@@ -156,15 +166,14 @@ ul {
 
 /* High Chart ********* */
 #container {
-    min-width: 510px; 
-    max-width: 800px; 
-    margin: 40px auto;
+    max-width: 580px; 
+    margin: 10px auto 80px;
 }
 #results-text {
-    text-align: center;
-    margin: 60px 70px 0;
     background-color: rgba(17, 82, 134, 0.5);
     padding: 10px;
+    margin: 60px auto 10px;
+    max-width: 480;
 }
 .results-input {
     margin: 0 auto;
@@ -172,7 +181,7 @@ ul {
     width: 45%;
 }
 .results-p {
-    margin: 0px 80px;
+    margin: 0px auto;
     font-size: 20px;
 }
 
@@ -181,6 +190,7 @@ ul {
     margin: 0px auto;
     width: 50%;
     min-width: 300px;
+    max-width: 480px;;
 }
 td {
     padding: 12px;
@@ -229,12 +239,12 @@ caption {
 
 
 /* Style the form *************/
-#questions-form {
+/* #questions-form {
     margin: 40px auto;
     padding: 40px;
     width: 70%;
 min-width: 300px;
-}
+} */
 
 
 /* Mark input boxes that gets an error on validation: */
@@ -343,12 +353,31 @@ transition: .5s;
 }
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
     /* login page */
-    h2, h3, .login-title, .login-text {
-        margin: 0 auto;
-        font-size: 20px;
-        padding: 20px;
+    #login {
+        max-width: 300px;
+        margin: 80px auto 5px;
+        padding: 10px;
+    }
+    h3, .login-text {
+        font-size: 18px;
+    }
+    .login-title, h2 {
+        font-size: 22px;
+    }
+    caption {
+        font-size: 28px;
+    }
+    #results-text {
+        margin: 60px auto 10px;
+        max-width: 380px;
+    }
+    .results-h2 {
+        font-size: 25px;
+    }
+    .results-p {
+        font-size: 18px;
     }
     /* footer */
     footer {
@@ -385,14 +414,9 @@ transition: .5s;
     }
     /* questions-form */
     #questions-form {
-        font-size: 14px;
-        padding: 0;
-        width: 0;
-    }
-    #questionnaire {
-        margin: 60px 0 0;
-
-    }
+        max-width: 480px;
+        margin: 60px auto 5px;
+    } 
     h3.questions {
         margin: 0;
     }
@@ -402,6 +426,23 @@ transition: .5s;
     }
     /* high chart */
     #container {
-        min-width: 300px
+        max-width: 380px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    /* login page */
+    #login {
+        max-width: 280px;
+        margin: 60px auto 5px;
+        padding: 10px;
+    }
+
+    #questions-form {
+        max-width: 380px;
+        margin: 60px auto 5px;
+    } 
+    .question-h2 {
+        font-size: 20px;
     }
 }

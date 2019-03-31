@@ -172,7 +172,7 @@ function displayAllSavings (username) {
 //Show Nav Bar HTML**************
 const navBar = () => {
     return `<div class="nav-list" id="nav">
-    <a href="/" class="Logout">Logout</a>
+    <a href="/" class="logout">Logout</a>
     <a id="questionnaireBtn">Questionaire</a>
     <a class="log">Log</a>
     <a id="results">Overview</a>
@@ -305,7 +305,7 @@ let loggingChart = (jsonObject) => {
 
 
 //Nav bar *****************************************
-$('.icon').click((event) => {
+$('#nav-bar').on ('click', (event) => {
     event.preventDefault();
     
     let nav = document.getElementById('nav');
@@ -431,7 +431,7 @@ $('#signup-form').submit( function (event) {
     };
 });
 
-$('#logout').click(function (event) {
+$('#nav-bar').on ('click', '.logout', (event) => {
     event.preventDefault();
     location.reload();
 });

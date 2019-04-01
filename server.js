@@ -7,6 +7,7 @@ const Income = require('./models/income');
 const Expense = require('./models/expense');
 const Savings = require('./models/savings');
 const bodyParser = require('body-parser');
+const config = require('./config');
 const moment = require('moment');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
@@ -20,6 +21,44 @@ app.use(express.static('public'));
 
 mongoose.Promise = global.Promise;
 
+// ---------------- RUN/CLOSE SERVER -----------------------
+let server = undefined;
+
+function runServer(urlToUse) {
+    return new Promise((resolve, reject) => {
+        mongoose.connect(urlToUse, err => {
+            if (err) {
+                return reject(err);
+            }
+            server = app.listen(config.PORT, () => {
+                console.log(`Listening on localhost:${config.PORT}`);
+                resolve();
+            }).on('error', err => {
+                mongoose.disconnect();
+                reject(err);
+            });
+        });
+    });
+}
+
+if (require.main === module) {
+    runServer(config.DATABASE_URL).catch(err => console.error(err));
+}
+
+function closeServer() {
+    return mongoose.disconnect().then(() => new Promise((resolve, reject) => {
+        console.log('Closing server');
+        server.close(err => {
+            if (err) {
+                return reject(err);
+            }
+            resolve();
+        });
+    }));
+}
+
+
+//------------------user endpoints---------------
 
 //user sign-in
 app.post('/users/login', (req, res) => {
@@ -326,12 +365,12 @@ app.get('/populate-chart/:user', function (req, res) {
         .find({ 'username': req.params.user }) //find the user name
         .then(function (incomeEntries) {
             allSavingsExpensesIncome.push(incomeEntries);
-            
+
             Expense
                 .find({ 'username': req.params.user })
                 .then(function (expenseEntries) {
                     allSavingsExpensesIncome.push(expenseEntries);
-                   
+
                     Savings
                         .find({ 'username': req.params.user })
                         .then(function (savingEntries) {
@@ -427,18 +466,20 @@ app.use('*', (req, res) => {
 });
 
 
-//DB config
-const db = require('./config/keys').mongoURI
+// //DB config
+// const db = require('./config/keys').mongoURI
 
-//connect to mongo
-mongoose
-    .connect(db)
-    .then(() => console.log('Mongodb connected'))
-    .catch(err => console.log(err));
+// //connect to mongo
+// mongoose
+//     .connect(db)
+//     .then(() => console.log('Mongodb connected'))
+//     .catch(err => console.log(err));
 
-const port = process.env.PORT || 3000
+// const port = process.env.PORT || 3000
 
-app.listen(port, () => console.log(`App listening on port ${port}`));
+// app.listen(port, () => console.log(`App listening on port ${port}`));
 
 
 exports.app = app;
+exports.runServer = runServer;
+exports.closeServer = closeServer;

@@ -29,7 +29,6 @@
     <!-- Login Form -->
     <form id="login" class="hideme">
         <div class="image-container">
-            <!-- <img src="https://www.colesclassroom.com/wp-content/uploads/2017/08/Sunset-pexels-photo-132037_BLOG.jpg" alt="Pier on the river with sunset" class="login-image"> -->
             <h2 class="login-title">Lead your life to FIRE!</h2>
             <h3 class="login-text">A simple site that allows you to gauge your mindset about Financial Independence,
                 log simple fiancials and then visualize it.</h3>
@@ -87,35 +86,34 @@
     <div id="log-form" class="hideme">
 
         <!-- Income -->
-        <table class="log-table add-income collapsible">
+        <table class="log-table add-income">
             <caption>Monthly Income</caption>
-            <div class="content">
-            <tr>
-                <td>
-                    <form class="income-log">
-                        <button class="income-add-btn btn ">Add</button>
+                <tr class="collapsible expand">
+                    <td>
+                        <form class="income-log">
+                            <button class="income-add-btn btn ">Add</button>
 
-                        <div class="income-source">
-                            <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary"
-                                value="">
-                            <label>Income</label>
-                        </div>
+                            <div class="income-source">
+                                <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary"
+                                    value="">
+                                <label>Income</label>
+                            </div>
 
-                        <div>
-                            <input value="" class="income-amnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
-                            <label>Amount</label>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-        </div>
+                            <div>
+                                <input value="" class="income-amnt" onfocus="this.placeholder=''" type="number"
+                                    placeholder="4000">
+                                <label>Amount</label>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
         </table>
 
         <table class="log-table add-income-results"></table>
 
 
         <!-- Expenses -->
-        <table class="log-table add-expense collapsible">
+        <table class="log-table add-expense">
             <caption>Monthly Expense</caption>
             <tr>
                 <td>
@@ -142,7 +140,7 @@
 
 
         <!-- Savings -->
-        <table class="log-table add-savings collapsible">
+        <table class="log-table add-savings">
             <caption>Monthly Savings</caption>
             <tr>
                 <td>
@@ -208,17 +206,14 @@
             </ul>
         </div>
     </footer>
-    <!-- <script type="text/javascript"  src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
-
+    <!-- highchart script -->
+    <!-- <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- <script>
-    //Google translate ***************
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google-translate');
-        }</script> -->
     <script src="client.js"></script>
     <script src="questions.js"></script>
 </body>

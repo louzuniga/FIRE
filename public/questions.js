@@ -13,7 +13,7 @@ const questions = [
         ],
     },
     {
-        question:'How do you feel about your current financial situation?',
+        question: 'How do you feel about your current financial situation?',
         choices: [
             'a.	I live paycheck to paycheck and/or barely getting by',
             'b.	I save about 20% of my salary (includes 401k contribution)',
@@ -24,36 +24,36 @@ const questions = [
         ],
     },
     {
-        question:'Are you willing to invest?',
+        question: 'Are you willing to invest?',
         choices: [
             'a.	Yes, I understand the turbulent ride, but the historical high returns are worth the risk',
             'b.	Somewhat, my risk tolerance is low, and I prefer to invest more in bonds ',
             'c.	No, I prefer to just keep all my money in my savings and/or CD’s.',
         ],
         responses: [
-            
+
         ],
     },
     {
-        question:'Are you willing to optimize your spending and expenses in order to reach your FI?',
+        question: 'Are you willing to optimize your spending and expenses in order to reach your FI?',
         choices: [
             'a.	Yes, I can identify ways to minimize my spending to my values',
             'b.	No, I can’t identify anything else I can cut back on',
             'c. Already in progress'
         ],
         responses: [
-            
+
         ],
     },
     {
-        question:'What would you consider wealthy?',
+        question: 'What would you consider wealthy?',
         choices: [
             'a.	Having a big house, nice car, designer clothes and shoes and lot of money ',
             'b.	Having great friendships and a close relationship with my family',
             'c.	Option b in addition to being able to live freely, travel, and enjoy what I love most in life within cognizant considerations',
         ],
         responses: [
-            
+
         ],
     },
 ];
@@ -62,56 +62,62 @@ const questions = [
 let numberOfQuestions = 0;
 
 const generateQuestions = () => {
-    (numberOfQuestions < questions.length) 
-        return `<div id="questionnaire">
+    (numberOfQuestions < questions.length)
+    return `<div id="questionnaire">
         <h2 class="question-h2">How do you really feel?</h2>
         <p class="question-p">Let's start off with a short questionnaire to gauge your mindset about Financial Independence (FI).</p>
         </br>
         <h3 class="question">${questions[numberOfQuestions].question}</h3>
         <form class="questions-form">
             <div class="answerChoices">
-            <input value="2" type="radio" name="choice" required>
+            <input type="radio" name="choice" required></input>
             <label>${questions[numberOfQuestions].choices[0]}</label>
             </div>
 
             <div class="answerChoices">
-            <input value="1" type="radio" name="choice" required>
+            <input type="radio" name="choice" required></input>
             <label>${questions[numberOfQuestions].choices[1]}</label>
             </div>
 
             <div class="answerChoices">
-            <input value="1" type="radio" name="choice" required>
+            <input type="radio" name="choice" required></input>
             <label>${questions[numberOfQuestions].choices[2]}</label>
             </div>
             </br>
             <button id="next-question" class="question-btn">Next</button>
-            <button type="submit" id="submit-btn" class="btn">Let's go log some stuff...</button>
-
         </form>
+
+        <button type="submit" id="submit-btn" class="btn">Let's go log some stuff...</button>
+
         </div>`
 };
 
 
 //Next Button
-$(document).on('click', '#next-question', (event) => {
+$('#questions-form').on('click', '#next-question', (event) => {
     event.preventDefault();
-    numberOfQuestions++;
 
-    if(numberOfQuestions < questions.length) {
-    $('#questions-form').html(generateQuestions());
-    } 
-    let userAnswer = $("input[name='choice']:checked").val();
-    if (userAnswer == '') {
-        alert('Please select and answer')
+    let userAnswer = $('input[name="choice"]:checked', '#questions-form').val();
+    console.log(userAnswer);
+    if (!userAnswer) {
+        alert('Please select a thoughtful answer.');
+    } else {
+        numberOfQuestions++;
     }
-
-    if (numberOfQuestions === 4) {
-        $('#next-question').hide();
+    
+    if (numberOfQuestions < questions.length) {
+        $('#questions-form').html(generateQuestions());
+    }
+    
+    if (numberOfQuestions === 5) {
+        $('.question').hide();
+        $('.questions-form').hide();
         $('#submit-btn').show();
     } else {
         $('#submit-btn').hide();
     }
 });
+
 
 
 //Submit Button

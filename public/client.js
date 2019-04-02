@@ -38,7 +38,7 @@ function displayAllIncome(username) {
                 <br/>
     
                 <input type="text" class="update-income-src" value="${result.entries[i].srcOfIncome}">
-                <label>Income</label>
+                <label>Source of Income</label>
                 <br/>
     
                 <input type="text" class="update-income-amnt" value="${result.entries[i].amntOfIncome}">
@@ -92,7 +92,7 @@ function displayAllExpense(username) {
                 <br/>
 
                 <input type="text" class="update-expense-src" value="${result.entries[i].srcOfExpenses}">
-                <label>Expense</label>
+                <label>Type of Expense</label>
                 <br/>
 
                 <input type="text" class="update-expense-amnt" value="${result.entries[i].amntOfExpenses}">
@@ -147,7 +147,7 @@ function displayAllSavings(username) {
                 <br/>
     
                 <input type="text" class="update-savings-src" value="${result.entries[i].srcOfSavings}">
-                <label>Savings</label>
+                <label>Type of Savings</label>
                 <br/>
 
                 <input type="text" class="update-savings-amnt" value="${result.entries[i].amntOfSavings}">
@@ -216,7 +216,7 @@ function populateChart(userID) {
     })
         //if call is succesfull
         .done(function (result) {
-            result.allSavingsExpensesIncome.forEach((result) => console.log(result));
+            //result.allSavingsExpensesIncome.forEach((result) => console.log(result));
 
             let rawIncome = 0;
             for (let i = 0; i < result.allSavingsExpensesIncome[0].length; i++) {
@@ -234,7 +234,6 @@ function populateChart(userID) {
             }
 
             let totalIncome = rawIncome - totalExpense - totalSavings
-            console.log(totalIncome);
 
             if (totalIncome == 0 && totalExpense == 0 && totalSavings == 0) {
                 $('#container').hide();
@@ -244,11 +243,11 @@ function populateChart(userID) {
             
             let outputText = ``;
             if(totalIncome < 0 && totalSavings > 0) {
-                outputText += 'Unfrotnately, you fall in the negative income cashflow and it cannot be accounted for on the chart. However, you have postive savings. Great job!<br>';
+                outputText += '<b>Unfortunately, you fall in the negative income cashflow and it cannot be accounted for on the chart. However, you have postive savings. Great job!</b><br>';
             }else if (totalIncome < 0) {
-                outputText = 'Unfrotnately, you fall in the negative income cashflow and it cannot be accounted for on the chart.<br>';
+                outputText = '<b>Unfortunately, you fall in the negative income cashflow and it cannot be accounted for on the chart.</b><br>';
             }
-            outputText += `The overall income of $${rawIncome} is split like this:`;
+            outputText += `Your overall income of $${rawIncome} is split into three categories:`;
 
                 //Build the Chart------------------
                 jsonObject = 
@@ -282,10 +281,10 @@ function populateChart(userID) {
                     series: [{
                         name: `${loginUsername}'s FIRE Overview`,
                         data: [
-                            { name: 'Residual Income $' + totalIncome, y: totalIncome, sliced: true,
+                            { name: `Residual Income $${totalIncome}`, y: totalIncome, sliced: true,
                             selected: true },
-                            { name: 'Savings $' + totalSavings, y: totalSavings },
-                            { name: 'Expense $' + totalExpense, y: totalExpense },
+                            { name: `Savings $${totalSavings}`, y: totalSavings },
+                            { name: `Expense $${totalExpense}`, y: totalExpense },
                         ],
                         showInLegend: true
                     }]
@@ -353,7 +352,7 @@ $('#login').submit((event) => {
                 displayAllIncome(result._id);
                 displayAllExpense(result._id);
                 displayAllSavings(result._id);
-                populateChart(result._id);
+                //populateChart(result._id);
             })
             .fail((err, errThrown, jqXHR) => {
                 console.log(err);
@@ -423,7 +422,7 @@ $('#signup-form').submit(function (event) {
                 displayAllIncome(result._id);
                 displayAllExpense(result._id);
                 displayAllSavings(result._id);
-                populateChart(result._id);
+                //populateChart(result._id);
             })
             //if the call is failing
             .fail(function (jqXHR, error, errorThrown) {

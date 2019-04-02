@@ -84,7 +84,7 @@ const generateQuestions = () => {
             <label>${questions[numberOfQuestions].choices[2]}</label>
             </div>
             </br>
-            <button id="next-question" class="question-btn">Next</button>
+            <button id="next-question" class="question-btn btn">Next</button>
         </form>
 
         <button type="submit" id="submit-btn" class="btn">Let's go log some stuff...</button>
@@ -98,7 +98,7 @@ $('#questions-form').on('click', '#next-question', (event) => {
     event.preventDefault();
 
     let userAnswer = $('input[name="choice"]:checked', '#questions-form').val();
-    console.log(userAnswer);
+    
     if (!userAnswer) {
         alert('Please select a thoughtful answer.');
     } else {
@@ -117,6 +117,7 @@ $('#questions-form').on('click', '#next-question', (event) => {
         $('#submit-btn').hide();
     }
 });
+
 
 
 //Submit Button

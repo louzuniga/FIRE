@@ -184,14 +184,6 @@ const navBar = () => {
 
 
 //High Chart ************
-const chartAlerts = () => {
-    if(totalIncome < 0 && totalSavings > 0) {
-        alert('Unfrotnately, you fall in the negative income cashflow and it cannot be accounted for on the chart. However, you have postive savings. Great job!')
-    }else if (totalIncome < 0) {
-        alert('Unfrotnately, you fall in the negative income cashflow and it cannot be accounted for on the chart.')
-    }
-console.log(totalIncome);
-}
 const seeResults = () => {
     $('.hideme').hide();
     $('#container').show();
@@ -204,13 +196,11 @@ const seeResults = () => {
 $('.see-results').click((event) => {
     event.preventDefault();
     seeResults();
-    chartAlerts();
 });
 
 $('#nav-bar').on('click', '#results', (event) => {
     event.preventDefault();
     seeResults();
-    chartAlerts();
 });
 
 //Populate High Chart PIE chart**********************
@@ -245,19 +235,20 @@ function populateChart(userID) {
 
             let totalIncome = rawIncome - totalExpense - totalSavings
             console.log(totalIncome);
-            
-            if(totalIncome < 0 && totalSavings > 0) {
-                alert('Unfrotnately, you fall in the negative income cashflow and it cannot be accounted for on the chart. However, you have postive savings. Great job!')
-            }else if (totalIncome < 0) {
-                alert('Unfrotnately, you fall in the negative income cashflow and it cannot be accounted for on the chart.')
-            }
 
             if (totalIncome == 0 && totalExpense == 0 && totalSavings == 0) {
                 $('#container').hide();
                 alert('No expenses, income or savings inputted.');
             } else {
                 $('#container').show();
-
+            
+            let outputText = ``;
+            if(totalIncome < 0 && totalSavings > 0) {
+                outputText += 'Unfrotnately, you fall in the negative income cashflow and it cannot be accounted for on the chart. However, you have postive savings. Great job!<br>';
+            }else if (totalIncome < 0) {
+                outputText = 'Unfrotnately, you fall in the negative income cashflow and it cannot be accounted for on the chart.<br>';
+            }
+            outputText += `The overall income of $${rawIncome} is split like this:`;
 
                 //Build the Chart------------------
                 jsonObject = 
@@ -269,7 +260,7 @@ function populateChart(userID) {
                         type: 'pie'
                     },
                     title: {
-                        text: `${loginUsername}'s FIRE Overview`
+                        text: outputText
                     },
                     tooltip: {
                         pointFormat: `{series.name}: <b>{point.percentage:.1f}%</b>`
@@ -291,15 +282,14 @@ function populateChart(userID) {
                     series: [{
                         name: `${loginUsername}'s FIRE Overview`,
                         data: [
-                            { name: 'Residual Income', y: totalIncome, sliced: true,
+                            { name: 'Residual Income $' + totalIncome, y: totalIncome, sliced: true,
                             selected: true },
-                            { name: 'Savings', y: totalSavings },
-                            { name: 'Expense', y: totalExpense },
+                            { name: 'Savings $' + totalSavings, y: totalSavings },
+                            { name: 'Expense $' + totalExpense, y: totalExpense },
                         ],
                         showInLegend: true
                     }]
                 });
-
                 loggingChart(jsonObject);
             }
         })
@@ -464,30 +454,6 @@ const questionnairePopulated = () => {
     $('#submit-btn').hide();
     // $('#question-btns').show();
 };
-
-
-// Log ***********************************************
-//const logResults = () => {
-
-//Collapse
-// let coll = document.getElementsByClassName("collapsible");
-// let i;
-
-// for (i = 0; i < coll.length; i++) {
-//   coll[i].addEventListener("click", function() {
-//     this.classList.toggle("active");
-//     let content = this.nextElementSibling;
-//     if (content.style.display === "table") {
-//       content.style.display = "none";
-//     } else {
-//       content.style.display = "block";
-//     }
-//   });
-// }
-
-// $('.collapsible').click(function(){
-//     $(this).toggleClass('expand').nextUntil('tr.collapsible').slideToggle(100);
-// });
 
 const showLog = () => {
     $('.hideme').hide();
@@ -904,43 +870,7 @@ $('.add-savings-results').on('click', '.delete-savings-btn', function (event) {
 });
 
 
-//Email Overview Chart to user****************
-// const myform = $("form#send-email-form");
-
-// $('#send-email-form').submit((event) => {
-//     event.preventDefault();
-
-//     const service_id = "default_service";
-//     const template_id = "template_FAu9A88p";
-
-//     emailjs.sendForm(service_id,template_id,myform[0])
-//         .then(function(){ 
-//           alert("Sent!");
-//          //myform.find("button").text("Send");
-//       }, function(err) {
-//          alert("Send email failed!\r\n Response:\n " + JSON.stringify(err));
-//          //myform.find("button").text("Send");
-//       });
-//     return false;
-// });
-
-
-
 // Footer and copyright ************
 let d = new Date()
 $('#copyright').text(`Copyright \u00A9 ${d.getFullYear()}  Lou Zuniga`)
 
-
-const watchForm = () => {
-    //logResults();
-    // googleTranslateElementInit();
-    //copyright();
-    //chart();
-    //nextQuestion();
-    //submitResults();
-    //loggingChart();
-
-};
-
-
-$(watchForm);

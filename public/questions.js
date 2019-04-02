@@ -119,7 +119,6 @@ $('#questions-form').on('click', '#next-question', (event) => {
 });
 
 
-
 //Submit Button
 $('#questions-form').on('click', '#submit-btn', (event) => {
     event.preventDefault();

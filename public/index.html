@@ -10,11 +10,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="reset.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-    <!-- <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
-    <script type="text/javascript">
-    (function(){
-      emailjs.init("user_h2aXoSsvP2GrPGqkj0HAa");
-    })(); -->
     </script>
 </head>
 
@@ -41,7 +36,7 @@
             <input onfocus="this.placeholder=''" type="password" placeholder="Enter Password" class="loginPassword"
                 value="demo123">
 
-            <button type="submit" class="login-button">Login</button>
+            <button role="button" type="submit" class="login-button">Login</button>
             <label>
                 <input type="checkbox" checked="checked" name="remember">Remember Me
             </label>
@@ -71,8 +66,8 @@
             <p>By creating an account you agree that this is currently a test application. </p>
 
             <div>
-                <button type="submit" class="signupbtn btn">Sign Up</button>
-                <button type="button" class="cancelbtn btn">Cancel</button>
+                <button role="button" type="submit" class="signupbtn btn">Sign Up</button>
+                <button role="button" type="button" class="cancelbtn btn">Cancel</button>
             </div>
         </form>
     </div>
@@ -88,25 +83,24 @@
         <!-- Income -->
         <table class="log-table add-income">
             <caption>Monthly Income</caption>
-                <tr class="collapsible expand">
-                    <td>
-                        <form class="income-log">
-                            <button class="income-add-btn btn ">Add</button>
+            <tr class="collapsible expand">
+                <td>
+                    <form class="income-log">
+                        <button role="button" class="income-add-btn btn ">Add</button>
 
-                            <div class="income-source">
-                                <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary"
-                                    value="">
-                                <label>Income</label>
-                            </div>
+                        <div class="income-source">
+                            <input onfocus="this.placeholder=''" type="text" class="income-src" placeholder="salary"
+                                value="">
+                            <label>Income</label>
+                        </div>
 
-                            <div>
-                                <input value="" class="income-amnt" onfocus="this.placeholder=''" type="number"
-                                    placeholder="4000">
-                                <label>Amount</label>
-                            </div>
-                        </form>
-                    </td>
-                </tr>
+                        <div>
+                            <input value="" class="income-amnt" onfocus="this.placeholder=''" type="number" placeholder="4000">
+                            <label>Amount</label>
+                        </div>
+                    </form>
+                </td>
+            </tr>
         </table>
 
         <table class="log-table add-income-results"></table>
@@ -118,7 +112,7 @@
             <tr>
                 <td>
                     <form class="expenses-log">
-                        <button class="expense-add-btn btn ">Add</button>
+                        <button role="button" class="expense-add-btn btn ">Add</button>
 
                         <div class="expense-source">
                             <input onfocus="this.placeholder=''" type="text" class="expense-src" placeholder="mortgage"
@@ -145,7 +139,7 @@
             <tr>
                 <td>
                     <form class="savings-log">
-                        <button class="savings-add-btn btn ">Add</button>
+                        <button role="button" class="savings-add-btn btn ">Add</button>
 
                         <div class="savings-source">
                             <input onfocus="this.placeholder=''" type="text" class="savings-src" placeholder="401K"
@@ -165,7 +159,7 @@
 
         <table class="log-table add-savings-results"></table>
 
-        <button type="submit" class="see-results btn">Go to Overview</button>
+        <button role="button" type="submit" class="see-results btn">Go to Overview</button>
     </div>
 
 
@@ -181,14 +175,6 @@
         <!-- high chart https://www.highcharts.com/demo -->
         <div id="container" class=""></div>
 
-        <!-- Send email request input -->
-        <!-- <form id="send-email-form">
-            <input onfocus="this.placeholder=''" class="results-input" onfocus="this.placeholder=''" type="text"
-                placeholder="Email this info to me please">
-
-            <button type="submit" class="submit-results btn">Send
-            </button>
-        </form> -->
     </div>
 
 
@@ -207,8 +193,6 @@
         </div>
     </footer>
     <!-- highchart script -->
-    <!-- <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>

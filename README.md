@@ -4,7 +4,7 @@
 > The app was created using HTML, CSS, JavaScript, Node, MongoDB, Heroku and mLab.
 
 ## Live App 
-[](https://)
+[](https://fire-node-app.herokuapp.com/)
 
 ## Technology 
 > #### **Front-End:** HTML, CSS, JavaScript, jQuery

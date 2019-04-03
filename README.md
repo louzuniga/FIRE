@@ -12,6 +12,13 @@
 > #### **Host:**  mLab, Heroku
 
 ## Screenshots
+Homepage
+![Homepage](/Images/Homepage.png)
+Sign-up  | Questionaire 
+:-------------------------:|:-------------------------:
+![Sign-up](/Images/Sign-up.png)  |  ![Questions](/Images/questionaire.png)
+Logging  | Results 
+![Log](/Images/Log.png) | ![Overview](/Images/overview.png)
 
 ## User Stories
 *   User has a main login in screen
@@ -36,9 +43,9 @@
 ## Wireframe
 Login  | Questions 
 :-------------------------:|:-------------------------:
-![Login Page](/Images/Wireframe-login.png)  |  ![Questions Page](/Images/Wireframe-questions.png)
-Logging  | Results 
-![Logging Page](/Images/Wireframe-logger.png) | ![Results Page](/Images/Wireframe-results.png)
+![Login](/Images/Wireframe-login.png)  |  ![Questions](/Images/Wireframe-questions.png)
+Logging  | Overview 
+![Logging](/Images/Wireframe-logger.png) | ![Results](/Images/Wireframe-results.png)
 
 ## Functionality 
 *	As a user, I should be able identify my habits and lifestyle based off of the quiz

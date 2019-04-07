@@ -387,23 +387,7 @@ app.get('/populate-chart/:user', function (req, res) {
                             });
                         });
                 })
-            // .catch(function (err) {
-            //     console.error(err);
-            //     res.status(500).json({
-            //         message: 'Internal server error'
-            //     });
-            // });
         })
-    // .catch(function (err) {
-    //     console.error(err);
-    //     res.status(500).json({
-    //         message: 'Internal server error'
-    //     });
-    // });
-    //all entries
-    // res.json({
-    //     allSavingsExpensesIncome
-    // });
 });
 
 

@@ -13,12 +13,12 @@
 
 ## Screenshots
 Homepage
-![Homepage](/Images/Homepage.png)
+![Homepage](/readme-images/Homepage.png)
 Sign-up  | Questionaire 
 :-------------------------:|:-------------------------:
-![Sign-up](/Images/Sign-up.png)  |  ![Questions](/Images/questionaire.png)
+![Sign-up](/readme-images/Sign-up.png)  |  ![Questions](/readme-images/questionaire.png)
 Logging  | Results 
-![Log](/Images/Log.png) | ![Overview](/Images/overview.png)
+![Log](/readme-images/Log.png) | ![Overview](/readme-images/overview.png)
 
 ## User Stories
 *   User has a main login in screen
@@ -43,9 +43,9 @@ Logging  | Results
 ## Wireframe
 Login  | Questions 
 :-------------------------:|:-------------------------:
-![Login](/Images/Wireframe-login.png)  |  ![Questions](/Images/Wireframe-questions.png)
+![Login](/readme-images/Wireframe-login.png)  |  ![Questions](/readme-images/Wireframe-questions.png)
 Logging  | Overview 
-![Logging](/Images/Wireframe-logger.png) | ![Results](/Images/Wireframe-results.png)
+![Logging](/readme-images/Wireframe-logger.png) | ![Results](/readme-images/Wireframe-results.png)
 
 ## Functionality 
 *	As a user, I should be able identify my habits and lifestyle based off of the quiz

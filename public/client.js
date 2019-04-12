@@ -27,29 +27,22 @@ function displayAllIncome(username) {
             $('.add-income-results').html(''); //reset income before adding a new one
 
             for (let i = 0; i < result.entries.length; i++) {
-                $('.add-income-results').prepend
-
-                    (`<tr class="collapsible expand">
-                <td> 
-    
-                <form class="update-income-form hideme">
-                <button type="button" class="update-income-btn btn">Update</button>
-                <button type="button" class="delete-income-btn btn">Delete</button>
+                $('.add-income-results').append
+   
+                (`<button type="button" class="update-income-btn added-btn">Update</button>
+                <button type="button" class="edit-income-btn added-btn">Edit</button>
+                <button type="button" class="delete-income-btn added-btn">Delete</button>
                 <br/>
     
-                <input type="text" class="update-income-src" value="${result.entries[i].srcOfIncome}">
-                <label>Source of Income</label>
-                <br/>
-    
-                <input type="text" class="update-income-amnt" value="${result.entries[i].amntOfIncome}">
+                <p class="update-income-src update">${result.entries[i].srcOfIncome}</p>
+                
+                <p class="update-income-amnt update">${result.entries[i].amntOfIncome}</p>
+                
                 <input type="hidden" class="update-income-id" value="${result.entries[i]._id}">
-                <label>Amount</label>
-    
-                </form> 
-                </td>
-                </tr>`)
+                <br/>`)
             }
         })
+
         //if the call is failing
         .fail(function (jqXHR, error, errorThrown) {
             console.log(jqXHR);
@@ -65,7 +58,6 @@ function displayAllExpense(username) {
     }
 
     //make the api call using the payload above
-    //this will retrieve all the income
     $.ajax({
         type: 'GET',
         url: `/expense/${username}`,
@@ -83,25 +75,17 @@ function displayAllExpense(username) {
             for (let i = 0; i < result.entries.length; i++) {
                 $('.add-expense-results').prepend
 
-                    (`<tr>
-                <td> 
-                <form class="update-expense-form hideme">
-
-                <button type="submit" class="update-expense-btn btn">Update</button>
-                <button type="button" class="delete-expense-btn btn">Delete</button>
+                (`<button type="button" class="update-expense-btn added-btn">Update</button>
+                <button type="button" class="edit-expense-btn added-btn">Edit</button>
+                <button type="button" class="delete-expense-btn added-btn">Delete</button>
                 <br/>
-
-                <input type="text" class="update-expense-src" value="${result.entries[i].srcOfExpenses}">
-                <label>Type of Expense</label>
-                <br/>
-
-                <input type="text" class="update-expense-amnt" value="${result.entries[i].amntOfExpenses}">
+    
+                <li class="update-expense-src update">${result.entries[i].srcOfExpenses}</li>
+                
+                <li class="update-expense-src update">${result.entries[i].amntOfExpenses}</li>
+                
                 <input type="hidden" class="update-expense-id" value="${result.entries[i]._id}">
-                <label>Amount</label>
-
-                </form> 
-                </td>
-                </tr>`)
+                <br/>`)
             }
         })
 
@@ -138,25 +122,17 @@ function displayAllSavings(username) {
             for (let i = 0; i < result.entries.length; i++) {
                 $('.add-savings-results').prepend
 
-                    (`<tr>
-                <td> 
-                <form class="update-savings-form hideme">
-
-                <button type="submit" class="update-savings-btn btn">Update</button>
-                <button type="button" class="delete-savings-btn btn">Delete</button>
+                (`<button type="button" class="update-savings-btn added-btn">Update</button>
+                <button type="button" class="edit-savings-btn added-btn">Edit</button>
+                <button type="button" class="delete-savings-btn added-btn">Delete</button>
                 <br/>
     
-                <input type="text" class="update-savings-src" value="${result.entries[i].srcOfSavings}">
-                <label>Type of Savings</label>
-                <br/>
-
-                <input type="text" class="update-savings-amnt" value="${result.entries[i].amntOfSavings}">
+                <li class="update-savings-src update">${result.entries[i].srcOfSavings}</li>
+                
+                <li class="update-savings-src update">${result.entries[i].amntOfSavings}</li>
+                
                 <input type="hidden" class="update-savings-id" value="${result.entries[i]._id}">
-                <label>Amount</label>
-
-                </form> 
-                </td>
-                </tr>`)
+                <br/>`)
             }
         })
 
@@ -168,12 +144,25 @@ function displayAllSavings(username) {
         });
 };
 
+////EDIT and update******************
+$('.add-income-results').on('click', '.edit-income-btn',function() {
+
+    let src = $('.update-income-src').text();
+    let amnt = $('.update-income-amnt').text();
+
+    $('.update-income-src').replaceWith( $('<input class="update-income-src"/>', {'value' : src} ));
+    $('.update-income-amnt').replaceWith( $('<input class="update-income-amnt"/>', {'value' : amnt} ));
+
+    $('.edit-income-btn').hide();
+    
+});
+
 
 //Show Nav Bar HTML**************
 const navBar = () => {
     return `<div class="nav-list" id="nav">
     <a href="/" class="logout">Logout</a>
-    <a id="questionnaireBtn">Questionaire</a>
+    <a id="questionnaireBtn">Questionnaire</a>
     <a class="log">Log</a>
     <a id="results">Overview</a>
     <a class="icon">
@@ -247,7 +236,7 @@ function populateChart(userID) {
             }else if (totalIncome < 0) {
                 outputText = '<b>Unfortunately, you fall in the negative income cashflow and it cannot be accounted for on the chart.</b><br>';
             }
-            outputText += `Your overall income of $${rawIncome} is split into three categories:`;
+            outputText += `Your overall income of $${rawIncome} is split into these categories:`;
 
                 //Build the Chart------------------
                 jsonObject = 
@@ -325,6 +314,7 @@ $('#login').submit((event) => {
 
     const loginUsername = $('.loginUsername').val();
     const password = $('.loginPassword').val();
+    const activeUserID = $('.activeUser').val();
 
     if (loginUsername === '') {
         alert('Please input username');
@@ -334,6 +324,7 @@ $('#login').submit((event) => {
         const loginUser = {
             username: loginUsername,
             password: password,
+            activeUserID: activeUserID,
         };
 
         //make api call using payload above
@@ -403,7 +394,6 @@ $('#signup-form').submit(function (event) {
             username: username,
             password: password,
         };
-        console.log(newUserObject);
 
         //make the api call using the payload above
         $.ajax({
@@ -461,6 +451,7 @@ const showLog = () => {
     displayAllIncome(username);
     displayAllExpense(username);
     displayAllSavings(username);
+    // $('.update-income-btn').hide();
 };
 
 $('#nav-bar').on('click', '.log', (event) => {

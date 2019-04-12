@@ -12,6 +12,7 @@ const moment = require('moment');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const app = express();
 
@@ -60,12 +61,14 @@ function closeServer() {
 
 //------------------user endpoints---------------
 
+
 //user sign-in
 app.post('/users/login', (req, res) => {
 
     //username and password from ajax api call
     const username = req.body.username;
     const password = req.body.password;
+    const activeUserID = req.body.activeUserID;
 
     //connect to the databas and validate username and password
     User.findOne({
@@ -79,7 +82,7 @@ app.post('/users/login', (req, res) => {
         //username not found
         if (!items) {
             return res.status(401).json({
-                message: "Usename not found"
+                message: "Username not found"
             });
         }
         //username found
@@ -91,9 +94,6 @@ app.post('/users/login', (req, res) => {
                     });
                 }
                 if (!isValid) {
-                    // return res.status(401).json({
-                    //     message: "Password invalid"
-                    //});
                     return console.log(err);
                 }
                 else {
@@ -391,19 +391,19 @@ app.get('/populate-chart/:user', function (req, res) {
 });
 
 
-//GET by id
-app.get('/income/:id', function (req, res) {
-    Income
-        .findById(req.params.id).exec().then(function (income) {
-            return res.json(income);
-        })
-        .catch(function (entries) {
-            console.error(err);
-            res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        });
-});
+// //GET by id
+// app.get('/income/:id', function (req, res) {
+//     Income
+//         .findById(req.params.id).exec().then(function (income) {
+//             return res.json(income);
+//         })
+//         .catch(function (entries) {
+//             console.error(err);
+//             res.status(500).json({
+//                 message: 'Internal Server Error'
+//             });
+//         });
+// });
 
 
 // DELETE ----------------------------------------

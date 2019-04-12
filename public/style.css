@@ -37,11 +37,10 @@ p {
 }
 /* style for the buttons */
 .btn {
-    /* display: flex; */
-    /* margin: 20 auto; */
     font-size: 15;
     padding: 0 16 0;
     height: 28;
+    margin-bottom: 10px;
 }
 .see-results {
     display: flex;
@@ -105,9 +104,9 @@ p {
     background-color: rgba(17, 82, 134, 0.5);
     padding: 10px;
     max-width: 580px;
-    margin: 80px auto 5px;
+    margin: 60px auto 5px;
 }
-.question-h2, .results-h2 {
+.question-h2, .results-h2, .log-header-title {
     background-color: rgb(6, 49, 73);
     font-size: 35px;
     text-align: center;
@@ -122,10 +121,6 @@ p {
 }
 .next-prev-float {
     float:right;
-}
-.step-circles {
-    text-align:center;
-    margin-top:40px;
 }
 .question-btn {
     display: inline-flex;
@@ -149,7 +144,6 @@ p {
     font-size: 20px;
 }
 
-
 /* High Chart ********* */
 #container {
     height: 400px;
@@ -161,50 +155,80 @@ p {
     background-color: rgba(17, 82, 134, 0.5);
     padding: 10px;
     margin: 60px auto 10px;
-    max-width: 480;
+    max-width: 580;
 }
 .results-input {
     margin: 0 auto;
     display: block;
     width: 45%;
 }
-.results-p {
+.results-p, .log-header{
     margin: 0px auto;
     font-size: 20px;
 }
 
 /* Log ********/
-tr.collapsible {
-    cursor:pointer;
-    overflow: hidden;
+#log-form {
+    /* background-color: rgba(17, 82, 134, 0.5); */
+    padding: 10px;
+    max-width: 580px;
+    margin: 60px auto 5px;
 }
-.collapsible .sign:after{
-  content:"+";   
-}
-.collapsible.expand .sign:after{
-  content:"-";
- }
-.log-table {
-    margin: 0px auto;
-    width: 50%;
-    min-width: 300px;
-    max-width: 480px;
-}
-td {
-    padding: 12px;
-    text-align: left;
+#log-header {
     background-color: rgba(17, 82, 134, 0.5);
-    color: white;
-   
+    padding: 10px;
+    margin-bottom: 10px;
 }
-tr {
-    padding: 30px;
+.update {
+    font-size: 20;
+    background-color:rgb(20, 40, 58);
+    width: 40%;
+    margin-top: 8px;
+    padding: 5px;
+    display: inline-flex;
 }
-caption {
-    font-size: 40px;
+.log-table {
+    margin-bottom: 0px;
+    background-color: rgba(17, 82, 134, 0.5);
+}
+.caption {
+    font-size: 24px;
     font-weight:  bolder;
     color: rgb(237, 244, 244);
-    margin: 50px 0 0 ;
+    background-color: rgba(21, 56, 87, .9);
+    padding: 10px;
+    margin-top: 20px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.added-caption {
+    background-color: rgb(6, 49, 73);
+    font-size: 20px;
+    color: rgb(237, 244, 244);
+    /* border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; */
+    border-radius: 0;
+    padding: 10px;
+}
+.income-add-btn, .expense-add-btn, .savings-add-btn {
+    margin: 10px 0 0 10px;
+}
+.income-log, .savings-log, .expenses-log {
+    padding: 10px;
+    display: inline-flex;
+}
+
+.updateForm {
+    /* background-color: rgba(21, 56, 87, .9); */
+    color: white;
+    padding: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.added-btn {
+    font-size: 10;
+    padding: 0 10 0;
+    height: 20; 
 }
 
 /* Navigation Bar *********/
@@ -338,14 +362,14 @@ transition: .5s;
     caption {
         font-size: 28px;
     }
-    #results-text {
-        margin: 60px auto 10px;
+    #results-text, #log-header {
+        margin: 50px auto 10px;
         max-width: 380px;
     }
-    .results-h2 {
+    .results-h2, .log-header-title {
         font-size: 25px;
     }
-    .results-p {
+    .results-p, .log-header {
         font-size: 18px;
     }
     /* footer */

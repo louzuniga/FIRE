@@ -2,19 +2,31 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const validator = require('validator');
 
 const userSchema = new mongoose.Schema ({
     name: {
         type: String,
-        required: false,
+        required: true,
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error('Email is invalid')
+            }
+        }
     },
     username: {
         type: String,
-        required: false,
+        required: true,
     },
     password: {
         type: String,
-        required: false,
+        required: true,
+        minlength: 6,
+        validate(value) {
+            if (value.includes('demo')) {
+                throw new Error('Password cannot be demo')
+            }
+        }
     },
 });
 

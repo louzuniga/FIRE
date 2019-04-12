@@ -64,8 +64,10 @@ let numberOfQuestions = 0;
 const generateQuestions = () => {
     (numberOfQuestions < questions.length)
     return `<div id="questionnaire">
+        <div>
         <h2 class="question-h2">How do you really feel?</h2>
         <p class="question-p">Let's start off with a short questionnaire to gauge your mindset about Financial Independence (FI).</p>
+        </div>
         </br>
         <h3 class="question">${questions[numberOfQuestions].question}</h3>
         <form class="questions-form">

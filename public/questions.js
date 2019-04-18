@@ -8,9 +8,6 @@ const questions = [
             'b.	All of questions above but would include more for entertainment, travel and the nicer materialistic things in life',
             'c.	All of the above and then everything else I can possibly want without limitations',
         ],
-        responses: [
-
-        ],
     },
     {
         question: 'How do you feel about your current financial situation?',
@@ -18,9 +15,6 @@ const questions = [
             'a.	I live paycheck to paycheck and/or barely getting by',
             'b.	I save about 20% of my salary (includes 401k contribution)',
             'c.	I am proudly debt free and save more than 20% of my salary (includes 401k contribution)',
-        ],
-        responses: [
-
         ],
     },
     {
@@ -30,9 +24,6 @@ const questions = [
             'b.	Somewhat, my risk tolerance is low, and I prefer to invest more in bonds ',
             'c.	No, I prefer to just keep all my money in my savings and/or CD’s.',
         ],
-        responses: [
-
-        ],
     },
     {
         question: 'Are you willing to optimize your spending and expenses in order to reach your FI?',
@@ -41,9 +32,6 @@ const questions = [
             'b.	No, I can’t identify anything else I can cut back on',
             'c. Already in progress'
         ],
-        responses: [
-
-        ],
     },
     {
         question: 'What would you consider wealthy?',
@@ -51,9 +39,6 @@ const questions = [
             'a.	Having a big house, nice car, designer clothes and shoes and lot of money ',
             'b.	Having great friendships and a close relationship with my family',
             'c.	Option b in addition to being able to live freely, travel, and enjoy what I love most in life within cognizant considerations',
-        ],
-        responses: [
-
         ],
     },
 ];
@@ -65,8 +50,8 @@ const generateQuestions = () => {
     (numberOfQuestions < questions.length)
     return `<div id="questionnaire">
         <div>
-        <h2 class="question-h2">How do you really feel?</h2>
-        <p class="question-p">Let's start off with a short questionnaire to gauge your mindset about Financial Independence (FI).</p>
+        <h2 class="question-h2">Let's start off with something to think about.</h2>
+        <p class="question-p">These question's sole intention is to get your mind thinking about what it may take to be financially independent. Don't worry it will not be graded and there is no right or wrong answers. Just be you.</p>
         </div>
         </br>
         <h3 class="question">${questions[numberOfQuestions].question}</h3>

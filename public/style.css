@@ -31,9 +31,11 @@ p {
  input {
     padding: 10px;
     font-size: 17px;
-    margin: 8px 0;
+    /* display: flex;
+    width: 95%; */
+    /* margin: 8px 0; */
     border: 1px solid #ccc;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
 }
 /* style for the buttons */
 .btn {
@@ -124,7 +126,7 @@ p {
 }
 .question-btn {
     display: inline-flex;
-    margin: 10 auto;
+    margin: 0 auto 60px;
     font-size: 15px;
     padding: 0 16 0;
     height: 28;
@@ -136,7 +138,7 @@ p {
 .question {
     background-color: rgb(6, 49, 73);
     margin: 0;
-    padding: 20px;
+    padding: 10px;
     font-size: 20px;
 }
 .question-p {
@@ -182,7 +184,7 @@ p {
 .update {
     font-size: 20;
     background-color:rgb(20, 40, 58);
-    width: 40%;
+    width: 38%;
     margin-top: 8px;
     padding: 5px;
     display: inline-flex;
@@ -225,10 +227,14 @@ p {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-.added-btn {
+.added-btn, .income-add-btn, .expense-add-btn, .savings-add-btn {
     font-size: 10;
     padding: 0 10 0;
     height: 20; 
+}
+.change {
+    display: flex;
+    width: 95%;
 }
 
 /* Navigation Bar *********/
@@ -252,7 +258,7 @@ p {
 .nav-list a:hover {
     background-color: rgb(6, 49, 73);
 }
-.btn:hover {
+.btn:hover, .added-btn:hover {
     background-color: rgb(6, 49, 73);;
     color: white;
 }
@@ -362,9 +368,12 @@ transition: .5s;
     caption {
         font-size: 28px;
     }
-    #results-text, #log-header {
+    #results-text {
         margin: 50px auto 10px;
         max-width: 380px;
+    }
+    #log-header {
+        margin: 50px auto 10px;
     }
     .results-h2, .log-header-title {
         font-size: 25px;

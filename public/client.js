@@ -3,6 +3,36 @@
 $('.hideme').hide();
 $('#login').show();
 
+function isValidEmailAddress(emailAddress) {
+    var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+    return pattern.test(emailAddress);
+}
+
+function searchUserNameDuplicates (username) {
+    $.ajax({
+        type: 'GET',
+        url: `/check-duplicates/${username}`,
+        dataType: 'json',
+        contentType: 'application/json'
+    })
+        //if call is succefull
+        .done((result) => {
+           console.log(result.username);
+           console.log(result.username._id);
+           if(result.username._id !== undefined) {
+            location.reload(); 
+            alert('Duplicate username');
+           }
+        })
+
+        //if the call is failing
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+};
+
 //GET AJAX request from user Income user entries
 function displayAllIncome(username) {
 
@@ -29,11 +59,7 @@ function displayAllIncome(username) {
             for (let i = 0; i < result.entries.length; i++) {
                 $('.add-income-results').append
    
-                (`<button type="button" class="update-income-btn added-btn">Update</button>
-                <button type="button" class="edit-income-btn added-btn">Edit</button>
-                <button type="button" class="delete-income-btn added-btn">Delete</button>
-                <br/>
-    
+                (`
                 <p class="update-income-src update">${result.entries[i].srcOfIncome}</p>
                 
                 <p class="update-income-amnt update">${result.entries[i].amntOfIncome}</p>
@@ -75,14 +101,10 @@ function displayAllExpense(username) {
             for (let i = 0; i < result.entries.length; i++) {
                 $('.add-expense-results').prepend
 
-                (`<button type="button" class="update-expense-btn added-btn">Update</button>
-                <button type="button" class="edit-expense-btn added-btn">Edit</button>
-                <button type="button" class="delete-expense-btn added-btn">Delete</button>
-                <br/>
-    
-                <li class="update-expense-src update">${result.entries[i].srcOfExpenses}</li>
+                (`
+                <p class="update-expense-src update">${result.entries[i].srcOfExpenses}</p>
                 
-                <li class="update-expense-src update">${result.entries[i].amntOfExpenses}</li>
+                <p class="update-expense-src update">${result.entries[i].amntOfExpenses}</p>
                 
                 <input type="hidden" class="update-expense-id" value="${result.entries[i]._id}">
                 <br/>`)
@@ -144,19 +166,38 @@ function displayAllSavings(username) {
         });
 };
 
-////EDIT and update******************
-$('.add-income-results').on('click', '.edit-income-btn',function() {
-
+////EDIT and update buttons******************
+//Income
+$('.edit-income-btn').click(function() {
     let src = $('.update-income-src').text();
     let amnt = $('.update-income-amnt').text();
 
-    $('.update-income-src').replaceWith( $('<input class="update-income-src"/>', {'value' : src} ));
-    $('.update-income-amnt').replaceWith( $('<input class="update-income-amnt"/>', {'value' : amnt} ));
+    // const src = $(this).parent().find('.update-income-src').val();
+    // const amnt = $(this).parent().find(".update-income-amnt").val();
+
+    console.log(src);
+
+    $('.update-income-src').replaceWith( $('<input/>', {'value' : src} ));
+    $('.update-income-amnt').replaceWith( $('<input/>', {'value' : amnt} ));
 
     $('.edit-income-btn').hide();
-    
+    $('.update-income-btn').show();  
 });
 
+//Expense
+$('.edit-expense-btn').click(function() {
+    
+    const src = $(this).parent().find('.update-expense-src').val();
+    const amnt = $(this).parent().find(".update-expense-amnt").val();
+    console.log(src);
+    $('.update-expense-src').replaceWith( $('<input/>', {'value' : src} ));
+    $('.update-expense-amnt').replaceWith( $('<input/>', {'value' : amnt} ));
+
+    console.log(src);
+
+    $('.edit-expense-btn').hide(); 
+    $('.update-expense-btn').show();
+});
 
 //Show Nav Bar HTML**************
 const navBar = () => {
@@ -381,6 +422,8 @@ $('#signup-form').submit(function (event) {
     //validate the input
     if (email == "") {
         alert('Please add an Email Adress');
+    } else if( !isValidEmailAddress( email ) ) { 
+       alert('invalid email address')
     } else if (username == "") {
         alert('Please add an user name');
     } else if (password == "") {
@@ -388,6 +431,8 @@ $('#signup-form').submit(function (event) {
     }
     //if the input is valid
     else {
+       searchUserNameDuplicates (username);
+    
         //create the payload object (what data we send to the api call)
         const newUserObject = {
             name: email,
@@ -420,6 +465,7 @@ $('#signup-form').submit(function (event) {
                 console.log(error);
                 console.log(errorThrown);
             });
+        
     };
 });
 
@@ -451,7 +497,7 @@ const showLog = () => {
     displayAllIncome(username);
     displayAllExpense(username);
     displayAllSavings(username);
-    // $('.update-income-btn').hide();
+    $('.update-income-btn').hide();
 };
 
 $('#nav-bar').on('click', '.log', (event) => {
@@ -460,7 +506,7 @@ $('#nav-bar').on('click', '.log', (event) => {
 });
 
 //Add Income in DB--------------
-$('.income-log').submit((event) => {
+$('.income-add-btn').click((event) => {
     event.preventDefault();
 
     //input from user
@@ -507,7 +553,7 @@ $('.income-log').submit((event) => {
 
 
 //Add expenses in DB ----------------
-$('.expenses-log').submit((event) => {
+$('.expense-add-btn').click((event) => {
     event.preventDefault();
 
     const srcOfExpenses = $('.expense-src').val();
@@ -555,7 +601,7 @@ $('.expenses-log').submit((event) => {
 });
 
 // Add Savings in DB******
-$('.savings-log').submit((event) => {
+$('.savings-add-btn').click((event) => {
     event.preventDefault();
 
     //input from user
@@ -607,17 +653,18 @@ $('.savings-log').submit((event) => {
 
 
 //Update Income DB***************************
-$('.add-income-results').on('click', '.update-income-btn', function (event) {
+$('.update-income-btn').click(function (event) {
     event.preventDefault();
 
     //take the input from the user
     const parentDiv = $(this).closest('.add-income-results');
-    const srcOfIncome = $(this).parent().find('.update-income-src').val();
-    const amntOfIncome = $(this).parent().find(".update-income-amnt").val();
+    const srcOfIncome = $(this).parent().find('.edit-income-src').val();
+    const amntOfIncome = $(this).parent().find(".edit-income-amnt").val();
     const username = $(".activeUser").val();
     const entryId = $(this).parent().find('.update-income-id').val();
 
-    console.log(srcOfIncome);
+    $('.update-income-btn').hide();
+    $('.edit-income-btn').show();
 
     //validate the input
     if (srcOfIncome == "") {
@@ -661,7 +708,7 @@ $('.add-income-results').on('click', '.update-income-btn', function (event) {
 });
 
 //Expense ----
-$('.add-expense-results').on('click', '.update-expense-btn', function (event) {
+$('.update-expense-btn').click(function (event) {
     event.preventDefault();
 
     //take the input from the user
@@ -769,7 +816,7 @@ $('.add-savings-results').on('click', '.update-savings-btn', function (event) {
 
 //Delete Entry***************************
 //Income-------
-$('.add-income-results').on('click', '.delete-income-btn', function (event) {
+$('.delete-income-btn').click(function (event) {
     event.preventDefault();
 
     //take the input from the user

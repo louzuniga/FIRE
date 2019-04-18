@@ -105,6 +105,36 @@ app.post('/users/login', (req, res) => {
 });
 
 
+app.get('/check-duplicates/:username', (req, res) => {
+
+    //username and password from ajax api call
+    const username = req.params.username;
+
+    //connect to the databas and validate username and password
+    User.findOne({
+        username: username
+    }, (err, items) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Can't connect to the Database"
+            });
+        }
+        //username not found
+        if (!items) {
+            return res.status(200).json({
+                username: ""
+            });
+        }
+        //username found
+        else {
+            return res.status(200).json({
+                username: items
+            });
+        }
+    });
+});
+
+
 //sign-up - creating a new user
 app.post('/users/create', (req, res) => {
 

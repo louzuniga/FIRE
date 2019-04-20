@@ -17,6 +17,8 @@
     "nodemon": "^1.18.11",
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "validator": "^10.11.0"
   },
   "devDependencies": {

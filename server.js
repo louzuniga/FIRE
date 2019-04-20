@@ -15,10 +15,12 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const app = express();
+const auth = require('./routers/auth');
 
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('public'));
+app.use('/auth', auth);
 
 mongoose.Promise = global.Promise;
 

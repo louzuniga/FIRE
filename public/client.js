@@ -169,13 +169,13 @@ function displayAllSavings(username) {
 ////EDIT and update buttons******************
 //Income
 $('.edit-income-btn').click(function() {
-    let src = $('.update-income-src').text();
-    let amnt = $('.update-income-amnt').text();
+    let src = $(this).parent().find('.update-income-src').text();
+    let amnt = $(this).parent().find('.update-income-amnt').text();
 
     // const src = $(this).parent().find('.update-income-src').val();
     // const amnt = $(this).parent().find(".update-income-amnt").val();
 
-    console.log(src);
+    console.log(src, amnt);
 
     $('.update-income-src').replaceWith( $('<input/>', {'value' : src} ));
     $('.update-income-amnt').replaceWith( $('<input/>', {'value' : amnt} ));
@@ -420,13 +420,13 @@ $('#signup-form').submit(function (event) {
     console.log(email, username, password);
 
     //validate the input
-    if (email == "") {
+    if (email === "") {
         alert('Please add an Email Adress');
     } else if( !isValidEmailAddress( email ) ) { 
        alert('invalid email address')
-    } else if (username == "") {
+    } else if (username === "") {
         alert('Please add an user name');
-    } else if (password == "") {
+    } else if (password === "") {
         alert('Please add a password');
     }
     //if the input is valid

@@ -87,44 +87,34 @@
         </div>
         <!-- Income -->
         <div class="log-table add-income">
-            <h3 class="caption">What's your Monthly Inome?</h3>
-
+            <h3 class="caption">Monthly Income</h3>
             <button role="button" class="income-add-btn btn ">Add to the Income Log</button>
-
             <form class="income-log">
-                <div class="income">
-                    <input onfocus="this.placeholder=''" type="text" class="income-src change" placeholder="paycheck"
+                <div class="income-source">
+                    <input onfocus="this.placeholder=''" type="text" class="income-src change" placeholder="salary"
                         value="">
                     <label>eg.work/rental property</label>
                 </div>
 
-                <div class="income">
-                    <input name="commit" class="income-amnt change" onfocus="this.placeholder=''" type="number"
-                        placeholder="4000">
+                <div>
+                    <input value="" class="income-amnt change" onfocus="this.placeholder=''" type="number" placeholder="4000">
                     <label>Dollar Amount</label>
                 </div>
             </form>
-
-            <h3 class="added-caption">Income Added to the Log:</h3>
-            <form class="log-table updateForm">
-                <button type="button" class="delete-income-btn added-btn">Delete</button>
-                <button type="button" class="update-income-btn added-btn">Update</button>
-                <button type="button" class="edit-income-btn added-btn">Edit</button>
-                <br/>
-
-                <div class="add-income-results"></div>
-            </form>
         </div>
+
+        <h3 class="added-caption">Income Added to your Log:</h3>
+        <form class="log-table add-income-results"></form>
+
 
         <!-- Expenses -->
         <div class="log-table add-expense">
-            <h3 class="caption">What's your Monthly Expenses?</h3>
-
+            <h3 class="caption">Monthly Expense</h3>
             <button role="button" class="expense-add-btn btn ">Add to the Expense Log</button>
-            
+
             <form class="expenses-log">
                 <div class="expense-source">
-                    <input onfocus="this.placeholder=''" type="text" class="expense-src change" placeholder="credit card"
+                    <input onfocus="this.placeholder=''" type="text" class="expense-src change" placeholder="mortgage"
                         value="">
                     <label>eg.mortgage/car payment</label>
                 </div>
@@ -134,41 +124,33 @@
                     <label>Dollar Amount</label>
                 </div>
             </form>
-
-            <h3 class="added-caption">Expense Added to the Log:</h3>
-            <form class="log-table updateForm">
-                <button type="button" class="delete-expense-btn added-btn">Delete</button>
-                <button type="button" class="update-expense-btn added-btn">Update</button>
-                <button type="button" class="edit-expense-btn added-btn">Edit</button>
-                <br/>
-
-                <div class="add-expense-results"></div>
-            </form>
         </div>
+
+        <h3 class="added-caption">Expense Added to your Log:</h3>
+        <form class="log-table add-expense-results"></form>
+
 
         <!-- Savings -->
         <div class="log-table add-savings">
-            <h3 class="caption">What's your Monthly Savings?</h3>
-
-            <button role="button" class="savings-add-btn btn ">Add to the Savings Log</button>
+            <h3 class="caption">Monthly Savings</h3>
+            <button role="button" class="savings-add-btn btn ">Add</button>
 
             <form class="savings-log">
                 <div class="savings-source">
-                    <input onfocus="this.placeholder=''" type="text" class="savings-src change" placeholder="401K" value="">
+                    <input onfocus="this.placeholder=''" type="text" class="savings-src change" placeholder="401K"
+                        value="">
                     <label>eg.401k/IRA/Roth IRA </label>
                 </div>
 
                 <div class="savings-amount">
                     <input value="" class="savings-amnt change" onfocus="this.placeholder=''" type="number" placeholder="530">
-                    <label>Amount</label>
+                    <label>Dollar Amount</label>
                 </div>
             </form>
-
-            <h3 class="added-caption">Added Savings:</h3>
-            <form class="log-table updateForm">
-                <div class="add-savings-results"></div>
-            </form>
         </div>
+
+        <h3 class="added-caption">Added Savings:</h3>
+        <form class="log-table add-savings-results"></form>
 
         <button role="button" type="submit" class="see-results btn">Go to Overview</button>
     </div>

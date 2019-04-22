@@ -8,7 +8,7 @@ function isValidEmailAddress(emailAddress) {
     return pattern.test(emailAddress);
 }
 
-function searchUserNameDuplicates (username) {
+function searchUserNameDuplicates(username) {
     $.ajax({
         type: 'GET',
         url: `/check-duplicates/${username}`,
@@ -17,12 +17,12 @@ function searchUserNameDuplicates (username) {
     })
         //if call is succefull
         .done((result) => {
-           console.log(result.username);
-           console.log(result.username._id);
-           if(result.username._id !== undefined) {
-            location.reload(); 
-            alert('Duplicate username');
-           }
+            console.log(result.username);
+            console.log(result.username._id);
+            if (result.username._id !== undefined) {
+                location.reload();
+                alert('Duplicate username');
+            }
         })
 
         //if the call is failing
@@ -58,17 +58,24 @@ function displayAllIncome(username) {
 
             for (let i = 0; i < result.entries.length; i++) {
                 $('.add-income-results').append
-   
-                (`
-                <p class="update-income-src update">${result.entries[i].srcOfIncome}</p>
-                
-                <p class="update-income-amnt update">${result.entries[i].amntOfIncome}</p>
-                
+
+                    (`
+                <div>
+                <form class="update-income-form hideme">
+                <button type="button" class="update-income-btn added-btn">Update</button>
+                <button type="button" class="delete-income-btn added-btn">Delete</button>
+                <br/>
+    
+                <input type="text" class="update-income-src update" value="${result.entries[i].srcOfIncome}">
+    
+                <input type="text" class="update-income-amnt update" value="${result.entries[i].amntOfIncome}">
+
                 <input type="hidden" class="update-income-id" value="${result.entries[i]._id}">
-                <br/>`)
+                </form> 
+                </div>
+                `)
             }
         })
-
         //if the call is failing
         .fail(function (jqXHR, error, errorThrown) {
             console.log(jqXHR);
@@ -84,6 +91,7 @@ function displayAllExpense(username) {
     }
 
     //make the api call using the payload above
+    //this will retrieve all the income
     $.ajax({
         type: 'GET',
         url: `/expense/${username}`,
@@ -99,15 +107,23 @@ function displayAllExpense(username) {
             $('.add-expense-results').html('');
 
             for (let i = 0; i < result.entries.length; i++) {
-                $('.add-expense-results').prepend
+                $('.add-expense-results').append
 
-                (`
-                <p class="update-expense-src update">${result.entries[i].srcOfExpenses}</p>
-                
-                <p class="update-expense-src update">${result.entries[i].amntOfExpenses}</p>
-                
+                    (`
+                <div>
+                <form class="update-expense-form hideme">
+                <button type="button" class="update-expense-btn added-btn">Update</button>
+                <button type="button" class="delete-expense-btn added-btn">Delete</button>
+                <br/>
+    
+                <input type="text" class="update-expense-src update" value="${result.entries[i].srcOfExpenses}">
+    
+                <input type="text" class="update-expense-amnt update" value="${result.entries[i].amntOfExpenses}">
+
                 <input type="hidden" class="update-expense-id" value="${result.entries[i]._id}">
-                <br/>`)
+                </form> 
+                </div>
+                `)
             }
         })
 
@@ -142,19 +158,23 @@ function displayAllSavings(username) {
             $('.add-savings-results').html('');
 
             for (let i = 0; i < result.entries.length; i++) {
-                $('.add-savings-results').prepend
+                $('.add-savings-results').append
 
-                (`<button type="button" class="update-savings-btn added-btn">Update</button>
-                <button type="button" class="edit-savings-btn added-btn">Edit</button>
+                    (`
+                <div>
+                <form class="update-savings-form hideme">
+                <button type="button" class="update-savings-btn added-btn">Update</button>
                 <button type="button" class="delete-savings-btn added-btn">Delete</button>
                 <br/>
     
-                <li class="update-savings-src update">${result.entries[i].srcOfSavings}</li>
-                
-                <li class="update-savings-src update">${result.entries[i].amntOfSavings}</li>
-                
+                <input type="text" class="update-savings-src update" value="${result.entries[i].amntOfSavings}">
+    
+                <input type="text" class="update-savings-amnt update" value="${result.entries[i].amntOfSavings}">
+
                 <input type="hidden" class="update-savings-id" value="${result.entries[i]._id}">
-                <br/>`)
+                </form> 
+                </div>
+                `)
             }
         })
 
@@ -166,38 +186,6 @@ function displayAllSavings(username) {
         });
 };
 
-////EDIT and update buttons******************
-//Income
-$('.edit-income-btn').click(function() {
-    let src = $(this).parent().find('.update-income-src').text();
-    let amnt = $(this).parent().find('.update-income-amnt').text();
-
-    // const src = $(this).parent().find('.update-income-src').val();
-    // const amnt = $(this).parent().find(".update-income-amnt").val();
-
-    console.log(src, amnt);
-
-    $('.update-income-src').replaceWith( $('<input/>', {'value' : src} ));
-    $('.update-income-amnt').replaceWith( $('<input/>', {'value' : amnt} ));
-
-    $('.edit-income-btn').hide();
-    $('.update-income-btn').show();  
-});
-
-//Expense
-$('.edit-expense-btn').click(function() {
-    
-    const src = $(this).parent().find('.update-expense-src').val();
-    const amnt = $(this).parent().find(".update-expense-amnt").val();
-    console.log(src);
-    $('.update-expense-src').replaceWith( $('<input/>', {'value' : src} ));
-    $('.update-expense-amnt').replaceWith( $('<input/>', {'value' : amnt} ));
-
-    console.log(src);
-
-    $('.edit-expense-btn').hide(); 
-    $('.update-expense-btn').show();
-});
 
 //Show Nav Bar HTML**************
 const navBar = () => {
@@ -220,7 +208,7 @@ const seeResults = () => {
     $('#results-container').show();
     let username = $('.activeUser').val();
     populateChart(username);
-    
+
 };
 
 $('.see-results').click((event) => {
@@ -270,55 +258,57 @@ function populateChart(userID) {
                 alert('No expenses, income or savings inputted.');
             } else {
                 $('#container').show();
-            
-            let outputText = ``;
-            if(totalIncome < 0 && totalSavings > 0) {
-                outputText += '<b>Unfortunately, you fall in the negative income cashflow and it cannot be accounted for on the chart. However, you have postive savings. Great job!</b><br>';
-            }else if (totalIncome < 0) {
-                outputText = '<b>Unfortunately, you fall in the negative income cashflow and it cannot be accounted for on the chart.</b><br>';
-            }
-            outputText += `Your overall income of $${rawIncome} is split into these categories:`;
+
+                let outputText = ``;
+                if (totalIncome < 0 && totalSavings > 0) {
+                    outputText += '<b>Unfortunately, you fall in the negative income cashflow and it cannot be accounted for on the chart. However, you have postive savings. Great job!</b><br>';
+                } else if (totalIncome < 0) {
+                    outputText = '<b>Unfortunately, you fall in the negative income cashflow and it cannot be accounted for on the chart.</b><br>';
+                }
+                outputText += `Your overall income of $${rawIncome} is split into these categories:`;
 
                 //Build the Chart------------------
-                jsonObject = 
-                Highcharts.chart('container', {
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: outputText
-                    },
-                    tooltip: {
-                        pointFormat: `{series.name}: <b>{point.percentage:.1f}%</b>`
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                },
-                                connectorColor: 'silver'
+                jsonObject =
+                    Highcharts.chart('container', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
+                        },
+                        title: {
+                            text: outputText
+                        },
+                        tooltip: {
+                            pointFormat: `{series.name}: <b>{point.percentage:.1f}%</b>`
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                    style: {
+                                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                    },
+                                    connectorColor: 'silver'
+                                }
                             }
-                        }
-                    },
-                    series: [{
-                        name: `${loginUsername}'s FIRE Overview`,
-                        data: [
-                            { name: `Residual Income $${totalIncome}`, y: totalIncome, sliced: true,
-                            selected: true },
-                            { name: `Savings $${totalSavings}`, y: totalSavings },
-                            { name: `Expense $${totalExpense}`, y: totalExpense },
-                        ],
-                        showInLegend: true
-                    }]
-                });
+                        },
+                        series: [{
+                            name: `${loginUsername}'s FIRE Overview`,
+                            data: [
+                                {
+                                    name: `Residual Income $${totalIncome}`, y: totalIncome, sliced: true,
+                                    selected: true
+                                },
+                                { name: `Savings $${totalSavings}`, y: totalSavings },
+                                { name: `Expense $${totalExpense}`, y: totalExpense },
+                            ],
+                            showInLegend: true
+                        }]
+                    });
                 loggingChart(jsonObject);
             }
         })
@@ -422,8 +412,8 @@ $('#signup-form').submit(function (event) {
     //validate the input
     if (email === "") {
         alert('Please add an Email Adress');
-    } else if( !isValidEmailAddress( email ) ) { 
-       alert('invalid email address')
+    } else if (!isValidEmailAddress(email)) {
+        alert('invalid email address')
     } else if (username === "") {
         alert('Please add an user name');
     } else if (password === "") {
@@ -431,8 +421,8 @@ $('#signup-form').submit(function (event) {
     }
     //if the input is valid
     else {
-       searchUserNameDuplicates (username);
-    
+        searchUserNameDuplicates(username);
+
         //create the payload object (what data we send to the api call)
         const newUserObject = {
             name: email,
@@ -465,7 +455,7 @@ $('#signup-form').submit(function (event) {
                 console.log(error);
                 console.log(errorThrown);
             });
-        
+
     };
 });
 
@@ -497,7 +487,6 @@ const showLog = () => {
     displayAllIncome(username);
     displayAllExpense(username);
     displayAllSavings(username);
-    $('.update-income-btn').hide();
 };
 
 $('#nav-bar').on('click', '.log', (event) => {
@@ -653,18 +642,16 @@ $('.savings-add-btn').click((event) => {
 
 
 //Update Income DB***************************
-$('.update-income-btn').click(function (event) {
+$('.add-income-results').on('click', '.update-income-btn', function (event) {
     event.preventDefault();
 
     //take the input from the user
     const parentDiv = $(this).closest('.add-income-results');
-    const srcOfIncome = $(this).parent().find('.edit-income-src').val();
-    const amntOfIncome = $(this).parent().find(".edit-income-amnt").val();
+    const srcOfIncome = $(this).parent().find('.update-income-src').val();
+    const amntOfIncome = $(this).parent().find(".update-income-amnt").val();
     const username = $(".activeUser").val();
     const entryId = $(this).parent().find('.update-income-id').val();
 
-    $('.update-income-btn').hide();
-    $('.edit-income-btn').show();
 
     //validate the input
     if (srcOfIncome == "") {
@@ -816,7 +803,7 @@ $('.add-savings-results').on('click', '.update-savings-btn', function (event) {
 
 //Delete Entry***************************
 //Income-------
-$('.delete-income-btn').click(function (event) {
+$('.add-income-results').on('click', '.delete-income-btn', function (event) {
     event.preventDefault();
 
     //take the input from the user

@@ -107,15 +107,16 @@ app.post('/users/login', (req, res) => {
 });
 
 
-app.get('/check-duplicates/:username', (req, res) => {
+app.get('/check-duplicates/:username/:email', (req, res) => {
 
     //username and password from ajax api call
     const username = req.params.username;
-
+    const email = req.params.email;
     //connect to the databas and validate username and password
     User.findOne({
-        username: username
+        $or:[{username: username},{name: email}]
     }, (err, items) => {
+        console.log(items);
         if (err) {
             return res.status(500).json({
                 message: "Can't connect to the Database"
@@ -124,13 +125,14 @@ app.get('/check-duplicates/:username', (req, res) => {
         //username not found
         if (!items) {
             return res.status(200).json({
-                username: ""
+                username: "", email: ""
             });
         }
         //username found
         else {
             return res.status(200).json({
-                username: items
+                output: items
+               
             });
         }
     });

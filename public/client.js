@@ -2,27 +2,66 @@
 
 $('.hideme').hide();
 $('#login').show();
+$('#signup-form').show();
 
 function isValidEmailAddress(emailAddress) {
     var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
     return pattern.test(emailAddress);
 }
 
-function searchUserNameDuplicates(username) {
+function searchUserNameDuplicates(username, email, password) {
     $.ajax({
         type: 'GET',
-        url: `/check-duplicates/${username}`,
+        url: `/check-duplicates/${username}/${email}`,
         dataType: 'json',
         contentType: 'application/json'
     })
         //if call is succefull
         .done((result) => {
-            console.log(result.username);
-            console.log(result.username._id);
-            if (result.username._id !== undefined) {
-                location.reload();
-                alert('Duplicate username');
+            console.log(result.output);
+
+            if(result.output !== undefined){
+                if (result.output.username == username) {
+                    alert('Duplicate username');
+                } else if (result.output.name == email) {
+                    alert('Duplicate email');
+                } 
             }
+            else {
+                //create the payload object (what data we send to the api call)
+        const newUserObject = {
+            name: email,
+            username: username,
+            password: password,
+        };
+
+        //make the api call using the payload above
+        $.ajax({
+            type: 'POST',
+            url: '/users/create',
+            dataType: 'json',
+            data: JSON.stringify(newUserObject),
+            contentType: 'application/json'
+        })
+            //if call is succefull
+            .done(function (result) {
+                console.log(result);
+                $('.activeUser').val(result._id);
+                $('#nav-bar').html(navBar());
+                questionnairePopulated();
+                displayAllIncome(result._id);
+                displayAllExpense(result._id);
+                displayAllSavings(result._id);
+                //populateChart(result._id);
+            })
+            //if the call is failing
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
+            }
+
         })
 
         //if the call is failing
@@ -419,42 +458,14 @@ $('#signup-form').submit(function (event) {
     } else if (password === "") {
         alert('Please add a password');
     }
+    else if (password.length <  8) {
+        alert('Password needs to be atleast 8 characters');
+    }
     //if the input is valid
     else {
-        searchUserNameDuplicates(username);
+        searchUserNameDuplicates(username, email, password);
 
-        //create the payload object (what data we send to the api call)
-        const newUserObject = {
-            name: email,
-            username: username,
-            password: password,
-        };
-
-        //make the api call using the payload above
-        $.ajax({
-            type: 'POST',
-            url: '/users/create',
-            dataType: 'json',
-            data: JSON.stringify(newUserObject),
-            contentType: 'application/json'
-        })
-            //if call is succefull
-            .done(function (result) {
-                console.log(result);
-                $('.activeUser').val(result._id);
-                $('#nav-bar').html(navBar());
-                questionnairePopulated();
-                displayAllIncome(result._id);
-                displayAllExpense(result._id);
-                displayAllSavings(result._id);
-                //populateChart(result._id);
-            })
-            //if the call is failing
-            .fail(function (jqXHR, error, errorThrown) {
-                console.log(jqXHR);
-                console.log(error);
-                console.log(errorThrown);
-            });
+        
 
     };
 });

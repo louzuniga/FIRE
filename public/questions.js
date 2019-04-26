@@ -62,23 +62,27 @@ const generateQuestions = () => {
         <h3 class="question">${questions[numberOfQuestions].question}</h3>
         <form class="questions-form">
             <div class="answerChoices">
+            <label>
             <input type="radio" name="choice" required></input>
-            <label>${questions[numberOfQuestions].choices[0]}</label>
+            ${questions[numberOfQuestions].choices[0]}</label>
             </div>
 
             <div class="answerChoices">
+            <label>
             <input type="radio" name="choice" required></input>
-            <label>${questions[numberOfQuestions].choices[1]}</label>
+            ${questions[numberOfQuestions].choices[1]}</label>
             </div>
 
             <div class="answerChoices">
+            <label>
             <input type="radio" name="choice" required></input>
-            <label>${questions[numberOfQuestions].choices[2]}</label>
+            ${questions[numberOfQuestions].choices[2]}</label>
             </div>
 
             <div class="answerChoices">
+            <label>
             <input type="radio" name="choice" required></input>
-            <label>${questions[numberOfQuestions].choices[3]}</label>
+            ${questions[numberOfQuestions].choices[3]}</label>
             </div>
             </br>
             <button id="next-question" class="question-btn btn">Next</button>

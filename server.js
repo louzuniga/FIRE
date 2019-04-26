@@ -114,9 +114,8 @@ app.get('/check-duplicates/:username/:email', (req, res) => {
     const email = req.params.email;
     //connect to the databas and validate username and password
     User.findOne({
-        $or:[{username: username},{name: email}]
+        $or: [{ username: username }, { name: email }]
     }, (err, items) => {
-        console.log(items);
         if (err) {
             return res.status(500).json({
                 message: "Can't connect to the Database"
@@ -132,7 +131,6 @@ app.get('/check-duplicates/:username/:email', (req, res) => {
         else {
             return res.status(200).json({
                 output: items
-               
             });
         }
     });
@@ -482,21 +480,6 @@ app.use('*', (req, res) => {
         message: 'Not Found'
     });
 });
-
-
-// //DB config
-// const db = require('./config/keys').mongoURI
-
-// //connect to mongo
-// mongoose
-//     .connect(db)
-//     .then(() => console.log('Mongodb connected'))
-//     .catch(err => console.log(err));
-
-// const port = process.env.PORT || 3000
-
-// app.listen(port, () => console.log(`App listening on port ${port}`));
-
 
 exports.app = app;
 exports.runServer = runServer;

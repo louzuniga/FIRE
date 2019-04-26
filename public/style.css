@@ -92,11 +92,13 @@ p {
 }
 
 /* Sign-up form */
-#signup-form {
-    margin-top: 70px;
+#signup-form { 
+    max-width: 380px;
+    margin: 80px auto 5px;
+    /* margin-top: 70px; */
     background-color: rgba(17, 82, 134, 0.5);
     padding: 10px;
-}
+} 
 .signup-nav {
     color: #ccc;
 }

@@ -1,9 +1,9 @@
 'use strict'
 
-$('.hideme').hide();
-$('#login').show();
-console.log(JSON.stringify(localStorage));
-// $('#signup-form').show();
+
+//////////////////////////////////////////////
+////////////functions, objects and variables////////////////////////
+//////////////////////////////////////////////
 
 function isValidEmailAddress(emailAddress) {
     var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
@@ -44,14 +44,16 @@ function searchUserNameDuplicates(username, email, password) {
                 })
                     //if call is succefull
                     .done(function (result) {
+                        console.log(result);
                         $('.activeUserID').val(result.body.id);
                         $('.activeUserName').val(result.body.username);
                         $('#nav-bar').html(navBar());
                         questionnairePopulated();
-                        displayAllIncome(result._id);
-                        displayAllExpense(result._id);
-                        displayAllSavings(result._id);
-                        //populateChart(result._id);
+                        displayAllIncome(result.body.id);
+                        displayAllExpense(result.body.id);
+                        displayAllSavings(result.body.id);
+                        localStorage.setItem('activeUserID', result.body.id);
+                        localStorage.setItem('activeUserName', result.body.username);
                     })
                     //if the call is failing
                     .fail(function (jqXHR, error, errorThrown) {
@@ -75,7 +77,7 @@ function searchUserNameDuplicates(username, email, password) {
 function displayAllIncome(username) {
 
     if ((username == "") || (username == undefined) || (username == null)) {
-        username = $('.loginUsername').val();
+        username = $('.activeUserName').val();
     }
 
     //make the api call using the payload above
@@ -125,7 +127,7 @@ function displayAllIncome(username) {
 
 function displayAllExpense(username) {
     if ((username == "") || (username == undefined) || (username == null)) {
-        username = $('.loginUsername').val();
+        username = $('.activeUserName').val();
     }
 
     //make the api call using the payload above
@@ -176,7 +178,7 @@ function displayAllExpense(username) {
 function displayAllSavings(username) {
 
     if ((username == "") || (username == undefined) || (username == null)) {
-        username = $('.loginUsername').val();
+        username = $('.activeUserName').val();
     }
 
     //make the api call using the payload above
@@ -250,19 +252,10 @@ const seeResults = () => {
 
 };
 
-$('.see-results').click((event) => {
-    event.preventDefault();
-    seeResults();
-});
-
-$('#nav-bar').on('click', '#results', (event) => {
-    event.preventDefault();
-    seeResults();
-});
 
 //Populate High Chart PIE chart**********************
 function populateChart() {
-    const username = $('.loginUsername').val();
+    const username = $('.activeUserName').val();
     let jsonObject = '';
 
     $.ajax({
@@ -363,6 +356,62 @@ function populateChart() {
 let loggingChart = (jsonObject) => {
     return jsonObject
 };
+
+
+const questionnairePopulated = () => {
+    $('.hideme').hide();
+    $('#questions-form').show();
+    $('#questions-form').html(generateQuestions());
+    $('#submit-btn').hide();
+    // $('#question-btns').show();
+};
+
+const showLog = () => {
+    $('.hideme').hide();
+    $('#log-form').show();
+    let activeUserID = $('.activeUserID').val();
+    let activeUserName = $('.activeUserName').val();
+    displayAllIncome(activeUserName);
+    displayAllExpense(activeUserName);
+    displayAllSavings(activeUserName);
+};
+
+//////////////////////////////////////////////
+////////////triggers////////////////////////
+//////////////////////////////////////////////
+
+$(document).ready(function () {
+
+    console.log(JSON.stringify(localStorage));
+    
+    //user persistance - user is logged in
+    if (((localStorage.activeUserName) && (localStorage.activeUserName !== "")) || ((localStorage.activeUserID) && (localStorage.activeUserID !== ""))) {
+        console.log("user is logged in");
+        console.log(localStorage.activeUserName);
+        console.log(localStorage.activeUserID);
+        $('.activeUserID').val(localStorage.activeUserID);
+        $('.activeUserName').val(localStorage.activeUserName);
+        $('#nav-bar').html(navBar());
+        showLog();
+    }
+    //user persistance - user is NOT logged in
+    else {
+        console.log("user is NOT logged in");
+        $('.hideme').hide();
+        $('#login').show();
+    }
+});
+
+$('.see-results').click((event) => {
+    event.preventDefault();
+    seeResults();
+});
+
+$('#nav-bar').on('click', '#results', (event) => {
+    event.preventDefault();
+    seeResults();
+});
+
 
 
 //Nav bar *****************************************
@@ -485,23 +534,6 @@ $('#nav-bar').on('click', '#questionnaireBtn', (event) => {
 
 });
 
-const questionnairePopulated = () => {
-    $('.hideme').hide();
-    $('#questions-form').show();
-    $('#questions-form').html(generateQuestions());
-    $('#submit-btn').hide();
-    // $('#question-btns').show();
-};
-
-const showLog = () => {
-    $('.hideme').hide();
-    $('#log-form').show();
-    let activeUserID = $('.activeUserID').val();
-    let activeUserName = $('.activeUserName').val();
-    displayAllIncome(activeUserName);
-    displayAllExpense(activeUserName);
-    displayAllSavings(activeUserName);
-};
 
 $('#nav-bar').on('click', '.log', (event) => {
     event.preventDefault();
@@ -515,7 +547,7 @@ $('.income-add-btn').click((event) => {
     //input from user
     const srcOfIncome = $('.income-src').val();
     const amntOfIncome = $('.income-amnt').val();
-    let username = $('.loginUsername').val();
+    let username = $('.activeUserName').val();
 
     //validate the input
     if (srcOfIncome == "") {
@@ -561,7 +593,7 @@ $('.expense-add-btn').click((event) => {
 
     const srcOfExpenses = $('.expense-src').val();
     const amntOfExpenses = $('.expense-amnt').val();
-    let username =$('.loginUsername').val();
+    let username = $('.activeUserName').val();
 
     if (srcOfExpenses == "") {
         alert('Please input an expense or input none');
@@ -610,7 +642,7 @@ $('.savings-add-btn').click((event) => {
     //input from user
     const srcOfSavings = $('.savings-src').val();
     const amntOfSavings = $('.savings-amnt').val();
-    let username = $('.loginUsername').val();
+    let username = $('.activeUserName').val();
 
     //validate the input
     if (srcOfSavings == "") {
@@ -663,7 +695,7 @@ $('.add-income-results').on('click', '.update-income-btn', function (event) {
     const parentDiv = $(this).closest('.add-income-results');
     const srcOfIncome = $(this).parent().find('.update-income-src').val();
     const amntOfIncome = $(this).parent().find(".update-income-amnt").val();
-    const username = $('.loginUsername').val();
+    const username = $('.activeUserName').val();
     const entryId = $(this).parent().find('.update-income-id').val();
 
 
@@ -715,7 +747,7 @@ $('.update-expense-btn').click(function (event) {
     //take the input from the user
     const srcOfExpenses = $(this).parent().find('.update-expense-src').val();
     const amntOfExpenses = $(this).parent().find(".update-expense-amnt").val();
-    const username = $('.loginUsername').val();
+    const username = $('.activeUserName').val();
     const entryId = $(this).parent().find('.update-expense-id').val();
 
     //validate the input
@@ -768,7 +800,7 @@ $('.add-savings-results').on('click', '.update-savings-btn', function (event) {
     //take the input from the user
     const srcOfSavings = $(this).parent().find('.update-savings-src').val();
     const amntOfSavings = $(this).parent().find(".update-savings-amnt").val();
-    const username = $('.loginUsername').val();
+    const username = $('.activeUserName').val();
     const entryId = $(this).parent().find('.update-savings-id').val();
 
     //validate the input
@@ -822,7 +854,7 @@ $('.add-income-results').on('click', '.delete-income-btn', function (event) {
 
     //take the input from the user
     const entryId = $(this).parent().find('.update-income-id').val();
-    const username = $('.loginUsername').val();
+    const username = $('.activeUserName').val();
 
     //make the api call using the payload above
     $.ajax({
@@ -852,7 +884,7 @@ $('.add-expense-results').on('click', '.delete-expense-btn', function (event) {
 
     //take the input from the user
     const entryId = $(this).parent().find('.update-expense-id').val();
-    const username = $('.loginUsername').val();
+    const username = $('.activeUserName').val();
 
     //make the api call using the payload above
     $.ajax({
@@ -883,7 +915,7 @@ $('.add-savings-results').on('click', '.delete-savings-btn', function (event) {
 
     //take the input from the user
     const entryId = $(this).parent().find('.update-savings-id').val();
-    const username = $('.loginUsername').val();
+    const username = $('.activeUserName').val();
 
     //make the api call using the payload above
     $.ajax({

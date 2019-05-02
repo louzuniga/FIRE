@@ -20,7 +20,7 @@ router.post("/signup", (req, res) => {
       const body = user.serialize();
       // Generate jwt with the contents of user object
       const token = jwt.sign(body, JWT_SECRET);
-      return res.json({ token });
+      return res.json({ token, body });
     })
     .catch(err => {
       if (err.code === 11000) {

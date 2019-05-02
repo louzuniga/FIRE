@@ -11,14 +11,16 @@ const config = require('./config');
 const moment = require('moment');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
-const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const app = express();
 const auth = require('./routers/auth');
+const passport = require('passport');
+require('./passport');
 
 app.use(bodyParser.json());
 app.use(cors());
+app.options('*', cors());
 app.use(express.static('public'));
 app.use('/auth', auth);
 
@@ -65,7 +67,7 @@ function closeServer() {
 
 
 //user sign-in
-app.post('/users/login', (req, res) => {
+app.post('/auth/login', (req, res) => {
 
     //username and password from ajax api call
     const username = req.body.username;
@@ -114,7 +116,7 @@ app.get('/check-duplicates/:username/:email', (req, res) => {
     const email = req.params.email;
     //connect to the databas and validate username and password
     User.findOne({
-        $or: [{ username: username }, { name: email }]
+        $or: [{ username: username }, { email: email }]
     }, (err, items) => {
         if (err) {
             return res.status(500).json({
@@ -138,10 +140,10 @@ app.get('/check-duplicates/:username/:email', (req, res) => {
 
 
 //sign-up - creating a new user
-app.post('/users/create', (req, res) => {
+app.post('/auth/signup', (req, res) => {
 
     //take the name, username and the password from the ajax api call
-    let name = req.body.name;
+    let email = req.body.email;
     let username = req.body.username;
     let password = req.body.password;
 
@@ -174,7 +176,7 @@ app.post('/users/create', (req, res) => {
 
             //using the mongoose DB schema, connect to the database and create the new user
             User.create({
-                name,
+                email,
                 username,
                 password: hash,
             }, (err, item) => {
@@ -421,21 +423,6 @@ app.get('/populate-chart/:user', function (req, res) {
                 })
         })
 });
-
-
-// //GET by id
-// app.get('/income/:id', function (req, res) {
-//     Income
-//         .findById(req.params.id).exec().then(function (income) {
-//             return res.json(income);
-//         })
-//         .catch(function (entries) {
-//             console.error(err);
-//             res.status(500).json({
-//                 message: 'Internal Server Error'
-//             });
-//         });
-// });
 
 
 // DELETE ----------------------------------------

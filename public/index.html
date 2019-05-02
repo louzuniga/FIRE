@@ -14,7 +14,8 @@
 </head>
 
 <body>
-    <input type="hidden" class="activeUser" value="">
+    <input type="hidden" class="activeUserID" value="">
+    <input type="hidden" class="activeUserName" value="">
 
     <!-- Navigation Bar -->
     <header>
@@ -23,11 +24,10 @@
 
     <!-- Login Form -->
     <form id="login" class="hideme">
-        <div class="image-container">
-            <h2 class="login-title">Lead your life to FIRE!</h2>
-            <h3 class="login-text">A simple app that allows you to gauge your mindset about Financial Independence,
-                log simple fiancials and then visualize it.</h3>
-        </div>
+        <h2 class="login-title">Lead your life to FIRE!</h2>
+        <h3 class="login-text">A simple app that allows you to gauge your mindset about Financial Independence,
+            log simple fiancials and then visualize it.</h3>
+
         <div class="form-container">
             <label for="username"><b>Username</b></label>
             <input onfocus="this.placeholder=''" type="text" placeholder="Enter Username" class="loginUsername" value="demo">
@@ -46,12 +46,11 @@
     </form>
 
     <!-- Sign-up Form -->
-    <div class="form-container">
-        <form id="signup-form" class="hideme">
-            <h2>Sign Up</h2>
-            <p>Please fill in the information requested to create an account.</p>
-            <hr>
+    <form id="signup-form" class="hideme">
+        <h2 class="signup-title">Sign Up</h2>
+        <h3 class="signup-text">Please fill in the information requested to create an account.</h3>
 
+        <div class="form-container">
             <label for="email"><b>Email Address</b></label>
             <input id="singup-email" onfocus="this.placeholder=''" type="text" placeholder="Email" name="email">
 
@@ -66,11 +65,11 @@
             <p>By creating an account you agree that this is currently a test application. </p>
 
             <div>
-                <button role="button" type="submit" class="signupbtn btn">Sign Up</button>
-                <button role="button" type="button" class="cancelbtn btn">Cancel</button>
+                <button role="button" type="submit" class="signupbtn ">Sign Up</button>
+                <button role="button" type="button" class="cancelbtn ">Cancel</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 
 
     <!-- Questions container-->

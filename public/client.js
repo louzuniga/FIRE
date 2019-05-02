@@ -2,6 +2,7 @@
 
 $('.hideme').hide();
 $('#login').show();
+console.log(JSON.stringify(localStorage));
 // $('#signup-form').show();
 
 function isValidEmailAddress(emailAddress) {
@@ -28,7 +29,7 @@ function searchUserNameDuplicates(username, email, password) {
             else {
                 //create the payload object (what data we send to the api call)
                 const newUserObject = {
-                    name: email,
+                    email: email,
                     username: username,
                     password: password,
                 };
@@ -36,14 +37,15 @@ function searchUserNameDuplicates(username, email, password) {
                 //make the api call using the payload above
                 $.ajax({
                     type: 'POST',
-                    url: '/users/create',
+                    url: '/auth/signup',
                     dataType: 'json',
                     data: JSON.stringify(newUserObject),
                     contentType: 'application/json'
                 })
                     //if call is succefull
                     .done(function (result) {
-                        $('.activeUser').val(result._id);
+                        $('.activeUserID').val(result.body.id);
+                        $('.activeUserName').val(result.body.username);
                         $('#nav-bar').html(navBar());
                         questionnairePopulated();
                         displayAllIncome(result._id);
@@ -73,7 +75,7 @@ function searchUserNameDuplicates(username, email, password) {
 function displayAllIncome(username) {
 
     if ((username == "") || (username == undefined) || (username == null)) {
-        username = $('.activeUser').val();
+        username = $('.loginUsername').val();
     }
 
     //make the api call using the payload above
@@ -123,7 +125,7 @@ function displayAllIncome(username) {
 
 function displayAllExpense(username) {
     if ((username == "") || (username == undefined) || (username == null)) {
-        username = $('.activeUser').val();
+        username = $('.loginUsername').val();
     }
 
     //make the api call using the payload above
@@ -174,7 +176,7 @@ function displayAllExpense(username) {
 function displayAllSavings(username) {
 
     if ((username == "") || (username == undefined) || (username == null)) {
-        username = $('.activeUser').val();
+        username = $('.loginUsername').val();
     }
 
     //make the api call using the payload above
@@ -242,8 +244,9 @@ const seeResults = () => {
     $('.hideme').hide();
     $('#container').show();
     $('#results-container').show();
-    let username = $('.activeUser').val();
-    populateChart(username);
+    let activeUserName = $('.activeUserName').val();
+    let activeUserID = $('.activeUserID').val();
+    populateChart(activeUserName);
 
 };
 
@@ -258,13 +261,13 @@ $('#nav-bar').on('click', '#results', (event) => {
 });
 
 //Populate High Chart PIE chart**********************
-function populateChart(userID) {
-    const loginUsername = $('.loginUsername').val();
+function populateChart() {
+    const username = $('.loginUsername').val();
     let jsonObject = '';
 
     $.ajax({
         type: 'GET',
-        url: `/populate-chart/${userID}`,
+        url: `/populate-chart/${username}`,
         dataType: 'json',
         contentType: 'application/json'
     })
@@ -333,7 +336,7 @@ function populateChart(userID) {
                             }
                         },
                         series: [{
-                            name: `${loginUsername}'s FIRE Overview`,
+                            name: `${username}'s FIRE Overview`,
                             data: [
                                 {
                                     name: `Residual Income $${totalIncome}`, y: totalIncome, sliced: true,
@@ -381,7 +384,8 @@ $('#login').submit((event) => {
 
     const loginUsername = $('.loginUsername').val();
     const password = $('.loginPassword').val();
-    const activeUserID = $('.activeUser').val();
+    const activeUserID = $('.activeUserID').val();
+    const activeUserName = $('.activeUserName').val();
 
     if (loginUsername === '') {
         alert('Please input username');
@@ -392,24 +396,28 @@ $('#login').submit((event) => {
             username: loginUsername,
             password: password,
             activeUserID: activeUserID,
+            activeUserName: activeUserName,
         };
 
         //make api call using payload above
         $.ajax({
             type: 'POST',
-            url: 'users/login',
+            url: '/auth/login',
             dataType: 'json',
             data: JSON.stringify(loginUser),
             contentType: 'application/json',
         })
             .done((result) => {
-                event.preventDefault();
-                $('.activeUser').val(result._id);//gives the id of the user that just logged and will show in the hidden input
+                console.log(result);
+                $('.activeUserID').val(result.body.id);//gives the id of the user that just logged and will show in the hidden input
+                $('.activeUserName').val(result.body.username);//gives the id of the user that just logged and will show in the hidden input
                 $('#nav-bar').html(navBar());
                 questionnairePopulated();
-                displayAllIncome(result._id);
-                displayAllExpense(result._id);
-                displayAllSavings(result._id);
+                displayAllIncome(result.body.id);
+                displayAllExpense(result.body.id);
+                displayAllSavings(result.body.id);
+                localStorage.setItem('activeUserID', result.body.id);
+                localStorage.setItem('activeUserName', result.body.username);
                 //populateChart(result._id);
             })
             .fail((err, errThrown, jqXHR) => {
@@ -465,6 +473,8 @@ $('#signup-form').submit(function (event) {
 $('#nav-bar').on('click', '.logout', (event) => {
     event.preventDefault();
     location.reload();
+    localStorage.setItem('activeUserID', '');
+    localStorage.setItem('activeUserName', '');
 });
 
 
@@ -486,10 +496,11 @@ const questionnairePopulated = () => {
 const showLog = () => {
     $('.hideme').hide();
     $('#log-form').show();
-    let username = $('.activeUser').val();
-    displayAllIncome(username);
-    displayAllExpense(username);
-    displayAllSavings(username);
+    let activeUserID = $('.activeUserID').val();
+    let activeUserName = $('.activeUserName').val();
+    displayAllIncome(activeUserName);
+    displayAllExpense(activeUserName);
+    displayAllSavings(activeUserName);
 };
 
 $('#nav-bar').on('click', '.log', (event) => {
@@ -504,7 +515,7 @@ $('.income-add-btn').click((event) => {
     //input from user
     const srcOfIncome = $('.income-src').val();
     const amntOfIncome = $('.income-amnt').val();
-    let username = $('.activeUser').val();
+    let username = $('.loginUsername').val();
 
     //validate the input
     if (srcOfIncome == "") {
@@ -550,7 +561,7 @@ $('.expense-add-btn').click((event) => {
 
     const srcOfExpenses = $('.expense-src').val();
     const amntOfExpenses = $('.expense-amnt').val();
-    let username = $('.activeUser').val();
+    let username =$('.loginUsername').val();
 
     if (srcOfExpenses == "") {
         alert('Please input an expense or input none');
@@ -599,7 +610,7 @@ $('.savings-add-btn').click((event) => {
     //input from user
     const srcOfSavings = $('.savings-src').val();
     const amntOfSavings = $('.savings-amnt').val();
-    let username = $('.activeUser').val();
+    let username = $('.loginUsername').val();
 
     //validate the input
     if (srcOfSavings == "") {
@@ -652,7 +663,7 @@ $('.add-income-results').on('click', '.update-income-btn', function (event) {
     const parentDiv = $(this).closest('.add-income-results');
     const srcOfIncome = $(this).parent().find('.update-income-src').val();
     const amntOfIncome = $(this).parent().find(".update-income-amnt").val();
-    const username = $(".activeUser").val();
+    const username = $('.loginUsername').val();
     const entryId = $(this).parent().find('.update-income-id').val();
 
 
@@ -704,7 +715,7 @@ $('.update-expense-btn').click(function (event) {
     //take the input from the user
     const srcOfExpenses = $(this).parent().find('.update-expense-src').val();
     const amntOfExpenses = $(this).parent().find(".update-expense-amnt").val();
-    const username = $(".activeUser").val();
+    const username = $('.loginUsername').val();
     const entryId = $(this).parent().find('.update-expense-id').val();
 
     //validate the input
@@ -757,7 +768,7 @@ $('.add-savings-results').on('click', '.update-savings-btn', function (event) {
     //take the input from the user
     const srcOfSavings = $(this).parent().find('.update-savings-src').val();
     const amntOfSavings = $(this).parent().find(".update-savings-amnt").val();
-    const username = $(".activeUser").val();
+    const username = $('.loginUsername').val();
     const entryId = $(this).parent().find('.update-savings-id').val();
 
     //validate the input
@@ -811,7 +822,7 @@ $('.add-income-results').on('click', '.delete-income-btn', function (event) {
 
     //take the input from the user
     const entryId = $(this).parent().find('.update-income-id').val();
-    const username = $(".activeUser").val();
+    const username = $('.loginUsername').val();
 
     //make the api call using the payload above
     $.ajax({
@@ -841,7 +852,7 @@ $('.add-expense-results').on('click', '.delete-expense-btn', function (event) {
 
     //take the input from the user
     const entryId = $(this).parent().find('.update-expense-id').val();
-    const username = $(".activeUser").val();
+    const username = $('.loginUsername').val();
 
     //make the api call using the payload above
     $.ajax({
@@ -872,7 +883,7 @@ $('.add-savings-results').on('click', '.delete-savings-btn', function (event) {
 
     //take the input from the user
     const entryId = $(this).parent().find('.update-savings-id').val();
-    const username = $(".activeUser").val();
+    const username = $('.loginUsername').val();
 
     //make the api call using the payload above
     $.ajax({

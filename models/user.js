@@ -3,8 +3,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const userSchema = new mongoose.Schema ({
-    name: {
+const userSchema = new mongoose.Schema({
+    email: {
         type: String,
         required: true,
     },
@@ -19,19 +19,27 @@ const userSchema = new mongoose.Schema ({
     },
 });
 
-userSchema.methods.validatePassword = function (password, callback) {
-    bcrypt.compare(password, this.password, (err, isValid) => {
-        if (err) {
-            callback(err);
-            return;
-        } callback(null, isValid);
-    });
-};
-
-userSchema.pre('save', async function (next) {
-    const username = this;
+// Pre-hook to hash password
+userSchema.pre("save", async function (next) {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
     next();
 });
+
+userSchema.methods.serialize = function () {
+    return {
+        id: this._id,
+        email: this.email,
+        username: this.username
+    };
+};
+
+userSchema.methods.validatePassword = async function (password) {
+    const user = this;
+    const compare = await bcrypt.compare(password, user.password);
+    return compare;
+};
+
 
 const User = mongoose.model('User', userSchema);
 

@@ -24,18 +24,11 @@ ul {
     padding:0;
     list-style: none;
 }
-p {
-    padding: 10px;
-}
  /* Style the input fields */
  input {
     padding: 10px;
     font-size: 17px;
-    /* display: flex;
-    width: 95%; */
-    /* margin: 8px 0; */
     border: 1px solid #ccc;
-    /* box-sizing: border-box; */
 }
 /* style for the buttons */
 .btn {
@@ -49,7 +42,7 @@ p {
     margin: 20 auto;
     margin-bottom: 80px;
 }
-/* Login Form ******************/
+/* Login and Sign-up Form ******************/
 .login-button {
     background-color: rgb(51, 53, 55);
     color: white;
@@ -59,29 +52,25 @@ p {
     display: block;
     font-size: 15px;
 }
-.login-button:hover {
+.login-button:hover, .cancelbtn:hover, .signupbtn:hover {
     background-color: rgb(6, 49, 73);
     color: white;
 }
-#login {
+#login, #signup-form {
     background-color: rgba(17, 82, 134, 0.5);
     max-width: 380px;
     margin: 80px auto 5px;
 }
-.login-title {
+.login-title, .signup-title {
     background-color: rgb(6, 49, 73);
     font-size: 35px; 
     padding: 10px;
     text-align: center;
 }
-.login-text {
+.login-text, .signup-text {
     font-size: 25px;
     font-weight: bold;
     padding: 10px;
-}
-.login-image {
-    width: 35%;
-    margin: 40px 0 0;
 }
 .form-container {
     margin: 0 auto;
@@ -90,17 +79,13 @@ p {
     padding: 0 0 10px; 
     font-size: 20px;
 }
-
-/* Sign-up form */
-#signup-form { 
-    max-width: 380px;
-    margin: 80px auto 5px;
-    /* margin-top: 70px; */
-    background-color: rgba(17, 82, 134, 0.5);
-    padding: 10px;
-} 
-.signup-nav {
-    color: #ccc;
+.signupbtn, .cancelbtn {
+    background-color: rgb(51, 53, 55);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    font-size: 15px;
 }
 
 /* Questionnaire Form *********/
@@ -391,9 +376,8 @@ transition: .5s;
         padding: 2px;
     }
     /* buttons */
-    .btn .login-button .question-btn  {
-        height: 12px;
-        font-size: 8px;
+    .btn, .login-button, .question-btn, .signupbtn, .cancelbtn  {
+        font-size: 10px;
         padding: 5px;
     }
     /* Navigation bar    */

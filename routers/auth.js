@@ -1,5 +1,5 @@
-const { User } = require("../models/user");
-const { Logged } = require("../models/userLoggedIn");
+const User = require("../models/user");
+const Logged = require("../models/userLoggedIn");
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
@@ -30,9 +30,10 @@ router.post("/signup", (req, res) => {
     });
 });
 
-router.post("/login", function(req, res, next) {
+router.post("/login", function (req, res, next) {
   passport.authenticate("login", { session: false }, (err, user, info) => {
     if (err || !user) {
+      console.log(err, user, info);
       res.statusMessage = info.message;
       return res.status(400).json(res.statusMessage);
     }
@@ -45,47 +46,48 @@ router.post("/login", function(req, res, next) {
       const body = user.serialize();
       // Generate jwt with the contents of user object
       const token = jwt.sign(body, JWT_SECRET);
-      return res.json({ token });
+      console.log(body, token);
+      return res.json({ token, body });
     });
   })(req, res);
 });
 
-router.get("/userLoggedIn", function(req, res) {
+router.get("/userLoggedIn", function (req, res) {
   Logged.find({})
     .then(users => {
-      res.json({loggedIn: users});
+      res.json({ loggedIn: users });
     })
     .catch(err => {
       return res.status(400).json(res.statusMessage);
     });
 });
 
-router.post("/userLoggedIn", function(req, res) {
+router.post("/userLoggedIn", function (req, res) {
   Logged.create({
     usersLoggedIn: req.body.user
   })
-  .then(user => {
-    Logged.find({})
-      .then(users => {
-        res.json({loggedIn: users});
-      });
-  })
-  .catch(err => {
-    return res.status(400).json(res.statusMessage);
-  });
+    .then(user => {
+      Logged.find({})
+        .then(users => {
+          res.json({ loggedIn: users });
+        });
+    })
+    .catch(err => {
+      return res.status(400).json(res.statusMessage);
+    });
 });
 
-router.delete("/userLoggedIn", function(req, res) {
+router.delete("/userLoggedIn", function (req, res) {
   console.log(req.body.user);
   Logged.deleteMany({
     usersLoggedIn: req.body.user
   })
-  .then(user => {
-    console.log(`Deleted ${user}!`);
-  })
-  .catch(err => {
-    return res.status(400).json(res.statusMessage);
-  });
+    .then(user => {
+      console.log(`Deleted ${user}!`);
+    })
+    .catch(err => {
+      return res.status(400).json(res.statusMessage);
+    });
 });
 
 module.exports = router;

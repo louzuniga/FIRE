@@ -9,7 +9,7 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.4.11",
     "node-mandrill": "^1.0.1",
     "nodemon": "^1.18.10",
